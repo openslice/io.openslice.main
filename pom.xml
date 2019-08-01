@@ -32,6 +32,8 @@
 	</properties>
 
 	<modules>
+		<module>../io.openslice.sol005nbi.osm5</module>
+		<module>../io.openslice.portal.api</module>
 		<module>../io.openslice.bugzilla</module>
 	</modules>
 	
