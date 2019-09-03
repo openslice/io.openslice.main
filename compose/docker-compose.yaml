@@ -1,5 +1,26 @@
 version: '3.4'
 services:
+
+  activemq:
+    container_name: anactivemq
+    image: webcenter/activemq:5.14.3
+    ports:
+    - 8161:8161
+    volumes:
+    -  /var/log/activemq:/var/log/activemq 
+    networks:
+    -  back
+    
+  consul:
+    container_name: aconsul
+    image: consul
+    ports:
+    - 8500:8500
+    - 8600:8600
+    networks:
+    - front
+    - back
+    
   nginx:
     container_name: anginx
     image: nginx
@@ -42,7 +63,9 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "spring.activemq.broker-url": "tcp://anactivemq:61616"  
+        "spring.activemq.broker-url": "tcp://anactivemq:61616",
+        "spring.cloud.consul.host": "aconsul",  
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/status"
       }'
     volumes:
     - ./repo:/root
@@ -52,18 +75,33 @@ services:
     - front
     - back
     
-  activemq:
-    container_name: anactivemq
-    image: webcenter/activemq:5.14.3
+
+  bugzilla:
+    container_name: abugzilla
+    build:
+        context:  ../../io.openslice.bugzilla/
+        dockerfile: Dockerfile.bugzilla        
+    image: io.openslice.bugzilla:latest
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.cloud.consul.host": "aconsul",
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://abugzilla:13010/status"
+      }'
+      
+      SPRING_BOOTSTRAP_JSON: '{
+        "spring.cloud.consul.host": "aconsul",
+      }'
     ports:
-    - 8161:8161
-    volumes:
-    -  /var/log/activemq:/var/log/activemq 
+    - 13010:13010
     networks:
-    -  back
-    
+    - front
+    - back
   
  
 networks:
   front:
   back:
+
+  
+ #  "spring.cloud.consul.discovery.healthCheckUrl=http://abugzilla:8080/status"
+ #openzipkin/zipkin
