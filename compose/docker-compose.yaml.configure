@@ -97,10 +97,6 @@ services:
         "bugzillakey":"",
         "main_operations_product":"",
       }'
-      
-      SPRING_BOOTSTRAP_JSON: '{
-        "spring.cloud.consul.host": "aconsul",
-      }'
     ports:
     - 13010:13010
     networks:
