@@ -66,7 +66,7 @@ services:
         "spring.datasource.password":"letmein",
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
+        "spring.activemq.password": "admin",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
         "logging.level.org.springframework" : "INFO"        
@@ -95,7 +95,7 @@ services:
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://abugzilla:13010/actuator/health",
         "bugzillaurl":"",
         "bugzillakey":"",
-        "main_operations_product":"",
+        "main_operations_product":""
       }'
     ports:
     - 13010:13010
