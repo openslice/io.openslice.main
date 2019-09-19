@@ -88,7 +88,8 @@ services:
               ],
               "redirectUris": [
                 "http://localhost",
-                "http://localhost:13000/osapi/testweb/oauthresp.html"
+                "http://localhost/oauthresp.html",
+                "http://localhost/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html"
               ]
             } } },      
         "logging.level.org.springframework" : "INFO"      
@@ -116,6 +117,9 @@ services:
         "spring.activemq.password": "admin",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
+        "swagger.authserver" : "http://localhost:13081/osapi-oauth-server",
+        "swagger.clientid" : "osapiWebClientId",
+        "swagger.clientsecret" : "secret",
         "logging.level.org.springframework" : "INFO"        
       }'
     volumes:
