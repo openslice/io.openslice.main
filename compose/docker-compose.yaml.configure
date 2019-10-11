@@ -155,7 +155,7 @@ services:
     - back
   
  
-  osportalapi:
+  osscapi:
     container_name: openslice-scapi
     build:
         context:  ../../io.openslice.tmf.api/
