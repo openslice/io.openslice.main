@@ -10,6 +10,9 @@ Openslice is a prototype open source, operations support system. It supports VNF
 ## Demo
 
 Check http://portal.openslice.io
+username=admin, password=openslice
+or
+username=admin, password=changeme
 
 ## Installing
 
