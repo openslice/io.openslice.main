@@ -80,6 +80,6 @@ APIOAUTHURL: "http://localhost/osapi-oauth-server"
 
 
 issue then:
-`sudo docker-compose down;sudo docker-compose up --build`
+`sudo docker-compose down;sudo docker-compose up -d --build`
 
 
