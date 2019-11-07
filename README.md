@@ -63,8 +63,8 @@ Edit server_name
 
 
 ##Configure web ui
-cd to io.openslice.portal.web/src/js/  
-cp config.js.default config.js  
+`cd io.openslice.portal.web/src/js/  `
+`cp config.js.default config.js  `
 
 edit in config.js  
 ```
@@ -79,5 +79,7 @@ APIOAUTHURL: "http://localhost/osapi-oauth-server"
 
 
 
+issue then:
+`sudo docker-compose down;sudo docker-compose up --build`
 
 
