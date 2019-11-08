@@ -25,7 +25,9 @@ updaterepo io.openslice.model
 updaterepo io.openslice.bugzilla
 updaterepo io.openslice.gateway.api
 updaterepo io.openslice.oauth.server
+updaterepo io.openslice.portal.web
 updaterepo io.openslice.tmf.api
+updaterepo io.openslice.tmf.web
 
 cd $dirlocation
 docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.5.2-jdk-8 mvn verify -DskipTests
