@@ -74,7 +74,9 @@ BUGZILLA: "https://localhost/bugzilla/",
 STATUS: "http://status.localhost/",
 APIURL: "http://localhost",
 WEBURL: "http://localhost",
-APIOAUTHURL: "http://localhost/osapi-oauth-server"
+APIOAUTHURL: "http://localhost/osapi-oauth-server",
+APITMFURL: "http://localhost/tmf-api/serviceCatalogManagement/v4"
+
 ```
 
 
