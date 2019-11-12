@@ -5,7 +5,7 @@ Openslice is a prototype open source, operations support system. It supports VNF
 
 
 ## Architecture
-<img src="images/architecture_ 2019-10-24.png" alt="drawing" width="1024"/>
+<img src="images/architecture.png" alt="drawing" width="1024"/>
 
 ## Demo
 
