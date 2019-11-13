@@ -70,6 +70,7 @@
 					</configuration>
 				</plugin>
 				<plugin>
+				<!-- run mvn license:update-file-header to manually update all headers everywhere -->
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>${maven-license-plugin.version}</version>
@@ -77,6 +78,9 @@
 						<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
 						<processStartTag>========================LICENSE_START=================================</processStartTag>
 						<processEndTag>=========================LICENSE_END==================================</processEndTag>
+						<excludes>*.json</excludes>
+						<roots>src/main/java,src/test/java</roots>
+						
 					</configuration>
 					<executions>
 						<execution>
@@ -87,10 +91,7 @@
 							<phase>process-sources</phase>
 							<configuration>
 								<licenseName>${license.licenseName}</licenseName>
-								<roots>
-									<root>src/main/java</root>
-									<root>src/test/java</root>
-								</roots>
+								
 							</configuration>
 						</execution>
 						<execution>
