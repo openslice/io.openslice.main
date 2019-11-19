@@ -40,6 +40,12 @@ http {
 			root /webstatic/portal;
 			index index.html;
         	}
+        	
+        location /services/ {
+                root /webstatic/services;
+                index index.html;
+        }
+        	
         location /osapi {
 	        proxy_pass http://osportalapi:13000/osapi;
 			proxy_set_header  X-Real-IP $remote_addr;
