@@ -34,17 +34,18 @@ http {
 		listen 80;
 		listen [::]:80;
 		server_name  localhost;
-        
-            
-		location / {
-			root /webstatic/portal;
-			index index.html;
-        	}
+
+	location / {
+		root /webstatic/portal;
+		index index.html;
+       	}
         	
-        location /services/ {
-                root /webstatic/services;
-                index index.html;
+         location /services {
+                root /webstatic;
+                try_files $uri $uri/ /index.html;
+
         }
+
         	
         location /osapi {
 	        proxy_pass http://osportalapi:13000/osapi;
