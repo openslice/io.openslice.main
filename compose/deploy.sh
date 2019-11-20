@@ -27,6 +27,7 @@ updaterepo io.openslice.gateway.api
 updaterepo io.openslice.oauth.server
 updaterepo io.openslice.portal.web
 updaterepo io.openslice.tmf.api
+updaterepo io.openslice.osom
 updaterepo io.openslice.tmf.web
 
 cd $dirlocation

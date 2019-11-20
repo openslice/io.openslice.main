@@ -79,6 +79,12 @@ APITMFURL: "http://localhost/tmf-api/serviceCatalogManagement/v4"
 
 ```
 
+##Configure TMF web ui
+```
+cd io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config
+sudo cp config.prod.default.json config.prod.json
+```
+and edit config.prod.json
 
 
 issue then:

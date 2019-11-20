@@ -33,6 +33,7 @@ services:
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     - ./nginx/certificates:/etc/nginx/certificates
     - ../../io.openslice.portal.web/src:/webstatic/portal
+    - ../../io.openslice.tmf.web/dist/io-openslice-portal-web:/webstatic/services
     networks:
     - front
   
