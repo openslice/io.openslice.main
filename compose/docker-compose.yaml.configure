@@ -184,7 +184,30 @@ services:
     networks:
     - front
     - back
- 
+
+  osom:
+    container_name: openslice-osom
+    build:
+        context:  ../../io.openslice.osom/
+        dockerfile: Dockerfile.osom      
+    image: io.openslice.osom:latest
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
+        "spring.activemq.user": "admin",
+        "spring.activemq.password": "adminx",
+        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-osom:13100/osom/actuator/health",
+        "logging.level.org.springframework" : "INFO"        
+      }'
+    volumes:
+    - ./repo:/root
+    ports:
+    - 13100:13100
+    networks:
+    - front
+    - back
+     
 networks:
   front:
   back:
