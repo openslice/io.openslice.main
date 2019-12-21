@@ -59,6 +59,10 @@ VPN Credentials/Access:Used for requesting VPN Credentials/Access
 
 
 ##Configure nginx
+```
+cd nginc
+sudo cp nginx.conf.default nginx.conf
+```
 Edit server_name
 
 
