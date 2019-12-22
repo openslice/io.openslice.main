@@ -42,7 +42,8 @@ http {
         	
          location /services {
                 root /webstatic;
-                try_files $uri $uri/ /index.html;
+                index index.html;
+                try_files $uri $uri/ /services/index.html;
 
         }
 
