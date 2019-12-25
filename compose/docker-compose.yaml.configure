@@ -90,7 +90,8 @@ services:
               "redirectUris": [
                 "http://localhost",
                 "http://localhost/oauthresp.html",
-                "http://localhost/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html"
+                "http://localhost/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
+                "http://localhost/services/services_marketplace"
               ]
             } } },      
         "logging.level.org.springframework" : "INFO"      
