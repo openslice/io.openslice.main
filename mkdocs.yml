@@ -1,0 +1,59 @@
+# Project information
+site_name: Openslice
+site_description: Openslice - Opens source OSS
+site_author: Openslice.io
+site_url: http://openslice.io
+
+# Repository
+repo_name: openslice
+repo_url: https://github.com/openslice
+edit_uri: ""
+
+# edit_uri: edit/docs-revamp/docs/
+# edit_uri: blob/docs-revamp/docs/
+
+# remote_name: origin
+# remote_branch: gh-pages
+
+# Theme and overrides, i.e. language partial
+theme:
+  name: material
+
+  # Don't include MkDocs' JavaScript
+  include_search_page: false
+  search_index_only: true
+
+  # Default values, taken from mkdocs_theme.yml
+  language: en
+  feature:
+    tabs: false
+  palette:
+    primary: blue
+    accent: indigo
+  logo: images/logo.svg
+
+# Copyright
+copyright: "Copyright &copy; 2019-2020 Openslice Project"
+
+# Options
+extra:
+  search:
+    languages: "en"
+  social:
+    - type: globe
+      link: http://openslice.io
+    - type: github-alt
+      link: https://github.com/openslice
+    - type: twitter
+      link: https://twitter.com/OpensliceOSS
+
+# Page tree
+nav:
+  - Overview:
+      - Introduction: index.md
+  - Getting Started:
+      - Deployment: deployment.md
+  - Design & Architecture:
+      - Architecture: ./architecture/architecture.md
+  - Contributing:
+      - Get Started: ./contributing/developing.md

@@ -29,6 +29,6 @@ For a quick access check our swagger links:
 
 Get source code here: https://github.com/openslice
 
-## Developing
+## Contributing
 
-[Developing](./developing.md)
+[Contributing](./contributing/developing.md)
