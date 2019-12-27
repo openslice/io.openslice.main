@@ -55,6 +55,8 @@ nav:
       - Deployment: deployment.md
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
+      - Message bus: ./architecture/messagebus.md
+      - OSOM: ./architecture/osom.md
   - Contributing:
       - Developing: ./contributing/developing.md
       - API NFVO: ./contributing/api-nfvo.md
