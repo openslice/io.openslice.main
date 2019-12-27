@@ -2,6 +2,7 @@
 # Developing
 
 Openslice backend services are maily implemented with Java 8 and Spring boot.
+
 Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them thoug in the code, e.g. at application.yml file)
 
 ## General subsystems

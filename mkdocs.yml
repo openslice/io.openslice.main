@@ -30,7 +30,7 @@ theme:
   palette:
     primary: blue
     accent: indigo
-  logo: images/logo.svg
+  logo: images/openslice_logo.png
 
 # Copyright
 copyright: "Copyright &copy; 2019-2020 Openslice Project"
@@ -56,4 +56,5 @@ nav:
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
   - Contributing:
-      - Get Started: ./contributing/developing.md
+      - Developing: ./contributing/developing.md
+      - API NFVO: ./contributing/api-nfvo.md

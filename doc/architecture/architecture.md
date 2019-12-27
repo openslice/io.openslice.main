@@ -1,4 +1,5 @@
 
 
 ## Architecture
-<img src="../images/architecture.png" alt="drawing" width="1024"/>
+
+[![Openslice  architecture](../images/architecture.png)](../images/architecture.png)
