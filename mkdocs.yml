@@ -28,7 +28,6 @@ theme:
   feature:
     tabs: true
   palette:
-  palette:
     primary: 'teal'
     accent: 'light blue'
   logo: 'images/openslice_logo.png'
