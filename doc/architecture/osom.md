@@ -81,3 +81,14 @@ All services in "Order Complete" are in a status:
 2. The Status of ORDER O1 is also updated to COMPLETED or FAILED
 
   
+A Service follows the states as defined in TMF638 Service Inventory specification: 
+
+[![Service state](../images/service_states.png)](../images/service_states.png)
+  
+## Check In Progress orders process
+
+Every 1 minute the "Check In Progress Orders" process is executed checking if a supported Service changed state (i.e. to ACTIVE) then the whole Order will change state (e.g. go to COMPLETED)
+
+[![Check In Progress BPM](../images/check_inProgress_orders.png)](../images/check_inProgress_orders.png)
+  
+  
