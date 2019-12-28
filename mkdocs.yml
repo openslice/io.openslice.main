@@ -17,7 +17,7 @@ edit_uri: ""
 
 # Theme and overrides, i.e. language partial
 theme:
-  name: readthedocs
+  name: mkdocs
 
   # Don't include MkDocs' JavaScript
   include_search_page: false
