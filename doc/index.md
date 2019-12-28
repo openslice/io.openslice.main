@@ -8,8 +8,7 @@ Openslice is a prototype open source, operations support system. It supports VNF
 ## Demo
 
 Check <http://portal.openslice.io>
->:bulb:
-username=admin, password=openslice or username=admin, password=changeme
+> username=admin, password=openslice <br> or <br>username=admin, password=changeme
 
 ---
 
