@@ -1,4 +1,5 @@
 <img src="images/openslice_logo.png" alt="drawing" width="200"/>
+
 (Documentation under construction)
 
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
@@ -19,12 +20,12 @@ See [Deployment](./deployment.md)
 ## Supported APIs
 
 For a quick access check our swagger links:
-- API for VNF/NSD management: http://portal.openslice.io/osapi/swagger-ui.html
-- TMF APIs: http://portal.openslice.io/tmf-api/swagger-ui.html
+ * TMF APIs: <http://portal.openslice.io/tmf-api/swagger-ui.html>
+ * API for VNF/NSD management: <http://portal.openslice.io/osapi/swagger-ui.html>
 
 ## Source code
 
-Get source code here: https://github.com/openslice
+Get source code here: <https://github.com/openslice>
 
 ## Contributing
 

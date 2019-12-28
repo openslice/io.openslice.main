@@ -1,8 +1,8 @@
 # Openslice Service Orchestration and Order Management - OSOM
 
 OSOM is a service responsible for:
-* Service Order Management (SOM)
-* Service Orchestration (SO)
+ * Service Order Management (SOM)
+ * Service Orchestration (SO)
 
 It uses open source Flowable Business process engine (https://www.flowable.org) .
 
@@ -23,8 +23,41 @@ Administrators are notified usually from the Ticketing System of a new order. Th
 
 A process checks every 1 minute for ACKNOWLEDGED orders.
 
-
-
 [![Order scheduler BPM](../images/order_scheduler_bpm.png)](../images/order_scheduler_bpm.png)
 
 [![Order scheduler](../images/order_scheduler_diagram.png)](../images/order_scheduler_diagram.png)
+
+It retrieves all orders that are in ACKNOWLEDGED state and if the start date is in time it will initialize the process by settingn the order in IN_PROGRESS state. Finally the Start Order Process will start.
+
+
+## Start order process
+
+This process for now is a draft simple prototype to make a simple orchestration via NFVO. Here the actual Services (TMF638/640 model) are created and attached to Service Order and Service Inventory.
+
+[![Start Order BPM](../images/start_order_process_bpm.png)](../images/start_order_process_bpm.png)
+
+[![Start Order interactions](../images/start_order_process_diagram.png)](../images/start_order_process_diagram.png)
+
+We expect here to check which tasks can be orchestrated by NFVO and which by human. We create the equivalent Services(TMF638/640 model) for this order.
+1. During check it should decide to create Service(s) for this service order O1 and send it to ServiceInventory
+2. The Services(TMF638 model) are assigned to the Order O1 In supportService List
+3. Each OrderItem OI1 is related to one serviceSpecification
+4. Each ServiceSpecification has also related serviceSpecRelationships
+5. So if we receive an order O1 for a ServiceSpec A which relates to 3 specs(2 CFS, 1 RFS) we do the following:
+  1. Create a Service S_A(TMF638 model) for ServiceSpec A for Order O1
+  2. We create also 3 Services S_C1, S_C2 and S_R1 equivalent to the serviceSpecRelationships (2 CFS, 1 RFS) 
+  3. At this point the order will have 3 supportingServices  refs(S_A, S_C1, S_C2) and 1 supportingResource(S_R1)
+  4. The 3 supportingServices and 1 supportingResource correspond to total 4 Services in ServiceInventory
+  5. Service S_A will have: 
+   1. startMode 5: Any of Manually or Automatically by the managed environment
+   2. State: RESERVED
+  6. Services S_C1 and S_C2 we decide that cannot be orchestrated then they have 
+   1. startMode: 3: Manually by the Provider of the Service
+   2. State: RESERVED
+  7. Service S_R1 will have 
+   1. startMode 1: Automatically by the managed environment.
+   2. State: RESERVED
+   
+   
+
+   
