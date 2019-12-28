@@ -1,7 +1,8 @@
 # Architecture
 
 
-Openslice offers the following main functionalities
+Openslice offers the following main functionalities:
+
 * Service Catalog Management: A CSP will have the ability to manage the Service Catalog Items, their attributes , organize in categories and decide what to make available to Customers
 * Services Specifications: A CSP will be able to manage Service Specifications
 * Service Catalog Exposure: A CSP will be able to expose catalog to customers and related parties
@@ -16,6 +17,7 @@ The following figure displays the overall architecture of Openslice.
 
 
 Openslice allows Vertical Customers browsing the available offered service specifications. It consists of:
+
 * a web frontend for the Service Catalog, Ordering and Service Inventory
 * a web frontend for onboarding VNFs and NSDs
 * an API gateway that will be used by the web front end as well as any other 3rd party service
