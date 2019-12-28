@@ -28,9 +28,10 @@ theme:
   feature:
     tabs: true
   palette:
-    primary: navy
-    accent: indigo
-  logo: images/openslice_logo.png
+  palette:
+    primary: 'teal'
+    accent: 'light blue'
+  logo: 'images/openslice_logo.png'
 
 # Copyright
 copyright: "Copyright &copy; 2019-2020 Openslice Project"
