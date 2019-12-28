@@ -16,7 +16,7 @@ It is based on ActiveMQ.
 |**Type** | queue  |
 |**Destination** |   TMF API service |
 |**Producers** | OSOM |
-|**Body** |  xx |
+|**Body** |   |
 |**Description** | Return a List<ServiceOrder> as String Json|
 
 ---
