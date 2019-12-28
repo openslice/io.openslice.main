@@ -20,8 +20,8 @@ See [Deployment](./deployment.md)
 ## Supported APIs
 
 For a quick access check our swagger links:
- * TMF APIs: <http://portal.openslice.io/tmf-api/swagger-ui.html>
- * API for VNF/NSD management: <http://portal.openslice.io/osapi/swagger-ui.html>
+*TMF APIs: <http://portal.openslice.io/tmf-api/swagger-ui.html>
+*API for VNF/NSD management: <http://portal.openslice.io/osapi/swagger-ui.html>
 
 ## Source code
 
