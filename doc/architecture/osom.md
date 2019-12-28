@@ -59,5 +59,13 @@ We expect here to check which tasks can be orchestrated by NFVO and which by hum
    2. State: RESERVED
    
    
+There will be two instances of task "User Task Manual Complete Service" each for Services S_C1 and S_C2. The task is Transient for now. It displays only the services that are not automated! 
+Here is a flow for future:
+1. We wait here for human decision.
+2. From API we get a result:
+ a. If set to ACTIVE/TERMINATED then we complete the task
+ b. In any other state we stay in this task until it is resolved as in step a
+ c. The Status of ORDER O1 is also updated to PARTIAL
+
 
    
