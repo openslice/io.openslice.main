@@ -1,8 +1,8 @@
 # Openslice Service Orchestration and Order Management - OSOM
 
 OSOM is a service responsible for:
- * Service Order Management (SOM)
- * Service Orchestration (SO)
+* Service Order Management (SOM)
+* Service Orchestration (SO)
 
 It uses open source Flowable Business process engine (https://www.flowable.org) .
 
