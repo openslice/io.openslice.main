@@ -18,16 +18,17 @@ updaterepo(){
 }
 
 
-updaterepo io.openslice.portal.api
 updaterepo io.openslice.main
 updaterepo io.openslice.sol005nbi.osm5
 updaterepo io.openslice.model
-updaterepo io.openslice.bugzilla
-updaterepo io.openslice.gateway.api
 updaterepo io.openslice.oauth.server
+updaterepo io.openslice.portal.api
+updaterepo io.openslice.gateway.api
+updaterepo io.openslice.mano
+updaterepo io.openslice.bugzilla
+updaterepo io.openslice.osom
 updaterepo io.openslice.portal.web
 updaterepo io.openslice.tmf.api
-updaterepo io.openslice.osom
 updaterepo io.openslice.tmf.web
 
 cd $dirlocation

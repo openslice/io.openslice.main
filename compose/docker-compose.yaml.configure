@@ -131,6 +131,25 @@ services:
     networks:
     - front
     - back
+
+  mano:
+    container_name: mano
+    build:
+        context:  ../../io.openslice.mano/
+        dockerfile: Dockerfile.mano        
+    image: io.openslice.mano:latest
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
+        "spring.activemq.user": "admin",
+        "spring.activemq.password": "adminx",
+        "spring.cloud.consul.host": "http://aconsul:8500",        
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://mano:13010/actuator/health      }'
+    ports:
+    - 13011:13011
+    networks:
+    - front
+    - back
     
 
   bugzilla:
