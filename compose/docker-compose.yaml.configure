@@ -136,8 +136,8 @@ services:
     - front
     - back
 
-  mano:
-    container_name: mano
+  manoclient:
+    container_name: manoclient
     restart: always
     build:
         context:  ../../io.openslice.mano/
@@ -237,10 +237,13 @@ services:
     - back
 
   portainer:
+    container_name: portainer
     image: portainer/portainer
     restart: always
     networks:
       - front
+    ports:
+    - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
