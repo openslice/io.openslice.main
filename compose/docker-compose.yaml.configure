@@ -4,6 +4,7 @@ services:
   activemq:
     container_name: anactivemq
     image: webcenter/activemq:5.14.3
+    restart: always
     ports:
     - 8161:8161
     volumes:
@@ -39,6 +40,7 @@ services:
   
   mysql-portal:
     container_name: amysql
+    restart: always
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: letmein
@@ -56,6 +58,7 @@ services:
 
   osoauthserver:
     container_name: openslice-oauthserver
+    restart: always
     build:
         context:  ../../io.openslice.oauth.server/
         dockerfile: Dockerfile.authserver        
@@ -105,6 +108,7 @@ services:
     
   osportalapi:
     container_name: openslice-portalapi
+    restart: always
     build:
         context:  ../../io.openslice.portal.api/
         dockerfile: Dockerfile.portalapi        
@@ -134,6 +138,7 @@ services:
 
   mano:
     container_name: mano
+    restart: always
     build:
         context:  ../../io.openslice.mano/
         dockerfile: Dockerfile.mano        
@@ -154,6 +159,7 @@ services:
 
   bugzilla:
     container_name: abugzilla
+    restart: always
     build:
         context:  ../../io.openslice.bugzilla/
         dockerfile: Dockerfile.bugzilla        
@@ -178,6 +184,7 @@ services:
  
   osscapi:
     container_name: openslice-scapi
+    restart: always
     build:
         context:  ../../io.openslice.tmf.api/
         dockerfile: Dockerfile.tmfapi      
@@ -207,6 +214,7 @@ services:
 
   osom:
     container_name: openslice-osom
+    restart: always
     build:
         context:  ../../io.openslice.osom/
         dockerfile: Dockerfile.osom      
@@ -227,11 +235,25 @@ services:
     networks:
     - front
     - back
+
+  portainer:
+    image: portainer/portainer
+    restart: always
+    environment:
+      - VIRTUAL_HOST=dev.portainer
+    networks:
+      - front
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
      
 networks:
   front:
   back:
 
+volumes:
+  portainer_data:
   
  #  "spring.cloud.consul.discovery.healthCheckUrl=http://abugzilla:8080/status"
  #openzipkin/zipkin
