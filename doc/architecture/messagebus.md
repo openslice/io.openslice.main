@@ -110,8 +110,9 @@ It is based on ActiveMQ.
 |**Type** | queue  |
 |**Destination** |   TMF API service |
 |**Producers** | |
-|**Body** |  xx |
-|**Description** |   NOT IMPLEMENTED |
+|**Body** |  ServiceUpdate |
+|**Headers** | "serviceid" = serviceId |
+|**Description** |  will update a service by id and return the service instance |
 
 ---
 
