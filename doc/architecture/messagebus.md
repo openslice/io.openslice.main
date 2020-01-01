@@ -141,6 +141,20 @@ It is based on ActiveMQ.
 
 ---
 
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_DEPLOY_NSD_REQ  |
+|**Name** |  jms:queue:NFVCATALOG.DEPLOY.NSD_REQ  |
+|**Type** | queue  |
+|**Destination** |   NFV Catalog service |
+|**Producers** | OSOM |
+|**Body** |  DeploymentDescriptor as Json String |
+|**Headers** |  NSD id |
+|**Description** |   Returns a DeploymentDescriptor object as json string containing deployment info|
+
+---
+
+
 
 ## EVENT TOPICS IN Message Bus
 | Message |    |
