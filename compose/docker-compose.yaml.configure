@@ -149,7 +149,7 @@ services:
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
         "spring.cloud.consul.host": "http://aconsul:8500",
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://mano:13o11/mano/actuator/health",
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://mano:13011/mano/actuator/health",
         "logging.level.org.springframework" : "INFO"
       }'      
     ports:
