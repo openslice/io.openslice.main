@@ -131,8 +131,8 @@ It is based on ActiveMQ.
 
 | Message |    |
 | ------------- |----------------|
-|**Alias** |  VNFNSD_CATALOG_GET_NSD_BY_ID  |
-|**Name** |  jms:queue:VNFNSDCATALOG.GET.NSD_BY_ID  |
+|**Alias** |  NFV_CATALOG_GET_NSD_BY_ID  |
+|**Name** |  jms:queue:NFVCATALOG.GET.NSD_BY_ID  |
 |**Type** | queue  |
 |**Destination** |   NFV Catalog service |
 |**Producers** | TMF API, OSOM |
@@ -154,7 +154,17 @@ It is based on ActiveMQ.
 
 ---
 
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_GET_DEPLOYMENT_BY_ID  |
+|**Name** |  jms:queue:NFVCATALOG.GET.DEPLOYMENT_BY_ID  |
+|**Type** | queue  |
+|**Destination** |   NFV Catalog service |
+|**Producers** |  OSOM |
+|**Body** |  Deployment ID |
+|**Description** |   Returns a DeploymentDescriptor object |
 
+---
 
 ## EVENT TOPICS IN Message Bus
 | Message |    |
