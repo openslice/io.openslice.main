@@ -69,7 +69,7 @@ Here is a flow for future:
 	b. In any other state we stay in this task until it is resolved as in step a
 	c. The Status of ORDER O1 is also updated to PARTIAL
 
-There will be an instance of  task "NFVO RFS Task" each for Service S_R1:
+There will be an instance of  NFVODeploymentRequest process  each for Service S_R1. (see later)
 
 1. This process is related with the NFVO orchestration
 2. It will send a msg to NFVO(s?) for a specific deployment request
@@ -85,6 +85,19 @@ A Service follows the states as defined in TMF638 Service Inventory specificatio
 
 [![Service state](../images/service_states.png)](../images/service_states.png)
   
+
+
+## NFVODeploymentRequest process
+
+ 
+[![NFVODeploymentRequest BPM](../images/NFVODeploymentReq_process.png)](../images/NFVODeploymentReq_process.png)
+
+This process is related with the NFVO orchestration
+It will send a msg to NFVO(s?) for a specific deployment request
+Then it checks the deployment status. It will wait 30 secs each time until the deployment is running (or failed)
+
+
+
 ## Check In Progress orders process
 
 Every 1 minute the "Check In Progress Orders" process is executed checking if a supported Service changed state (i.e. to ACTIVE) then the whole Order will change state (e.g. go to COMPLETED)
