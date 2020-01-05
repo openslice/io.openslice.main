@@ -1,6 +1,7 @@
 # Openslice Service Orchestration and Order Management - OSOM
 
 OSOM is a service responsible for:
+
 * Service Order Management (SOM)
 * Service Orchestration (SO)
 
