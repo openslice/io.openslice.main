@@ -156,6 +156,19 @@ It is based on ActiveMQ.
 
 | Message |    |
 | ------------- |----------------|
+|**Alias** |  GET_USER_BY_USERNAME  |
+|**Name** |  jms:queue:GET.USER_BY_USERNAME  |
+|**Type** | queue  |
+|**Destination** |   NFV Catalog service (this is temproary for now) |
+|**Producers** | TMF API |
+|**Body** |   |
+|**Headers** |  USERNAME =  username |
+|**Description** |   Returns a PortalUser object as json string containing user info|
+
+---
+
+| Message |    |
+| ------------- |----------------|
 |**Alias** |  NFV_CATALOG_GET_DEPLOYMENT_BY_ID  |
 |**Name** |  jms:queue:NFVCATALOG.GET.DEPLOYMENT_BY_ID  |
 |**Type** | queue  |
