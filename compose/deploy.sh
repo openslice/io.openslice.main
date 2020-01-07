@@ -32,7 +32,7 @@ updaterepo io.openslice.tmf.api
 updaterepo io.openslice.tmf.web
 
 cd $dirlocation
-docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.5.2-jdk-8 mvn verify -DskipTests
+docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.5.2-jdk-8 mvn clean verify -DskipTests
 
 
 cd $dirlocation/io.openslice.tmf.web
