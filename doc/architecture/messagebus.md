@@ -161,8 +161,8 @@ It is based on ActiveMQ.
 |**Type** | queue  |
 |**Destination** |   NFV Catalog service (this is temproary for now) |
 |**Producers** | TMF API |
-|**Body** |   |
-|**Headers** |  USERNAME =  username |
+|**Body** |  username |
+|**Headers** |   |
 |**Description** |   Returns a PortalUser object as json string containing user info|
 
 ---
