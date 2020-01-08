@@ -33,7 +33,7 @@ services:
     volumes:
     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     - ./nginx/certificates:/etc/nginx/certificates
-    - ../../io.openslice.portal.web/src:/webstatic/portal
+    - ../../io.openslice.portal.web/src:/webstatic/nfvportal
     - ../../io.openslice.tmf.web/dist/io-openslice-portal-web:/webstatic/services
     networks:
     - front
@@ -93,6 +93,7 @@ services:
               "redirectUris": [
                 "http://localhost",
                 "http://localhost/oauthresp.html",
+                "http://localhost/nfvportal/oauthresp.html",
                 "http://localhost/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
                 "http://localhost/services/services_marketplace"
               ]

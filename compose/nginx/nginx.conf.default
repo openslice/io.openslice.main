@@ -35,17 +35,27 @@ http {
 		listen [::]:80;
 		server_name  localhost;
 
-	location / {
-		root /webstatic/portal;
-		index index.html;
-       	}
-        	
-         location /services {
+	    location ^~/services/ {
                 root /webstatic;
                 index index.html;
                 try_files $uri $uri/ /services/index.html;
 
         }
+
+
+        location / {
+                        root /webstatic/portal/openslicehome;
+                        index index.html;
+        }
+
+
+       location /nfvportal {
+                        root /webstatic;
+                        index index.html;
+                        autoindex off;
+                        try_files $uri $uri/ /nfvportal/index.html;
+        }
+
 
         	
         location /osapi {
