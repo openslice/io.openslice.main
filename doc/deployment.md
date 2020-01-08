@@ -11,12 +11,15 @@ sudo cp docker-compose.yaml.configure docker-compose.yaml
 ```
 
 ##Configure docker-compose services
+
 Edit docker-compose.yaml
 
 ###mysql-portal container 
+
 Edit credentials if you wish
 
 ###osoauthserver container
+
 Edit the following if you changed mysql credentials 
  
 ```
@@ -28,6 +31,7 @@ Edit properly with your domain: "allowOrigins": [ "http://localhost" ]
 Edit properly with your domain section: "redirectUris":
 
 ###osportalapi container
+
 Edit the following if you changed mysql credentials
 
 ```
@@ -39,6 +43,7 @@ Edit properly with your domain "swagger.clientsecret" : "secret",
 ```
 
 ###bugzilla container
+
 If you would like to use the Buzilla connector
 
 ```
@@ -56,6 +61,7 @@ VPN Credentials/Access:Used for requesting VPN Credentials/Access
 
 
 ##Configure nginx
+
 ```
 cd nginc
 sudo cp nginx.conf.default nginx.conf
@@ -64,6 +70,7 @@ Edit server_name
 
 
 ##Configure web ui
+
 `cd io.openslice.portal.web/src/js/  `
 `cp config.js.default config.js  `
 

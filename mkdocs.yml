@@ -58,14 +58,13 @@ nav:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
       - OSOM: ./architecture/osom.md
-      - Service Catalog WEB: ./architecture/tmfweb.md
-      - NFV WEB: ./architecture/nfvweb.md
-      - API gateway: ./architecture/apigw.md
       - Auth server: ./architecture/oauth.md
       - TMF API: ./architecture/tmfapi.md
       - NFV API: ./architecture/nfvapi.md
+      - Service Catalog WEB: ./architecture/tmfweb.md
+      - NFV WEB: ./architecture/nfvweb.md
+      - API gateway: ./architecture/apigw.md
       - Issue Mgmt: ./architecture/issuemgt.md
       - Central log: ./architecture/centrallog.md
   - Contributing:
       - Developing: ./contributing/developing.md
-      - API NFVO: ./contributing/api-nfvo.md

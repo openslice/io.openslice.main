@@ -8,6 +8,7 @@ The Openslice Service Catalogue (accessible through the API or web portal) conta
 
 ## Generic Slice Templates (GST)
 On October 16th 2019 GSMA published NG.116  Version 2.0 which defines the Generic Network Slice Template (GST). GST is a set of attributes that can characterise a type of network slice/service. GST is generic and is not tied to any specific network deployment. Here is a list of the various attributes of the template:
+
 -	Availability
 -	Area of Service
 -	Delay tolerance
@@ -51,12 +52,19 @@ Providers can clone a GST as e NEST directly in Openslice Web portal and the adj
 
 
 ## 5G-VINNI Service Blueprint
+
 5G-VINNI Service Blueprint is a special Service Specification defined by teh 5G-VINNI project. Many details can be found in document <https://zenodo.org/record/3345612>
+
 5G-VINNI Service Blueprint is a reusable self-contained specification of required network slice service (instances). As described in GST mapping VINNI-SB is also machine readable. 
+
 Here is a tentative approach in JSON : <https://github.com/openslice/io.openslice.tmf.api/tree/master/src/main/resources/vinnisb>
+
 5G-VINNI SB has many commonalities with GST as well as it offers Testing as a Service attributes.
+
  Next figure presents the high-level object model of a 5G-VINNI service blueprint.
+ 
 The 5G-VINNI SB as a first prototype approach is conceived as a CFS of a ‘bundle’ of services. It has some characteristics, like name, description, service type (eMBB, etc) and others. The constituent services are:
+
 - A “Service Topology” Service Specification which is related to a Network Service Resource topology (a Logical Resource Spec). It is considered at this stage as an RFS but is subject to change in future
 - A “VINNI SB Service Requirements” Service Specification which is related to Service requirements. This is very similar to GST. It is considered at this stage a CFS.
 - A “VINNI SB Service Exposure Level 1” Service Specification which contains characteristics for service exposure on level 1 ( see D3.1 for details). It is considered at this stage a CFS.
@@ -70,6 +78,7 @@ The 5G-VINNI SB as a first prototype approach is conceived as a CFS of a ‘bund
 
 
 [![VINNI SB Template Model diagram](../images/vinni_sb_model_diagram.png)](../images/vinni_sb_model_diagram.png)
+
 
 ## Manage a Service Specification
 
