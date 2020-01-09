@@ -29,7 +29,7 @@ If you would like to operate all APIs, OSOM, the Mysql Server, nginx, etc then y
 - 8GB RAM
 - 5GB HD space
 
-However you can try with a minimun installation on a VM on a laptop with:
+However you can try with a minimum installation on a VM on a laptop with:
 
 - 2 cores
 - 4GB of RAM  
