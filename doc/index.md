@@ -17,6 +17,24 @@ Openslice is a prototype open source, operations support system. It supports VNF
 
 See [Deployment](./deployment.md)
 
+---
+
+## Hardware requirements
+
+The complete environment consists of 10 microservices deployed as docker containers. (Note that Bugzilla or ELK are not included and we assume they runs elsewhere)
+
+If you would like to operate all APIs, OSOM, the Mysql Server, nginx, etc then you need at least:
+
+- 4 cores
+- 8GB RAM
+- 5GB HD space
+
+However you can try with a minimun installation on a VM on a laptop with:
+
+- 2 cores
+- 4GB of RAM  
+
+ 
 
 ## Supported APIs
 
