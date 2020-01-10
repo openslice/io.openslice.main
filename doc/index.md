@@ -7,8 +7,9 @@ Openslice is a prototype open source, operations support system. It supports VNF
 
 ## Demo
 
+* Openslice demo: <http://portal.openslice.io/>
 * Openslice Service Catalogs and ordering: <http://portal.openslice.io/services/>
-* Openslice NFV Services onboarding: <http://portal.openslice.io/>
+* Openslice NFV Services onboarding: <http://portal.openslice.io/nfvportal>
 > username=admin, password=openslice <br> or <br>username=admin, password=changeme
 
 ---
@@ -21,13 +22,15 @@ See [Deployment](./deployment.md)
 
 ## Hardware requirements
 
-The complete environment consists of 10 microservices deployed as docker containers. (Note that Bugzilla or ELK are not included and we assume they runs elsewhere)
+The complete environment consists of  microservices deployed as docker containers. Portainer is also installed to monitor them at port 9000
 
 If you would like to operate all APIs, OSOM, the Mysql Server, nginx, etc then you need at least:
 
 - 4 cores
 - 8GB RAM
 - 5GB HD space
+
+(Note that Bugzilla or ELK are not included and we assume they run elsewhere)
 
 However you can try with a minimum installation on a VM on a laptop with:
 
