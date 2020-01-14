@@ -53,3 +53,11 @@ Get source code here: <https://github.com/openslice>
 ## Contributing
 
 [Contributing](./contributing/developing.md)
+
+## History
+
+* The NFV portal part of Openslice was initially developed in H2020 European project 5GinFIRE (https://5ginfire.eu)  by University of Patras, Greece
+* Openslice services, APIs and current version are actively maintained by University of Patras, Greece in H2020 European project 5G-VINNI (https://5g-vinni.eu/)
+
+
+
