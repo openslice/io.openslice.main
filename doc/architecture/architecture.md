@@ -18,13 +18,23 @@ The following figure displays the overall architecture of Openslice.
 
 Openslice allows Vertical Customers browsing the available offered service specifications. It consists of:
 
-* a web frontend for the Service Catalog, Ordering and Service Inventory
-* a web frontend for onboarding VNFs and NSDs
-* an API gateway that will be used by the web front end as well as any other 3rd party service
-* an authentication server
-* TMF API services (eg Service Catalog API, Service Ordering APIetc)
-* NFV API services (eg VNF/NSD onboarding etc)
-* an Issue management system
-* Central logging
-* Openslice Service Orchestration and Order Management (OSOM) solution that  transforms Service Ordering requests to the equivalent Orchestrators. 
-* a Message bus which allows openslice services to exchange messages via queues and topics
+* Web frontend UIs that consist of mainly two portals: i) a NFV portal allowing users self-service management and onboarding VNFDs/NSDs to facility’s NFVO ii) a Services Portal, which allows users to browse the Service Catalog, Service Blueprints specifications and the Service Inventory
+* An API gateway that proxies the internal APIs and used by the web front end as well as any other 3rd party service
+* A Message Bus where all microservices use it to exchange messages either via message queues or via publish/subscribe topics
+* An authentication server implementing Oauth2 authentication scheme
+* A microservice offering TMF compliant API services (eg Service Catalog API, Service Ordering APIetc)
+* A microservice offering NFV API services (eg VNF/NSD onboarding etc) and allows to store VNFDs and NSDs in a catalog
+* A microservice that is capable to interface to an issue management system. For example it raises an issue to all related stakeholders (CSP, NOP, CSC) that a new Service Order is requested
+* Central logging microservice that is capable to log all distributed actions in to an Elasticsearch cluster
+* A Service Orchestrator solution that will propagate Service Ordering requests to the equivalent SOs and NFVOs 
+
+
+Deploying Openslice in multi domain scenarios
+
+A typical deployment across domains, involves today some typical components: i) an OSS/BSS to allow customers access the service catalog and perform service orders, ii) a Service Orchestrator (SO) component for executing the service order workflow, as well as iii) a Network Functions Virtualization Orchestrator (NFVO) for configuring the iv) network resources.
+
+TMF Open APIs are introduced not only for exposing catalogues and accepting service orders, but also implementing the East-West interfaces between the domains, fulfilling also the LSO requirements as introduced by MEF discussed in Section II.
+
+The following figure shows how openslice could be used in such scenarios:
+
+[![Openslice  multi-domain-architecture](../images/architecture.png)](../images/multi-domain-architecture.png)
