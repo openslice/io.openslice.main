@@ -12,6 +12,11 @@ Openslice is a prototype open source, operations support system. It supports VNF
 * Openslice NFV Services onboarding: <http://portal.openslice.io/nfvportal>
 > username=admin, password=openslice <br> or <br>username=admin, password=changeme
 
+
+## Video demo
+
+* <https://youtu.be/KU8JPDFFl9A>
+
 ---
 
 ## Installing

@@ -9,6 +9,7 @@
 - RFS UI support
 - Display running services
 - User management (follow TMF model)
+- Service Order and Service Scedule Calendar
 
 
 # OSOM
