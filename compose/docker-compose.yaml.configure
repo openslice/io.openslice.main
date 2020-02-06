@@ -251,7 +251,26 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
-     
+  centrallog:
+    container_name: centrallog
+    build:
+        context:  ../../io.openslice.centrallog.service/
+        dockerfile: Dockerfile.centrallog        
+    image: io.openslice.centrallog.service:latest
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
+        "spring.activemq.user": "admin",
+        "spring.activemq.password": "adminx",
+        "spring.cloud.consul.host": "http://aconsul:8500",        
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog:13013/actuator/health",
+        "centrallogurl":"http://elk_ip:elk_port/index_name/_doc"
+      }'
+    ports:
+    - 13013:13013
+    networks:
+    - back
+      
 networks:
   front:
   back:

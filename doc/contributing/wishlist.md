@@ -48,6 +48,7 @@
 
 # CentralLog
 
+- Events from TMF to be written to Central Log
 
 # Authentication
 
