@@ -3,6 +3,7 @@
 - TMF Ticketing API support
 - TMF Product
 - Consume external Catalog Services
+- HATEOAS integration
 
 # TMF WEB
 

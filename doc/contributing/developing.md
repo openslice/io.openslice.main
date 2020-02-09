@@ -60,7 +60,13 @@ Clone the repository: https://github.com/openslice/io.openslice.portal.web
 by default the project io.openslice.portal.api exposes the folder ../io.openslice.portal.web/src/ in a folder testweb (Check class MvcConfig.java in io.openslice.portal.api) for development. (In production nginx is used). Point your browser to `http://localhost:13000/osapi/testweb/index.html/`
 
 
+---
 
+## Wishlist
+
+Check also our wishlist of new features. You can add your own
+
+See [Wishlist](./wishlist.md)
 
 
 
