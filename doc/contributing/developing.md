@@ -1,9 +1,9 @@
 
 # Developing
 
-Openslice backend services are maily implemented with Java 8 and Spring boot.
+Openslice backend services are maily implemented with Java 11 or abovw and Spring boot.
 
-Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them thoug in the code, e.g. at application.yml file)
+Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them though in the code, e.g. at application.yml file)
 
 ## General subsystems
 
@@ -62,6 +62,13 @@ by default the project io.openslice.portal.api exposes the folder ../io.openslic
 
 ---
 
+## Version/release management
+
+Check this nice article on how we develop and release versions
+
+https://nvie.com/posts/a-successful-git-branching-model/
+
+---
 ## Wishlist
 
 Check also our wishlist of new features. You can add your own

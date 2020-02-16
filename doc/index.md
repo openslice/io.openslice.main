@@ -5,6 +5,10 @@
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
 
 
+## Latest news
+
+* 17/2/2020 Openslice will participate in the next ETSI NFV&MEC Plugtests 2020, at Sophia Antipolis, France  15-19 June 2020 as a supporting open source communities . Read more at: <https://www.etsi.org/events/upcoming-events/1683-nfv-mec-plugtests#pane-1/> 
+
 ## Demo
 
 * Openslice demo: <http://portal.openslice.io/>
@@ -58,6 +62,10 @@ Get source code here: <https://github.com/openslice>
 ## Contributing
 
 [Contributing](./contributing/developing.md)
+
+## Social Media
+
+* Twitter: <https://twitter.com/OpensliceOSS>
 
 ## History
 
