@@ -1,6 +1,6 @@
 <img src="images/openslice_logo.png" alt="drawing" width="200"/>
 
-version: 0.1
+version: 2020-Q3
 
 *(Documentation is under construction)*
 
