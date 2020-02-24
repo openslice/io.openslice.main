@@ -1,5 +1,6 @@
 # TMF API
 
+- RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
 - Consume external Catalog Services
