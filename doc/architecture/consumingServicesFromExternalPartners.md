@@ -17,12 +17,19 @@ An organization must have a characteristic in openslice catalog:
 With a value a hashmap with the following: 
 
 apiparams.put( "CLIENTREGISTRATIONID", "authOpensliceProvider");
+
 apiparams.put( "OAUTH2CLIENTID", "osapiWebClientId");
+
 apiparams.put( "OAUTH2CLIENTSECRET", "secret");
+
 apiparams.put( "OAUTH2SCOPES", scopes);
+
 apiparams.put( "OAUTH2TOKENURI", "http://portal.openslice.io/osapi-oauth-server/oauth/token");
+
 apiparams.put( "USERNAME", "admin");
+
 apiparams.put( "PASSWORD", "openslice");
+
 apiparams.put( "BASEURL", "http://portal.openslice.io");
 		
 		
