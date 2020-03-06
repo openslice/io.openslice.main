@@ -202,7 +202,7 @@ It is based on ActiveMQ.
 |**Destination** |   TMF API service |
 |**Producers** | OSOM or maybe used by others that would like to update a Service Spec |
 |**Body** | A serviceSpecification as json string  |
-|**Headers** | servicespecification id |
+|**Headers** | servicespecification id, orgid id |
 |**Description** | Updates (or inserts if does not exist in catalog) an external service specification) |
 
 ---
