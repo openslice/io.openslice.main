@@ -38,3 +38,6 @@ TMF Open APIs are introduced not only for exposing catalogues and accepting serv
 The following figure shows how openslice could be used in such scenarios:
 
 [![Openslice  multi-domain-architecture](../images/multi-domain-architecture.png)](../images/multi-domain-architecture.png)
+
+
+See more [Consuming Services From External Partner Organizations](./consumingServicesFromExternalPartners.md)
