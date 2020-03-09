@@ -13,6 +13,7 @@ updaterepo(){
                 cd $1/
         else
                 cd $1/
+                git checkout master
                 git pull
         fi
 }
