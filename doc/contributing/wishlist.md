@@ -8,10 +8,12 @@
 
 # TMF WEB
 
-- RFS UI support
+- Service Spec, Service Order, Services might show related parties
+- RFS UI, Partner Management UI support
 - Display running services
 - User management (follow TMF model)
-- Service Order and Service Scedule Calendar
+- Service Order and Service Schedule Calendar
+- Select Specs that can be exposed to partners (maybe with a characteristic?)
 
 
 # OSOM
