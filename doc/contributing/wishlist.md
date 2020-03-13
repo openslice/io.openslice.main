@@ -1,5 +1,6 @@
 # TMF API
 
+- RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
 - Consume external Catalog Services
@@ -7,10 +8,13 @@
 
 # TMF WEB
 
-- RFS UI support
+- Service Spec, Service Order, Services must show related parties
+- RFS UI, Partner Management UI support
 - Display running services
 - User management (follow TMF model)
-- Service Order and Service Scedule Calendar
+- Service Order and Service Schedule Calendar
+- Select Specs that can be exposed to partners (maybe with a characteristic?)
+- add image attachments and logo to service specs and use them in the description
 
 
 # OSOM

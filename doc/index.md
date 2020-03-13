@@ -2,8 +2,6 @@
 
 version: 2020-Q3
 
-*(Documentation is under construction)*
-
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
 
 

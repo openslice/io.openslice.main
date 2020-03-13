@@ -179,6 +179,35 @@ It is based on ActiveMQ.
 
 ---
 
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_EXTERNAL_SERVICE_PARTNERS  |
+|**Name** |  jms:queue:CATALOG.GET.EXTERNALSERVICEPARTNERS  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |   |
+|**Headers** |  |
+|**Description** |  As a String Json ArrayList of Organizaton objects containing the characteristic name **EXTERNAL_TMFAPI** |
+
+---
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_EXTERNAL_SERVICESPEC  |
+|**Name** |  jms:queue:CATALOG.UPD.EXTERNAL_SERVICESPEC  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM or maybe used by others that would like to update a Service Spec |
+|**Body** | A serviceSpecification as json string  |
+|**Headers** | servicespecification id, orgid id |
+|**Description** | Updates (or inserts if does not exist in catalog) an external service specification) |
+
+---
+
+
 ## EVENT TOPICS IN Message Bus
 | Message |    |
 | ------------- |----------------|

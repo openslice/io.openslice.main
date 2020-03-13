@@ -68,6 +68,8 @@ Check this nice article on how we develop and release versions
 
 https://nvie.com/posts/a-successful-git-branching-model/
 
+We develop in the develop branch
+
 ---
 ## Wishlist
 
