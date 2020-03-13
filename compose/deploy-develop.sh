@@ -20,7 +20,9 @@ updaterepo(){
 
 
 updaterepo io.openslice.main
+updaterepo io.openslice.sol005nbi.osm
 updaterepo io.openslice.sol005nbi.osm5
+updaterepo io.openslice.sol005nbi.osm7
 updaterepo io.openslice.centrallog.client
 updaterepo io.openslice.centrallog.service
 updaterepo io.openslice.model
