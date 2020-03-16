@@ -5,6 +5,13 @@ Openslice backend services are maily implemented with Java 11 or abovw and Sprin
 
 Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them though in the code, e.g. at application.yml file)
 
+to get the latest development branch:
+```
+wget https://raw.githubusercontent.com/openslice/io.openslice.main/develop/compose/deploy-develop.sh
+sudo ./deploy-develop.sh
+```
+
+
 ## General subsystems
 
 - Docker and Docker Compose should be installed in your development environment

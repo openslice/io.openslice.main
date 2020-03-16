@@ -44,7 +44,7 @@ http {
 
 
         location / {
-                        root /webstatic/portal/openslicehome;
+                        root /webstatic/nfvportal/openslicehome;
                         index index.html;
         }
 

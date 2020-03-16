@@ -94,7 +94,24 @@ sudo cp config.prod.default.json config.prod.json
 ```
 and edit config.prod.json
 
+edit config.oauth.ts
 
 issue then:
+`sudo docker-compose down;sudo docker-compose up -d --build`
+
+
+##Landing page
+
+You can configure it at
+
+```
+io.openslice.portal.web/src/openslicehome/index.html
+```
+
+
+##Note
+
+There is a case where the first time the services fail to start due to failed mysql connections. Please just issue again:
+
 `sudo docker-compose down;sudo docker-compose up -d --build`
 
