@@ -3,7 +3,6 @@
 - RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
-- Consume external Catalog Services
 - HATEOAS integration
 
 # TMF WEB
@@ -22,6 +21,7 @@
 ## Dynamic attribute transformation
 
 - DTM decision tables support per Service Specification
+- Schedule Termination of completed order on running services
 
 
 
