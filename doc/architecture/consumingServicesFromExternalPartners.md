@@ -10,55 +10,160 @@ We use the TMF 632 Party Management model to specify Organizations that we can e
 
 ## Define an Organization as 3rd party to consume services East-West 
 
-An organization must have a characteristic in openslice catalog:
+An organization must have the following characteristics in openslice catalog, like for example:
 
-- Name:  partyCharacteristicItem.setName("EXTERNAL_TMFAPI");
+"EXTERNAL_TMFAPI_BASEURL", "http://portal.openslice.io"
 
-With a value a hashmap with the following: 
+"EXTERNAL_TMFAPI_CLIENTREGISTRATIONID", "authOpensliceProvider"
 
-apiparams.put( "CLIENTREGISTRATIONID", "authOpensliceProvider");
+"EXTERNAL_TMFAPI_OAUTH2CLIENTID", "osapiWebClientId"
 
-apiparams.put( "OAUTH2CLIENTID", "osapiWebClientId");
+"EXTERNAL_TMFAPI_OAUTH2CLIENTSECRET", "secret"
 
-apiparams.put( "OAUTH2CLIENTSECRET", "secret");
+"EXTERNAL_TMFAPI_OAUTH2SCOPES", scopes
 
-apiparams.put( "OAUTH2SCOPES", scopes);
+"EXTERNAL_TMFAPI_OAUTH2TOKENURI", "http://portal.openslice.io/osapi-oauth-server/oauth/token"
 
-apiparams.put( "OAUTH2TOKENURI", "http://portal.openslice.io/osapi-oauth-server/oauth/token");
+"EXTERNAL_TMFAPI_USERNAME", "admin"
 
-apiparams.put( "USERNAME", "admin");
+"EXTERNAL_TMFAPI_PASSWORD", "openslice"
 
-apiparams.put( "PASSWORD", "openslice");
-
-apiparams.put( "BASEURL", "http://portal.openslice.io");
 		
 		
-An Organization defined example in json:
+An example Organization defined example in json:
 ```
 
-  {
-    "uuid": "3233a5e2-5049-4151-88b6-302ff5b9c5b2",
-    "@baseType": "BaseEntity",
-    "name": "TESTA",
-    "id": "3233a5e2-5049-4151-88b6-302ff5b9c5b2",
-    "contactMedium": [],
-    "creditRating": [],
-    "externalReference": [],
-    "organizationChildRelationship": [],
-    "organizationIdentification": [],
-    "otherName": [],
-    "partyCharacteristic": [
-      {
-        "@baseType": "BaseEntity",
-        "name": "EXTERNAL_TMFAPI",
-        "value": {
-          "value": "{\"OAUTH2CLIENTSECRET\":\"secret\",\"OAUTH2TOKENURI\":\"http://portal.openslice.io/osapi-oauth-server/oauth/token\",\"OAUTH2SCOPES\":[\"admin\",\"read\"],\"PASSWORD\":\"openslice\",\"BASEURL\":\"http://portal.openslice.io\",\"USERNAME\":\"admin\",\"CLIENTREGISTRATIONID\":\"authOpensliceProvider\",\"OAUTH2CLIENTID\":\"osapiWebClientId\"}"
-        }
+{
+  "uuid": "1a09a8b5-6bd5-444b-b0b9-a73c69eb42ae",
+  "@baseType": "BaseEntity",
+  "@schemaLocation": null,
+  "@type": null,
+  "href": null,
+  "name": "Openslice.io",
+  "id": "1a09a8b5-6bd5-444b-b0b9-a73c69eb42ae",
+  "isHeadOffice": null,
+  "isLegalEntity": null,
+  "nameType": null,
+  "organizationType": null,
+  "tradingName": null,
+  "contactMedium": [],
+  "creditRating": [],
+  "existsDuring": null,
+  "externalReference": [],
+  "organizationChildRelationship": [],
+  "organizationIdentification": [],
+  "organizationParentRelationship": null,
+  "otherName": [],
+  "partyCharacteristic": [
+    {
+      "uuid": "3a2f7221-e0a2-4a6b-88d1-534c8e1963f6",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_CLIENTREGISTRATIONID",
+      "valueType": null,
+      "value": {
+        "value": "authOpensliceProvider",
+        "alias": null
       }
-    ],
-    "relatedParty": [],
-    "taxExemptionCertificate": []
-  }
+    },
+    {
+      "uuid": "c24bb527-f178-4d38-9b93-2027c1732876",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_USERNAME",
+      "valueType": null,
+      "value": {
+        "value": "admin",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "27e45df8-414b-44c6-a5d5-3f064e2cfd3b",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_PASSWORD",
+      "valueType": null,
+      "value": {
+        "value": "openslice",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "e0e470b8-6024-4014-8a18-2333e5465ce1",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_OAUTH2CLIENTSECRET",
+      "valueType": null,
+      "value": {
+        "value": "secret",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "3e0de762-ac80-4c1e-a0a1-f265ff0899b4",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_OAUTH2SCOPES",
+      "valueType": null,
+      "value": {
+        "value": "admin;read",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "0bbb8314-f7f2-420d-9fed-ba054b15f886",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_OAUTH2TOKENURI",
+      "valueType": null,
+      "value": {
+        "value": "http://portal.openslice.io/osapi-oauth-server/oauth/token",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "3a567de4-79eb-4006-a500-3e5229b44175",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_OAUTH2CLIENTID",
+      "valueType": null,
+      "value": {
+        "value": "osapiWebClientId",
+        "alias": null
+      }
+    },
+    {
+      "uuid": "6dca729f-dbe1-46b7-89f1-5c4f9fe89d4e",
+      "@baseType": "BaseEntity",
+      "@schemaLocation": null,
+      "@type": null,
+      "href": null,
+      "name": "EXTERNAL_TMFAPI_BASEURL",
+      "valueType": null,
+      "value": {
+        "value": "http://portal.openslice.io",
+        "alias": null
+      }
+    }
+  ],
+  "relatedParty": [],
+  "status": null,
+  "taxExemptionCertificate": []
+}
 
 ```
 		
