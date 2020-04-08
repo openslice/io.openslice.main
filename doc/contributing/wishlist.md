@@ -7,16 +7,21 @@
 
 # TMF WEB
 
+- Config files not to be deleted
 - Service Spec, Service Order, Services must show related parties
+- add image attachments and logo to service specs and use them in the description
 - RFS UI, Partner Management UI support
 - Display running services
-- User management (follow TMF model)
 - Service Order and Service Schedule Calendar
+
+- User management (follow TMF model)
 - Select Specs that can be exposed to partners (maybe with a characteristic?)
-- add image attachments and logo to service specs and use them in the description
+
 
 
 # OSOM
+
+- action delete for service order
 
 ## Dynamic attribute transformation
 
@@ -30,7 +35,7 @@
 ## OSM Client
 
 - OSM Seven NBI
-- VNF/NSD config params
+- VNF/NSD config params, day 1, Day 2
 - NSD Lifcecylce
 - NST support
 
