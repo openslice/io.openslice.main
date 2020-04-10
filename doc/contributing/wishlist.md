@@ -1,21 +1,13 @@
 # TMF API
 
+
 - RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
 - HATEOAS integration
+- Select Specs that can be exposed to partners (maybe with a characteristic?)
 
 # TMF WEB
-
-- Config files not to be deleted
-- Service Spec, Service Order, Services must show related parties
-- add image attachments and logo to service specs and use them in the description
-- RFS UI, Partner Management UI support
-- Display running services
-- Service Order and Service Schedule Calendar
-
-- User management (follow TMF model)
-- Select Specs that can be exposed to partners (maybe with a characteristic?)
 
 
 
