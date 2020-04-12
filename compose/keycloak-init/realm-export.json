@@ -782,11 +782,13 @@
       "redirectUris": [
         "http://openslice.io/*",
         "http://localhost:13000/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
+        "http://localhost:13082/*",
         "http://localhost:13000/*",
         "http://localhost/*",
         "http://localhost:13000/osapi/testweb/oauthresp.html"
       ],
       "webOrigins": [
+        "http://localhost:13082",
         "http://localhost",
         "http://openslice.io",
         "http://localhost:13000"
