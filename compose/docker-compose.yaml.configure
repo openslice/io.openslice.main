@@ -44,17 +44,42 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: letmein
-      MYSQL_DATABASE: osdb
-      MYSQL_USER: portaluser
-      MYSQL_PASSWORD: 12345
+#      MYSQL_DATABASE: osdb
+#      MYSQL_USER: portaluser
+#      MYSQL_PASSWORD: 12345
       MYSQL_ROOT_HOST: "%"
     ports:
     -  "13306:3306"
     volumes:
     -  ~/mysql/data:/var/lib/mysql
+    - ./mysql-init:/docker-entrypoint-initdb.d
     restart: always
     networks:
     -  back
+
+  keycloak:
+      container_name: keycloak
+      image: jboss/keycloak:9.0.2
+      environment:
+        DB_VENDOR: MYSQL
+        DB_ADDR: amysql
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+        JDBC_PARAMS: "useSSL=false"
+        KEYCLOAK_IMPORT: /tmp/realm-export.json
+      volumes:
+      - ./keycloak-init:/tmp
+      ports:
+        - 28080:8080
+      depends_on:
+        - mysql-portal
+      networks:
+        - front
+        - back
+
 
   osoauthserver:
     container_name: openslice-oauthserver
@@ -119,12 +144,13 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
+        "keycloak-admin-password": "Pa55w0rd"
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "admin",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
-        "swagger.authserver" : "http://localhost:13081/osapi-oauth-server",
+        "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
         "swagger.clientsecret" : "secret",
         "logging.level.org.springframework" : "INFO"        
@@ -136,6 +162,9 @@ services:
     networks:
     - front
     - back
+    depends_on:
+    - mysql-portal
+
 
   manoclient:
     container_name: manoclient
@@ -197,12 +226,13 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
+        "keycloak-admin-password": "Pa55w0rd"
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-service-catalog-management-api:13082/osapi/actuator/health",
-        "swagger.authserver" : "http://localhost:13081/osapi-oauth-server",
+        "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
         "swagger.clientsecret" : "secret",
         "logging.level.org.springframework" : "INFO"        
@@ -214,6 +244,8 @@ services:
     networks:
     - front
     - back
+    depends_on:
+    - mysql-portal
 
   osom:
     container_name: openslice-osom
@@ -238,6 +270,8 @@ services:
     networks:
     - front
     - back
+    depends_on:
+    - mysql-portal
 
   portainer:
     container_name: portainer
