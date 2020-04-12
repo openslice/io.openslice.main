@@ -81,57 +81,7 @@ services:
         - back
 
 
-  osoauthserver:
-    container_name: openslice-oauthserver
-    restart: always
-    build:
-        context:  ../../io.openslice.oauth.server/
-        dockerfile: Dockerfile.authserver        
-    image: io.openslice.oauth.server:latest
-    environment:
-      SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
-        "spring.datasource.username":"root",
-        "spring.datasource.password":"letmein",
-        "spring.cloud.consul.host": "http://aconsul:8500",  
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-oauthserver:13081/osapi-oauth-server/actuator/health",
-        "authclients": {
-          "allowOrigins": [ "http://localhost" ],
-          "clients": {
-            "osapiWebClientId": {
-              "clientId": "osapiWebClientId",
-              "tokenSecret": "secret",
-              "allowOrigin": null,
-              "tokenExpirationsec": 3600,
-              "scopes": [
-                "openapi",
-                "admin",
-                "read",
-                "write"
-              ],
-              "grantTypes": [
-                "authorization_code",
-                "password",
-                "refresh_token",
-                "client_credentials"
-              ],
-              "redirectUris": [
-                "http://localhost",
-                "http://localhost/oauthresp.html",
-                "http://localhost/nfvportal/oauthresp.html",
-                "http://localhost/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
-                "http://localhost/services/services_marketplace"
-              ]
-            } } },      
-        "logging.level.org.springframework" : "INFO"      
-          
-      }'
-    ports:
-    - 13081:13081
-    networks:
-    - front
-    - back
-    
+     
   osportalapi:
     container_name: openslice-portalapi
     restart: always
