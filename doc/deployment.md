@@ -74,7 +74,8 @@ Edit the following if you changed mysql and keycloak credentials
 ```
 "spring.datasource.username":"xx",
 "spring.datasource.password":"xx",
-"keycloak-admin-password": "Pa55w0rd"
+"keycloak-admin-password": "Pa55w0rd",
+"keycloak.auth-server-url": "http://localhost:28080/auth",
 Edit properly with your domain "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
 
 ```
@@ -149,10 +150,11 @@ user admin and your KEYCLOAK_PASSWORD
 Select the master realm from top left corner, go to login Tab and select "Require SSL": None
 Do the same for realm Openslice
 
-### Configure redircts
+### Configure redirects
 
 Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain 
 and insert in Valid Redirect URIs your domain e.g. http://exampl.org/*
+an in Web Origins
 
 
 
