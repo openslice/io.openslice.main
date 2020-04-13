@@ -14,35 +14,42 @@ sudo cp docker-compose.yaml.configure docker-compose.yaml
 
 Edit docker-compose.yaml
 
-###mysql-portal container 
+###1. mysql-portal container 
 
-Edit credentials if you wish
+In folder mysql-init edit file 01-databases.sql.
+Edit credentials that services connect to the database if you wish
+of portaluser (default is 12345) and keycloak (default is password)
 
-###osoauthserver container
+you can change also database details if you wish
 
-Edit the following if you changed mysql credentials 
- 
+###2.keycloak container
+
+2.1 Edit the following if you changed mysql credentials 
+```
+DB_DATABASE: keycloak
+DB_USER: keycloak
+DB_PASSWORD: password
+```
+
+2.2 Change the keycloak admin password
+``` 
+KEYCLOAK_PASSWORD: Pa55w0rd
+```
+
+###3.osportalapi container (NFV services)
+
+Edit the following if you changed mysql and keycloak credentials
+
 ```
 "spring.datasource.username":"xx",
 "spring.datasource.password":"xx",
-```
-Edit properly with your domain: "allowOrigins": [ "http://localhost" ]
-
-Edit properly with your domain section: "redirectUris":
-
-###osportalapi container
-
-Edit the following if you changed mysql credentials
+"keycloak-admin-password": "Pa55w0rd"
+Edit properly with your domain "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
 
 ```
-"spring.datasource.username":"xx",
-"spring.datasource.password":"xx",
-Edit properly with your domain "swagger.authserver" : "http://localhost:13081/osapi-oauth-server",
-Edit properly with your domain "swagger.clientid" : "osapiWebClientId",
-Edit properly with your domain "swagger.clientsecret" : "secret",
-```
 
-###bugzilla container
+
+###4.bugzilla container
 
 If you would like to use the Buzilla connector
 
@@ -60,6 +67,19 @@ Validation:Use to track validation processes of VNFs and NSDs
 VPN Credentials/Access:Used for requesting VPN Credentials/Access   
 
 
+###5.osscapi container (TMF-API service)
+
+Edit the following if you changed mysql and keycloak credentials
+
+```
+"spring.datasource.username":"xx",
+"spring.datasource.password":"xx",
+"keycloak-admin-password": "Pa55w0rd"
+Edit properly with your domain "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
+
+```
+
+
 ##Configure nginx
 
 ```
@@ -74,16 +94,16 @@ Edit server_name
 `cd io.openslice.portal.web/src/js/  `
 `cp config.js.default config.js  `
 
-edit in config.js  
+edit in config.js  with your domain
 ```
 TITLE: "Openslice demo",
-WIKI: "http://localhost",
-BUGZILLA: "https://localhost/bugzilla/",
-STATUS: "http://status.localhost/",
-APIURL: "http://localhost",
-WEBURL: "http://localhost",
-APIOAUTHURL: "http://localhost/osapi-oauth-server",
-APITMFURL: "http://localhost/tmf-api/serviceCatalogManagement/v4"
+		WIKI: "http://localhost",
+		BUGZILLA: "https://localhost/bugzilla/",
+		STATUS: "http://status.localhost/",
+		APIURL: "http://localhost",
+		WEBURL: "http://localhost",
+		APIOAUTHURL: "http://localhost/auth/realms/openslice",
+		APITMFURL: "http://localhost/tmf-api/serviceCatalogManagement/v4"
 
 ```
 
@@ -94,10 +114,46 @@ sudo cp config.prod.default.json config.prod.json
 ```
 and edit config.prod.json
 
-edit config.oauth.ts
+edit config.oauth.ts with your domain details for example:
 
-issue then:
+```
+ issuer: 'http://portal.openslice.io//auth/realms/openslice/protocol/openid-connect/auth',
+ loginUrl: 'http:///portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
+ tokenEndpoint: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token',
+```
+
+
+
+## Deploying docker compose
+Go to compose directory and issue then:
 `sudo docker-compose down;sudo docker-compose up -d --build`
+
+
+## Configure Keycloak server
+
+Keycloack server is managing authentications and running on your host at port 28080 and proxied form nginx under http://localhost/auth.
+
+Go to http://localhost/auth/ 
+
+and go to Administration Console 
+
+
+if you are running in HTTP and HTTPS you will get a message: HTTPS required
+
+Go to https://portal.openslice.io:28443/auth/
+
+Login with the credentials from section 2.2
+
+user admin and your KEYCLOAK_PASSWORD
+
+Select the master realm from top left corner, go to login Tab and select "Require SSL": None
+Do the same for realm Openslice
+
+### Configure redircts
+
+Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain 
+and insert in Valid Redirect URIs your domain e.g. http://exampl.org/*
+
 
 
 ##Landing page

@@ -74,6 +74,7 @@ services:
       - ./keycloak-init:/tmp
       ports:
         - 28080:8080
+        - 28443:8443
       depends_on:
         - mysql-portal
       networks:
@@ -94,7 +95,7 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "keycloak-admin-password": "Pa55w0rd"
+        "keycloak-admin-password": "Pa55w0rd",
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "admin",
@@ -176,7 +177,7 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "keycloak-admin-password": "Pa55w0rd"
+        "keycloak-admin-password": "Pa55w0rd",
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",

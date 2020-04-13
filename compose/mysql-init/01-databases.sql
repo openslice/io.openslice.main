@@ -1,5 +1,6 @@
 # create databases
-CREATE DATABASE IF NOT EXISTS `osdb`; CREATE DATABASE IF NOT EXISTS `keycloak`;
+CREATE DATABASE IF NOT EXISTS `osdb`;
+CREATE DATABASE IF NOT EXISTS `keycloak`;
 
 # create root user and grant rights
 CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '12345';

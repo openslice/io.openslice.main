@@ -58,7 +58,6 @@
 		<module>../io.openslice.mano</module>
 		<module>../io.openslice.bugzilla</module>
 		<module>../io.openslice.gateway.api</module>
-		<module>../io.openslice.oauth.server</module>
 		<module>../io.openslice.centrallog.service</module>
 		<module>../io.openslice.osom</module>
 

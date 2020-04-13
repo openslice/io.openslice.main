@@ -30,16 +30,7 @@ We use mysql as a storage DB. Please make sure that you have it installed in you
 
 ## Oauth server
 
-Clone the repository: https://github.com/openslice/io.openslice.oauth.server
-
-Check the application.yml file. Default port is 13081. Especially the datasource username/password, server port.
-
-make sure that the General subsystems are up and running.
-
-run it with `mvn spring-boot:run`
-
-You can check your consul server if it registered. You can browse to `http://localhost:13081/osapi-oauth-server/login`. 
-A default account is user: admin, password: changeme
+We are using Keycloak server.
 
 
 ## VNF/NSD Catalog Management and NSD Deployment API service 
