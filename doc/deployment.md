@@ -1,4 +1,4 @@
-##Installation
+## Preparing the environment
 
 Install docker  
 Install docker-compose
@@ -9,6 +9,17 @@ sudo ./deploy.sh
 cd io.openslice.main/compose/
 sudo cp docker-compose.yaml.configure docker-compose.yaml
 ```
+
+Containers need to properly resolve the DNS of your domain
+
+edit /etc/docker/daemon.json and add:
+
+```
+{ "dns": ["8.8.8.8", "8.8.4.4"]
+ }
+
+```
+
 
 ##Configure docker-compose services
 
@@ -126,6 +137,10 @@ edit config.oauth.ts with your domain details for example:
 
 
 ## Deploying docker compose
+
+
+
+
 Go to compose directory and issue then:
 `sudo docker-compose down;sudo docker-compose up -d --build`
 
@@ -155,6 +170,8 @@ Do the same for realm Openslice
 Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain 
 and insert in Valid Redirect URIs your domain e.g. http://exampl.org/*
 an in Web Origins
+
+
 
 
 
