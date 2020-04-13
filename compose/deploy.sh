@@ -26,7 +26,6 @@ updaterepo io.openslice.sol005nbi.osm7
 updaterepo io.openslice.centrallog.client
 updaterepo io.openslice.centrallog.service
 updaterepo io.openslice.model
-updaterepo io.openslice.oauth.server
 updaterepo io.openslice.portal.api
 updaterepo io.openslice.gateway.api
 updaterepo io.openslice.mano
