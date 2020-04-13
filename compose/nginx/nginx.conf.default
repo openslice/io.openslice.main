@@ -72,12 +72,13 @@ http {
 			proxy_set_header  Host $http_host;
         }
         
-         location /osapi-oauth-server {
-                proxy_pass http://openslice-oauthserver:13081/osapi-oauth-server;
+        location /auth {
+                proxy_pass http://keycloak:8080/auth;
                         proxy_set_header  X-Real-IP $remote_addr;
                         proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
                         proxy_set_header  Host $http_host;
         }
+
         
 
      }
