@@ -69,7 +69,9 @@ services:
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: Pa55w0rd
         JDBC_PARAMS: "useSSL=false"
+        JAVA_OPTS: "-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.as.management.blocking.timeout=3600"
         KEYCLOAK_IMPORT: /tmp/realm-export.json
+        PROXY_ADDRESS_FORWARDING: "true"
       volumes:
       - ./keycloak-init:/tmp
       ports:

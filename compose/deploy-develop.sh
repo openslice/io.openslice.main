@@ -40,4 +40,4 @@ docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /o
 
 cd $dirlocation/io.openslice.tmf.web
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli npm install
-docker run -u 0 --rm -v "$PWD":/app trion/ng-cli ng build --prod
+docker run -u 0 --rm -v "$PWD":/app trion/ng-cli ng build --prod --deleteOutputPath=false
