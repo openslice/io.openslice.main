@@ -9,7 +9,7 @@ Openslice is a prototype open source, operations support system. It supports VNF
 Openslice allows Vertical Customers to browse the available offered service specifications and also allows NFV developers to onboard and manage VNF and Network Service artifacts. 
 The following figure displays the usage of Openslice.
 
-[![Openslice  usage](../images/index_intro_architecture.png)](./images/index_intro_architecture.png)
+[![Openslice  usage](./images/index_intro_architecture.png)](./images/index_intro_architecture.png)
 
 
 There are two portals offering UI friendly access to users:
@@ -23,7 +23,7 @@ Service Specifications reside into Service Catalogs, grouped in Categories. Open
 
 Customers make Service Orders and Openslice instantiates the requested Service Specifications of the Service Order. Running Services instantiated by Openslice, reside in Openslice Service Inventory. The following picture displays how Service Specifications are related to Running Services and how Running Services relate with instantiated running Network Services
 
-[![Openslice  Service Specification instantiation](../images/service_specification_instantiation.png)](./images/service_specification_instantiation.png)
+[![Openslice  Service Specification instantiation](./images/service_specification_instantiation.png)](./images/service_specification_instantiation.png)
 
 
 ## Multidomain scenarios and federation
