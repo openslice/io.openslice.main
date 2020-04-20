@@ -1,8 +1,40 @@
 <img src="images/openslice_logo.png" alt="drawing" width="200"/>
 
-version: 2020-Q3
+version: 2020-Q1
 
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
+
+## Usage
+
+Openslice allows Vertical Customers to browse the available offered service specifications and also allows NFV developers to onboard and manage VNF and Network Service artifacts. 
+The following figure displays the usage of Openslice.
+
+[![Openslice  usage](../images/index_intro_architecture.png)](./images/index_intro_architecture.png)
+
+
+There are two portals offering UI friendly access to users:
+
+* The Services portal allows users to access services and service providers to design services. 
+* The NFV portal allows users to self-manage NFV artifacts and onboard them to a target MANO/NFV Orchestrator.
+
+3rd party applications can use Openslice through TMForum Open APIs.
+
+Service Specifications reside into Service Catalogs, grouped in Categories. Openslice offers a Service Orchestrator called [OSOM](./architecture/osom.md). OSOM instantiates Service Specifications by requesting Network Services from target MANOs/NFVOs. NFV artifacts reside into a VNF/NSD catalog and are onboarded to a target MANO/NFV Orchestrator. Service Specifications reference NSD from the VNF/NSD catalog. 
+
+Customers make Service Orders and Openslice instantiates the requested Service Specifications of the Service Order. Running Services instantiated by Openslice, reside in Openslice Service Inventory. The following picture displays how Service Specifications are related to Running Services and how Running Services relate with instantiated running Network Services
+
+[![Openslice  Service Specification instantiation](../images/service_specification_instantiation.png)](./images/service_specification_instantiation.png)
+
+
+## Multidomain scenarios and federation
+
+Openslice can be used to exchange service specifications/catalogs and make service orders between Organizations as the following figure displays.
+
+[![Openslice  Service Specification instantiation](./images/multi-domain-organizations.png)](./images/multi-domain-organizations.png)
+
+An Identity federation is also possible since our authentication service is based on Keycloak (see [OAuth](./architecture/oauth.md) )
+
+See more on [Consuming Services From External Partner Organizations](./consumingServicesFromExternalPartners.md)
 
 
 ## Latest news

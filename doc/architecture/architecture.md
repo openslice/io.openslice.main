@@ -33,7 +33,7 @@ Openslice allows Vertical Customers browsing the available offered service speci
 
 A typical deployment across domains, involves today some typical components: i) an OSS/BSS to allow customers access the service catalog and perform service orders, ii) a Service Orchestrator (SO) component for executing the service order workflow, as well as iii) a Network Functions Virtualization Orchestrator (NFVO) for configuring the iv) network resources.
 
-TMF Open APIs are introduced not only for exposing catalogues and accepting service orders, but also implementing the East-West interfaces between the domains, fulfilling also the LSO requirements as introduced by MEF discussed in Section II.
+TMF Open APIs are introduced not only for exposing catalogues and accepting service orders, but also implementing the East-West interfaces between the domains, fulfilling also the LSO requirements as introduced by MEF.
 
 The following figure shows how openslice could be used in such scenarios:
 
