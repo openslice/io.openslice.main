@@ -29,6 +29,12 @@ Openslice allows Vertical Customers browsing the available offered service speci
 * A Service Orchestrator solution that will propagate Service Ordering requests to the equivalent SOs and NFVOs 
 
 
+The following figure depicts how Openslice microservices are deployed
+
+[![Openslice microservices network deployment](../images/microservices_network_deployment.png)](../images/microservices_network_deployment.png)
+
+
+
 ## Deploying Openslice in multi domain scenarios
 
 A typical deployment across domains, involves today some typical components: i) an OSS/BSS to allow customers access the service catalog and perform service orders, ii) a Service Orchestrator (SO) component for executing the service order workflow, as well as iii) a Network Functions Virtualization Orchestrator (NFVO) for configuring the iv) network resources.

@@ -140,7 +140,6 @@ services:
     ports:
     - 13011:13011
     networks:
-    - front
     - back
     
 
