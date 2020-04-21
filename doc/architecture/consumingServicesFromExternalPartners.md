@@ -37,6 +37,9 @@ An organization must have the following characteristics in openslice catalog, li
 
 "EXTERNAL_TMFAPI_PASSWORD", "openslice"
 
+"EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" = "/test/v1/servicecatalog?lifeCycleStatus=Published" (this is optional)
+
+"EXTERNAL_TMFAPI_SERVICE_ORDER_URLS"= "/test/v1/serviceorder" (this is optional)
 		
 		
 An example Organization defined example in json:
