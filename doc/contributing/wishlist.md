@@ -9,11 +9,12 @@
 
 # TMF WEB
 
-
+- delete service order
 
 # OSOM
 
-- action delete for service order
+- action shutdown on specific date for service order
+- action edit on service order item
 
 ## Dynamic attribute transformation
 
