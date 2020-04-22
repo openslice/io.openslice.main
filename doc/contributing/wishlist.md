@@ -26,8 +26,7 @@
 
 ## OSM Client
 
-- OSM Seven NBI
-- VNF/NSD config params, day 1, Day 2
+- VNF/NSD config params Day 2
 - NSD Lifcecylce
 - NST support
 
@@ -54,4 +53,3 @@
 
 # Authentication
 
-- Integration with https://www.keycloak.org/ 
