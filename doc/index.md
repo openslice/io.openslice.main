@@ -4,8 +4,6 @@ version: 2020-Q1
 
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
 
-[![Part of OSM Ecosystem](./images/osm_ecosystem_ossbss.png)](https://osm.etsi.org/wikipub/index.php/OSS_BSS)
-
 
 ## Usage
 
@@ -108,4 +106,5 @@ Get source code here: <https://github.com/openslice>
 * Openslice services, APIs and current version are actively maintained by University of Patras, Greece in H2020 European project 5G-VINNI (https://5g-vinni.eu/)
 
 
+[![Part of OSM Ecosystem](./images/osm_ecosystem_ossbss.png)](https://osm.etsi.org/wikipub/index.php/OSS_BSS)
 
