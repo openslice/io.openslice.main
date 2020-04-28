@@ -39,7 +39,7 @@ Openslice can be used to exchange service specifications/catalogs and make servi
 
 An Identity federation is also possible since our authentication service is based on Keycloak (see [OAuth](./architecture/oauth.md) )
 
-See more on [Consuming Services From External Partner Organizations](./consumingServicesFromExternalPartners.md)
+See more on [Consuming Services From External Partner Organizations](./architecture/consumingServicesFromExternalPartners.md)
 
 
 ## Live Demo
