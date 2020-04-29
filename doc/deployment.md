@@ -183,8 +183,6 @@ Also, enter the details on Realm->Email->Enable Authentication
 
 
 
-
-
 ##Landing page
 
 You can configure it at
@@ -193,6 +191,9 @@ You can configure it at
 io.openslice.portal.web/src/openslicehome/index.html
 ```
 
+## NFV Orchestrator Configuration
+
+See [NFV Orchestrator Configuration](./nfvoconfig.md) )
 
 ##Note
 

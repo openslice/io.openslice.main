@@ -54,6 +54,7 @@ nav:
   - Getting Started:
       - Deployment: deployment.md
       - Catalogs: catalogs.md
+      - NFV Orchestrator Configuration: nfvoconfig.md
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
