@@ -70,9 +70,9 @@ If you would like to operate all APIs, OSOM, the Mysql Server, nginx, etc then y
 
 - 4 cores
 - 8GB RAM
-- 5GB HD space
+- 20GB HD space
 
-(Note that Bugzilla or ELK are not included and we assume they run elsewhere)
+(NOTE: Bugzilla or ELK are not included and we assume they run elsewhere)
 
 However you can try with a minimum installation on a VM on a laptop with:
 
