@@ -105,7 +105,7 @@ services:
         "spring.activemq.password": "admin",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
-        "swagger.authserver" : "http://keycloak:8080/auth/realms/openslice",
+        "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
         "swagger.clientsecret" : "secret",
         "logging.level.org.springframework" : "INFO"        
@@ -188,7 +188,7 @@ services:
         "spring.activemq.password": "adminx",
         "spring.cloud.consul.host": "http://aconsul:8500",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-service-catalog-management-api:13082/osapi/actuator/health",
-        "swagger.authserver" : "http://keycloak:8080/auth/realms/openslice",
+        "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
         "swagger.clientsecret" : "secret",
         "logging.level.org.springframework" : "INFO"        
