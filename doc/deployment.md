@@ -46,6 +46,12 @@ DB_PASSWORD: password
 KEYCLOAK_PASSWORD: Pa55w0rd
 ```
 
+2.3
+
+check the line JAVA_OPTS and configure the frontendUrl
+
+-Dkeycloak.frontendUrl=http://localhost/auth
+
 ###3.osportalapi container (NFV services)
 
 Edit the following if you changed mysql and keycloak credentials and adjust properly th domain
@@ -54,8 +60,7 @@ Edit the following if you changed mysql and keycloak credentials and adjust prop
 "spring.datasource.username":"xx",
 "spring.datasource.password":"xx",
 "keycloak-admin-password": "Pa55w0rd",
-"keycloak.auth-server-url": "http://localhost:8080/auth"
-Edit properly with your domain "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
+Edit properly with your domain "swagger.authserver" : "http://localhost/auth/realms/openslice",
 
 ```
 
@@ -86,8 +91,7 @@ Edit the following if you changed mysql and keycloak credentials
 "spring.datasource.username":"xx",
 "spring.datasource.password":"xx",
 "keycloak-admin-password": "Pa55w0rd",
-"keycloak.auth-server-url": "http://localhost:28080/auth",
-Edit properly with your domain "swagger.authserver" : "http://localhost:28080/auth/realms/openslice",
+Edit properly with your domain "swagger.authserver" : "http://localhost/auth/realms/openslice",
 
 ```
 
