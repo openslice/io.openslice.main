@@ -39,6 +39,8 @@ An organization must have the following characteristics in openslice catalog, li
 
 "EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" = "/tmf-api/serviceCatalogManagement/v4/serviceSpecification?type=CustomerFacingServiceSpecification" (this is optional, fetch a list of service specs it will be relative with the BASEURL)
 
+"EXTERNAL_TMFAPI_SERVICE_SPEC" = "/tmf-api/serviceCatalogManagement/v4/serviceSpecification"
+
 "EXTERNAL_TMFAPI_SERVICE_ORDER_URLS"= "/test/v1/serviceorder" (this is optional)
 		
 		
