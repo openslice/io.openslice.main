@@ -1,6 +1,6 @@
 # TMF API
 
-
+- Default list Specs with less attributes
 - RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
@@ -13,6 +13,7 @@
 
 # OSOM
 
+- Actions on service order item and acknowledge order status will define the lifecycle
 - action shutdown on specific date for service order
 - action edit on service order item
 
