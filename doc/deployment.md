@@ -149,7 +149,20 @@ Go to compose directory and issue then:
 `sudo docker-compose down;sudo COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build`
 
 
-Note: depending on your machine, this process might take time. You can monitor containers status with portainer at port 9000 (http://localhost:9000)
+Note: depending on your machine, this process might take time. 
+
+
+
+## Validating deployments and container monitoring
+
+You can monitor containers status with portainer at port 9000 (http://your-ip:9000)
+
+At first time at portainer use to monitor the Local machine.
+
+Please check that all containers are in running state.
+
+
+#Post installation steps 
 
 
 ## Configure Keycloak server

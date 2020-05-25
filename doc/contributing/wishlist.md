@@ -1,6 +1,5 @@
 # TMF API
 
-- Default list Specs with less attributes
 - RBAC of API endpoints
 - TMF Ticketing API support
 - TMF Product
