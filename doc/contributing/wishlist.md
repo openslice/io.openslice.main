@@ -6,9 +6,12 @@
 - HATEOAS integration
 - Select Specs that can be exposed to partners (maybe with a characteristic?)
 
+## resource management
+
+- Resource Activation and Configuration API TMF702 (NEW) (https://projects.tmforum.org/wiki/pages/viewpage.action?pageId=128855518)
+
 # TMF WEB
 
-- delete service order
 
 # OSOM
 

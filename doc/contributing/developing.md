@@ -1,7 +1,7 @@
 
 # Developing
 
-Openslice backend services are maily implemented with Java 11 or above and Spring boot.
+Openslice backend services are mainly implemented with Java 11 or above and Spring boot.
 
 Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them though in the code, e.g. at application.yml file)
 
@@ -11,6 +11,9 @@ wget https://raw.githubusercontent.com/openslice/io.openslice.main/develop/compo
 sudo ./deploy-develop.sh
 ```
 
+## Slack
+
+* Slack: https://openslice.slack.com
 
 ## General subsystems
 

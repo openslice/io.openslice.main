@@ -99,6 +99,7 @@ Get source code here: <https://github.com/openslice>
 ## Social Media
 
 * Twitter: <https://twitter.com/OpensliceOSS>
+* Slack: https://openslice.slack.com
 
 ## History
 
