@@ -185,6 +185,8 @@ user admin and your KEYCLOAK_PASSWORD
 Select the master realm from top left corner, go to login Tab and select "Require SSL": None
 Do the same for realm Openslice
 
+NOTE: If you run in https the leave Require SSL to external requests
+
 
 ### Configure redirects
 
