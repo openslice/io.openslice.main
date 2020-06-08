@@ -169,7 +169,7 @@ Please check that all containers are in running state.
 
 Keycloack server is managing authentications and running on your host at port 28080 and proxied form nginx under http://localhost/auth.
 
-Go to http://ipaddress:28080/auth/ or https://ipaddress:28443/auth/ 
+Go to http://domain.com/auth/ or https://domain.com/auth/ , (http://ipaddress:28080/auth/ or https://ipaddress:28443/auth/ are direct with no proxy) 
 
 and go to Administration Console 
 
@@ -199,6 +199,12 @@ Keycloak also allows new users to register  On Tab Login-> check for example Use
 Also, enter the details on Realm->Email->Enable Authentication
 
 
+
+## Note about admin accounts
+
+Please don't confuse the Keycloak administrator account with the admin account of Openslice service
+
+In real Openslice under Users, please check that a user admin is created and in Role Mappings check assigned Roles ADMIN and MENTOR
 
 ##Landing page
 
