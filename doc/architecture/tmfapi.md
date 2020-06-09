@@ -6,18 +6,7 @@ PLease check the complete spec in http://portal.openslice.io/tmf-api/swagger-ui.
 
 ##OAuth token
 
-Get first an oauth token, using your username and password. (Use Authorization: Basic b3NhcGlXZWJDbGllbnRJZE91dDpzZWNyZXQ=  as it is in the example)
-
-```
-curl -H "Authorization: Basic b3NhcGlXZWJDbGllbnRJZE91dDpzZWNyZXQ="  http://portal.openslice.io/osapi-oauth-server/oauth/token  -d grant_type=password -d username=admin -d password=changeme
-```
-response:
-
-```
-{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIm9wZW5hcGkiLCJhZG1pbiIsInJlYWQiLCJ3cml0ZSJdLCJvcmdhbml6YXRpb24iOiJteW9yZ2FuaXp0aW9uIiwiZXhwIjoxNTc4NTA1MDcyLCJhdXRob3JpdGllcyI6WyJST0xFX01FTlRPUiIsIlJPTEVfQURNSU4iXSwianRpIjoiMTFlNGYxYTUtZDY0Ny00YzA1LWE0ZGMtYWFhYzUyMjk4YzMwIiwiY2xpZW50X2lkIjoib3NhcGlXZWJDbGllbnRJZE91dCJ9.gm7cKdusDrdMRkxEiFU5sENKGRC1xwVj2SgPRmE9xxx" ,"token_type":"bearer","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbIm9wZW5hcGkiLCJhZG1pbiIsInJlYWQiLCJ3cml0ZSJdLCJvcmdhbml6YXRpb24iOiJteW9yZ2FuaXp0aW9uIiwiYXRpIjoiNzNkZmIxODEtNTMwOS00MmExLThkOWUtOGM3YmQ0YTE1YmU0IiwiZXhwIjoxNTc0NTEyNjU2LCJhdXRob3JpdGllcyI6WyJST0xFX01FTlRPUiIsIlJPTEVfQURNSU4iXSwianRpIjoiN2VkM2E0M2QtZTg1ZS00MmNiLTk0NmMtMzI3NmQ5Mzc4YzJhIiwiY2xpZW50X2lkIjoib3NhcGlXZWJDbGllbnRJZE91dCJ9.xklL0vgWtinfTCTV1Do2rLBKUNuceEdgljpueXvoaRI","expires_in":3599,"scope":"openapi admin read write","organization":"myorganiztion","jti":"73dfb181-5309-42a1-8d9e-8c7bd4a15be4"}
-```
-
-The `access_token` will be used next as a Bearer.
+See [oauth](./oauth.md)
 
 ## request a protected API resource
 
