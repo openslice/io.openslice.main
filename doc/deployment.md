@@ -83,6 +83,9 @@ Validation:Use to track validation processes of VNFs and NSDs
 VPN Credentials/Access:Used for requesting VPN Credentials/Access   
 
 
+Also in the 'Main Site Operations' product please create a version named 'unspecified'
+
+
 ###5.osscapi container (TMF-API service)
 
 Edit the following if you changed mysql and keycloak credentials
