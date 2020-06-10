@@ -37,7 +37,9 @@ An organization must have the following characteristics in openslice catalog, li
 
 "EXTERNAL_TMFAPI_PASSWORD", "openslice"
 
-"EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" = "/tmf-api/serviceCatalogManagement/v4/serviceSpecification?type=CustomerFacingServiceSpecification" (this is optional, fetch a list of service specs it will be relative with the BASEURL)
+"EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" = "/tmf-api/serviceCatalogManagement/v4/serviceSpecification?type=CustomerFacingServiceSpecification" (this is optional, fetch a list of service specs it will be relative with the BASEURL. If the url is empty then no specs will be fetched, the EXTERNAL_TMFAPI_SERVICE_CATEGORY_URLS might be used)
+
+"EXTERNAL_TMFAPI_SERVICE_CATEGORY_URLS" = "/tmf-api/serviceCatalogManagement/v4/serviceCategory/{categoryid}" (this example will fetch all specs in a category. You may define comma separated URLs of categories API URL . This will  fetch  specifications of every defined category. If you want only one specific category put for example the uuid only of one category: "/tmf-api/serviceCatalogManagement/v4/serviceCategory/bda02821-bc4d-4bd6-b64b-d9c2aa5f8e6d". multiple urls should be "/tmf-api/serviceCatalogManagement/v4/serviceCategory/bda02821-bc4d-4bd6-b64b-d9c2aa5f8e6d,/tmf-api/serviceCatalogManagement/v4/serviceCategory/9b6d8bf3-abd2-43c4-8154-c8c6fe5545b2")
 
 "EXTERNAL_TMFAPI_SERVICE_SPEC" = "/tmf-api/serviceCatalogManagement/v4/serviceSpecification"
 
