@@ -55,6 +55,7 @@ nav:
       - Deployment: deployment.md
       - Catalogs: catalogs.md
       - NFV Orchestrator Configuration: nfvoconfig.md
+      - Consuming Services From External OSS: ./architecture/consumingServicesFromExternalPartners.md
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
