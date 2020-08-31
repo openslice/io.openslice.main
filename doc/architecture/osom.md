@@ -45,20 +45,22 @@ We expect here to check which tasks can be orchestrated by NFVO and which by hum
 2. The Services(TMF638 model) are assigned to the Order O1 In supportService List
 3. Each OrderItem OI1 is related to one serviceSpecification
 4. Each ServiceSpecification has also related serviceSpecRelationships
-5. So if we receive an order O1 for a ServiceSpec A which relates to 3 specs(2 CFS, 1 RFS) we do the following:
+5. So if we receive an order O1 for a ServiceSpec A which relates to (a bundle of) 3 specs(2 CFS, 1 RFS) we do the following:
 	1. Create a Service S_A(TMF638 model) for ServiceSpec A for Order O1
 	2. We create also 3 Services S_C1, S_C2 and S_R1 equivalent to the serviceSpecRelationships (2 CFS, 1 RFS) 
-	3. At this point the order will have 3 supportingServices  refs(S_A, S_C1, S_C2) and 1 supportingResource(S_R1)
+	3. At this point the order will have 1 Local Service Orchestration Process(S_A),  2 supportingServices  refs(S_C1, S_C2) and 1 supportingResource(S_R1)
 	4. The 3 supportingServices and 1 supportingResource correspond to total 4 Services in ServiceInventory
 	5. Service S_A will have: 
-		1. startMode 5: Any of Manually or Automatically by the managed environment
-		2. State: RESERVED
+		1. startMode 1: Automatically by the managed environment
+		2. State: RESERVED and the Lifecycle will be handled by OSOM
 	6. Services S_C1 and S_C2 we decide that cannot be orchestrated then they have 
 		1. startMode: 3: Manually by the Provider of the Service
-		2. State: RESERVED
+		2. State: RESERVED and the Lifecycle will be handled by OSOM
+		3. If the CFS is a bundle spec it is further recursively orchestrated 
 	7. Service S_R1 will have 
 		1. startMode 1: Automatically by the managed environment.
 		2. State: RESERVED
+		3. IF The Service has the characteristic CharacteristicByName( "NSDID") it will be further processed by the NFVO 
    
    
 There will be two instances of task "User Task Manual Complete Service" each for Services S_C1 and S_C2. The task is Transient for now. It displays only the services that are not automated! 
@@ -78,8 +80,8 @@ There will be an instance of  NFVODeploymentRequest process  each for Service S_
 
 All services in "Order Complete" are in a status:
 
-1. Depending on the result the service S_A is either ACTIVE or TERMINATED
-2. The Status of ORDER O1 is also updated to COMPLETED or FAILED
+1. Depending on the result the service S_A is either ACTIVE or INACTIVE or TERMINATED
+2. The Status of ORDER O1 is also updated to COMPLETED  or PARTIAL (in case we have some services running) or FAILED (in cases we have errors)
 
   
 A Service follows the states as defined in TMF638 Service Inventory specification: 
@@ -105,4 +107,31 @@ Every 1 minute the "Check In Progress Orders" process is executed checking if a 
 
 [![Check In Progress BPM](../images/check_inProgress_orders.png)](../images/check_inProgress_orders.png)
   
+  
+## External Service Provider Deployment Request process
+  
+[![External Service Provider Deployment Request process BPM](../images/externalSPDeploymentReq.png)](../images/externalSPDeploymentReq.png)
+
+This process contains tasks for submitting order requests to external partners.
+- Submit Order To External Service Provider Task: This task creates automatically a Service Order request to a 3rd party provider SO that hosts the Service Specification
+- Check external service order fulfillment task: This task Check external partner for Service creations and updates our local inventory of services the service characteristics of remote Service Inventory
+
+
+## Fetch Partner Services Process
+
+
+[![Fetch Partner Services Process BPM](../images/fetchPartnerServices.png)](../images/fetchPartnerServices.png)
+
+Every 2 minutes the "fetchPartnerServicesProcess" process is executed checking remote Partner Organizations for changes in the published catalogues.
+The Fetch and Update External Partner Services Task is executed in paralle l for each Partner Organization 
+
+
+## Local Service Orchestration Process
+
+
+[![Local Service Orchestration Process BPM](../images/LocalServiceOrchestrationProcess.png)](../images/LocalServiceOrchestrationProcess.png)
+
+This process handles automatically services that need to be further orchestrated or processed by OSOM. For example, for a CFS Bundled service we create such automated service instances that just aggregate the underlying services. 
+
+ 
   
