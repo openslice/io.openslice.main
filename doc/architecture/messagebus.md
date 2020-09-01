@@ -131,6 +131,43 @@ It is based on ActiveMQ.
 
 | Message |    |
 | ------------- |----------------|
+|**Alias** |  CATALOG_SERVICE_QUEUE_ITEMS_GET  |
+|**Name** |  jms:queue:CATALOG.SERVICEQUEUEITEMS.GET  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |   |
+|**Description** |   returns a LIST OF Service Queue Items |
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_SERVICE_QUEUE_ITEM_UPD  |
+|**Name** |  jms:queue:CATALOG.SERVICEQUEUEITEM.UPDATE  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** | String SERVICEQUEUEITEM |
+|**Headers** | "itemid" = SERVICEQUEUEITEM id |
+|**Description** |  ill update a service queue item by id and return the instance |
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_SERVICE_QUEUE_ITEM_DELETE  |
+|**Name** |  jms:queue:CATALOG.SERVICEQUEUEITEM.DELETE  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  |
+|**Headers** | "itemid" = SERVICEQUEUEITEM id |
+|**Description** |  ill delete a service queue item by id  |
+
+
+---
+
+| Message |    |
+| ------------- |----------------|
 |**Alias** |  NFV_CATALOG_GET_NSD_BY_ID  |
 |**Name** |  jms:queue:NFVCATALOG.GET.NSD_BY_ID  |
 |**Type** | queue  |
