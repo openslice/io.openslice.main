@@ -111,8 +111,8 @@ It is based on ActiveMQ.
 |**Destination** |   TMF API service |
 |**Producers** | |
 |**Body** |  ServiceUpdate |
-|**Headers** | "serviceid" = serviceId |
-|**Description** |  will update a service by id and return the service instance |
+|**Headers** | "serviceid" = serviceId, "propagateToSO" = true/false |
+|**Description** |  will update a service by id and return the service instance. If propagateToSO=true then any service change will be handled by OSOM. This is needed to be controlled in order to avoid update loops|
 
 ---
 
@@ -190,6 +190,21 @@ It is based on ActiveMQ.
 |**Description** |   Returns a DeploymentDescriptor object as json string containing deployment info|
 
 ---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_UPD_DEPLOYMENT_BY_ID  |
+|**Name** |  jms:queue:NFVCATALOG.UPD.DEPLOYMENT_BY_ID  |
+|**Type** | queue  |
+|**Destination** |   NFV Catalog service |
+|**Producers** | OSOM |
+|**Body** |  DeploymentDescriptor as Json String |
+|**Headers** |  DeploymentDescriptor id |
+|**Description** |   Updates and Returns a DeploymentDescriptor object as json string containing deployment info|
+
+---
+
+
 
 | Message |    |
 | ------------- |----------------|

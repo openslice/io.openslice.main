@@ -1,6 +1,6 @@
 ## NFV Orchestrator configuration
 
-NOTE: Currently we support Open Source MANO version SEVEN
+NOTE: Currently we support Open Source MANO version SEVEN/EIGHT
 
 Configuration of your target(s) NFVOs/MANO services with Openslice is performed through the NFV portal.
 

@@ -1,12 +1,37 @@
 # Catalogs and Templates
 
-The Openslice Service Catalogue (accessible through the API or web portal) contains the representation of Service Specifications, either created from the provider defining service attributes, or by supporting the GSMA Generic Slice Templates (GST) as well as the VINNI Service Blueprint. The following scenarios are supported by the Openslice Service Catalogue.
+The Openslice Service Catalogue (accessible through the API or Services portal) contains the representation of Service Specifications, either created from the provider defining service attributes, or by supporting the GSMA Generic Slice Templates (GST) as well as the VINNI Service Blueprint. The following scenarios are supported by the Openslice Service Catalogue.
 
 
-## Create a Service Specification
+## Create/Design a Service Specification
+
+### First Import some Resources as Resource Facing Services (RFSs)
+
+If you have any NSDs as NFV artifacts, import them through the UI menu (Import from NSD list). Then an NSD is imported as a resource and an RFS automatically is created. RFSs then later are used to design a Customer Facing Service Specification
+ 
+### Create/Design a Customer Facing Service Specification
+
+Customer Facing Service Specification are the services offered to custemers.
+You can create a new Service Specification from the menu. The services created through the UI are Customer Facing Services (CFS). Usually you create a CFS as a bundle and then you include Service Specification Relationships with RFSs.
+
+Any Service Specification Characteristics from the RFS are copied to the CFS specification. on CFS can include multiple RFS.
+For example you can create a CFS spec called "A 5G Service" which is a bundle of two other services (include them in Service Specification Relationships) such as 5G eMBB Slice and a Customer VPN. So when the user orders  "A 5G Service"  services from 5G eMBB Slice and a Customer VPN will be created during the order.
 
 
-## Generic Slice Templates (GST)
+### Day 2 Primitive Actions
+
+NFVOs like OSM allow to perform actions while a service is running, for example change attributes or make actions on a specific VNF. To design this do the following:
+* Go to the RFS related to the NSD that contains VNFs with primitives
+* create a characteristic named Primitive::<primitive> , e.g. Primitive::touch
+* select Value Type: ARRAY
+* add Service Characteristic Value: i) alias=primitive, value=<primitivename> (e.g. touch), ii)  alias=member_vnf_index, value=<vnf index> (e.g. 1), iii) add the params that the user will change in alias the name of param and in value an initial value (e.g. alias=filename, value=myfile.txt)
+
+In the above example, when the service is running and the user goes to service inventory to MODIFY it, changes the value of the alias=filename, value=myfile.txt, to value =secondfile.txt. Then inside the VNF a file will be created called secondfile.txt
+
+
+
+### Generic Slice Templates (GST) 
+(Offered only as a design for now. THere is no direct implementation to NFV)
 On October 16th 2019 GSMA published NG.116  Version 2.0 which defines the Generic Network Slice Template (GST). GST is a set of attributes that can characterise a type of network slice/service. GST is generic and is not tied to any specific network deployment. Here is a list of the various attributes of the template:
 
 -	Availability
@@ -51,8 +76,8 @@ Openslice offers the GST in a format that is machine readable and aligned with t
 Providers can clone a GST as e NEST directly in Openslice Web portal and the adjust the default attributes to their Service Specification
 
 
-## 5G-VINNI Service Blueprint
-
+### 5G-VINNI Service Blueprint
+(Offered only as a design for now. THere is no direct implementation to NFV)
 5G-VINNI Service Blueprint is a special Service Specification defined by teh 5G-VINNI project. Many details can be found in document <https://zenodo.org/record/3345612>
 
 5G-VINNI Service Blueprint is a reusable self-contained specification of required network slice service (instances). As described in GST mapping VINNI-SB is also machine readable. 
@@ -82,15 +107,25 @@ The 5G-VINNI SB as a first prototype approach is conceived as a CFS of a ‘bund
 
 ## Manage a Service Specification
 
+You can manage them though the Web UI
 
-## Publish a Service Specification
+## Adding Service Actions (aka Day 2 config)
+
+In some cases, if the underlying service is configured, there are 
+
+
+## Assign a Service Specification to Service Categories and Publish 
+
+Just create categories and from the menu select the category and add services
 
 
 ## Retire/Remove a Service Specification
 
+Delete it from the category
 
-## Assign a Service Specification to Service Categories
 
+## Consume and expose Service Specifications from other Service Catalogues 
 
-## (TBD) Consume and expose Service Specifications from other Service Catalogues 
+See more on [Consuming Services From External Partner Organizations](./architecture/consumingServicesFromExternalPartners.md)
+
 

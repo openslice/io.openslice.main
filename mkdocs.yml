@@ -53,9 +53,11 @@ nav:
       - Introduction: index.md
   - Getting Started:
       - Deployment: deployment.md
-      - Catalogs: catalogs.md
       - NFV Orchestrator Configuration: nfvoconfig.md
+      - Service Catalogs: catalogs.md
+      - NFV Catalogs: nfvcatalogs.md
       - Consuming Services From External OSS: ./architecture/consumingServicesFromExternalPartners.md
+      - Service Inventory: service_inventory.md
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
