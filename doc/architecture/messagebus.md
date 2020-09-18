@@ -163,6 +163,20 @@ It is based on ActiveMQ.
 |**Headers** | "itemid" = SERVICEQUEUEITEM id |
 |**Description** |  ill delete a service queue item by id  |
 
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_SERVICES_TO_TERMINATE  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICETOTERMINATE  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  |
+|**Headers** |  |
+|**Description** | Get a list of ACTIVE services with END DAte in the past  |
+
+
 
 ---
 
