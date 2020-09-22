@@ -11,20 +11,21 @@ If you have any NSDs as NFV artifacts, import them through the UI menu (Import f
  
 ### Create/Design a Customer Facing Service Specification
 
-Customer Facing Service Specification are the services offered to custemers.
-You can create a new Service Specification from the menu. The services created through the UI are Customer Facing Services (CFS). Usually you create a CFS as a bundle and then you include Service Specification Relationships with RFSs.
+Customer Facing Service Specification are the services offered to customers. 
+You can create a new Service Specification from the menu. The services created through the UI are Customer Facing Services (CFS). Usually you create a CFS as a bundle and then you include Service Specification Relationships with RFSs or/and CFSs.
 
-Any Service Specification Characteristics from the RFS are copied to the CFS specification. on CFS can include multiple RFS.
+Any Service Specification Characteristics from the RFS are copied to the CFS specification. A CFS can include multiple RFS or/and CFSs.
 For example you can create a CFS spec called "A 5G Service" which is a bundle of two other services (include them in Service Specification Relationships) such as 5G eMBB Slice and a Customer VPN. So when the user orders  "A 5G Service"  services from 5G eMBB Slice and a Customer VPN will be created during the order.
 
 
 ### Day 2 Primitive Actions
 
-NFVOs like OSM allow to perform actions while a service is running, for example change attributes or make actions on a specific VNF. To design this do the following:
-* Go to the RFS related to the NSD that contains VNFs with primitives
-* create a characteristic named Primitive::<primitive> , e.g. Primitive::touch
-* select Value Type: ARRAY
-* add Service Characteristic Value: i) alias=primitive, value=<primitivename> (e.g. touch), ii)  alias=member_vnf_index, value=<vnf index> (e.g. 1), iii) add the params that the user will change in alias the name of param and in value an initial value (e.g. alias=filename, value=myfile.txt)
+NFVOs like OSM allow to perform actions while a service is running, for example change attributes or make actions on a specific VNF. To design this do something similar to the following example:
+
+-	Go to the RFS related to the NSD that contains VNFs with primitives
+-	create a characteristic named Primitive::<primitive> , e.g. Primitive::touch
+-	select Value Type: ARRAY
+-	add Service Characteristic Value: i) alias=primitive, value=<primitivename> (e.g. touch), ii)  alias=member_vnf_index, value=<vnf index> (e.g. 1), iii) add the params that the user will change in alias the name of param and in value an initial value (e.g. alias=filename, value=myfile.txt)
 
 In the above example, when the service is running and the user goes to service inventory to MODIFY it, changes the value of the alias=filename, value=myfile.txt, to value =secondfile.txt. Then inside the VNF a file will be created called secondfile.txt
 
@@ -108,10 +109,6 @@ The 5G-VINNI SB as a first prototype approach is conceived as a CFS of a ‘bund
 ## Manage a Service Specification
 
 You can manage them though the Web UI
-
-## Adding Service Actions (aka Day 2 config)
-
-In some cases, if the underlying service is configured, there are 
 
 
 ## Assign a Service Specification to Service Categories and Publish 

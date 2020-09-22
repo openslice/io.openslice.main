@@ -26,7 +26,7 @@ There are two portals offering UI friendly access to users:
 
 Service Specifications reside into Service Catalogs, grouped in Categories. Openslice offers a Service Orchestrator called [OSOM](./architecture/osom.md). OSOM instantiates Service Specifications by requesting Network Services from target MANOs/NFVOs. NFV artifacts reside into a VNF/NSD catalog and are onboarded to a target MANO/NFV Orchestrator. Service Specifications reference NSD from the VNF/NSD catalog. 
 
-Customers make Service Orders and Openslice instantiates the requested Service Specifications of the Service Order. Running Services instantiated by Openslice, reside in Openslice Service Inventory. The following picture displays how Service Specifications are related to Running Services and how Running Services relate with instantiated running Network Services
+Customers make Service Orders and Openslice instantiates the requested Service Specifications of the Service Order. Running Services instantiated by Openslice, reside in Openslice Service Inventory. The following picture displays how Service Specifications are related to Running Services and how Running Services relate with instantiated running Network Services. (See also [Service Inventory](./service_inventory.md) )
 
 [![Openslice  Service Specification instantiation](./images/service_specification_instantiation.png)](./images/service_specification_instantiation.png)
 
