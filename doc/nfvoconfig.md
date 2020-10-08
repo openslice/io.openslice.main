@@ -6,7 +6,7 @@ Configuration of your target(s) NFVOs/MANO services with Openslice is performed 
 
 Login to http://yourdomain/nfvportal/
 
-Go to Admin->Manage MANO Platforms and enter the supported MANO platform Name=OSMvSEVEN, Version=OSMvSEVEN and save
+Go to Admin->Manage MANO Platforms and enter the supported MANO platform Name=OSMvEIGHT, Version=OSMvEIGHT and save
 
 Go to Admin->Manage MANO providers and enter a New MANO Provider:
 

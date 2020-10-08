@@ -1,6 +1,7 @@
 ## Service Inventory
 
 After a Service Order completion, active services with their additional characteristics are found:
+
 * From the Order Items of a selected Service order
 * from the menu of Service inventory and then selecting details of each service
 * through the Service Inventory API (TMF 638 - Service Inventory Management ) 
