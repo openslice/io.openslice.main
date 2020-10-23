@@ -21,6 +21,7 @@ updaterepo(){
 
 updaterepo io.openslice.main
 updaterepo io.openslice.sol005nbi.osm
+updaterepo io.openslice.sol005nbi.osm5
 updaterepo io.openslice.sol005nbi.osm7
 updaterepo io.openslice.sol005nbi.osm8
 updaterepo io.openslice.sol005nbi.etsi
