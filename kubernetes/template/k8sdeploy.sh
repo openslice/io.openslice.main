@@ -14,7 +14,7 @@ kubectl apply -f mysql-portal-service.yaml
 kubectl apply -f mysql-portal-deployment.yaml
 
 #kubectl apply -f keycloak-realm-config.yaml
-kubectl create configmap keycloak-realm-config --from-file=realm-export.json
+kubectl create configmap keycloak-realm-config --from-file=realm-export.json --namespace=openslice
 kubectl apply -f keycloak-service.yaml
 kubectl apply -f keycloak-deployment.yaml
 

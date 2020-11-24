@@ -17,6 +17,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: openslice
   creationTimestamp: null
   labels:
     io.openslice.service: osportalapi-claim0
