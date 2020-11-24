@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1 
 metadata:
   name: tmfweb-config
-  namespace: default
+  namespace: openslice
 data:
   config.prod.json: |+
     {

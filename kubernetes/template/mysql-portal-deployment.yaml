@@ -53,6 +53,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  namespace: openslice
   name: mysql-initdb-config
 data:
   01-databases.sql: |
