@@ -1,0 +1,44 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: portalweb
+  name: portalweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: portalweb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/back: "true"
+        io.kompose.network/front: "true"
+        io.kompose.service: portalweb
+    spec:
+      containers:
+        - name: openslice-portalweb
+          image: openslice/io.openslice.portal.web:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: "portalweb-configuration"
+            mountPath: /usr/share/nginx/html/nfvportal/js/config.js
+            subPath: config.js
+      volumes:
+        - name: "portalweb-configuration"
+          configMap:
+            name: portalweb-config
+            defaultMode: 420
+      restartPolicy: Always
+status: {}

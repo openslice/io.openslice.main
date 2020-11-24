@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: portalweb-config
+data:
+  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"http://10.10.10.35\",\n\t\tBUGZILLA: \"https://10.10.10.35/bugzilla/\",\n\t\tSTATUS: \"http://status.10.10.10.35/\",\n\t\tAPIURL: \"http://10.10.10.35\",\n\t\tWEBURL: \"http://10.10.10.35/nfvportal\",\n\t\tAPIOAUTHURL: \"http://10.10.10.35/auth/realms/openslice\",\n\t\tAPITMFURL: \"http://10.10.10.35/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
+

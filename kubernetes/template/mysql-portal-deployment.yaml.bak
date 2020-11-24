@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql-portal
+  name: mysql-portal
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: mysql-portal
+  serviceName: mysql-portal
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/back: "true"
+        io.kompose.service: mysql-portal
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_HOST
+              value: '%'
+            - name: MYSQL_ROOT_PASSWORD
+              value: letmein
+          image: mysql:5.7
+          name: mysql-portal
+          ports:
+            - containerPort: 3306
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-portal-claim0
+            - mountPath: /docker-entrypoint-initdb.d
+              name: mysql-initdb
+      restartPolicy: Always
+      volumes:
+        - name: mysql-portal-claim0
+          persistentVolumeClaim:
+            claimName: mysql-portal-claim0
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  01-databases.sql: |
+    # create databases
+    CREATE DATABASE IF NOT EXISTS `osdb`;
+    CREATE DATABASE IF NOT EXISTS `keycloak`;
+    
+    # create root user and grant rights
+    CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '12345';
+    GRANT ALL PRIVILEGES ON *.* TO 'portaluser'@'%' IDENTIFIED BY '12345';
+    
+    # create root user and grant rights
+    CREATE USER 'keycloak'@'localhost' IDENTIFIED BY 'password';
+    GRANT ALL PRIVILEGES ON *.* TO 'keycloak'@'%' IDENTIFIED BY 'password';
+

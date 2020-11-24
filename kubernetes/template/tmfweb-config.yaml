@@ -1,0 +1,33 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: tmfweb-config
+  namespace: default
+data:
+  config.prod.json: |+
+    {
+        "TITLE": "Openslice K8S demo",
+        "PORTALVERSION":"1.0.2-SNAPSHOT",
+        "WIKI": "http://localhost",
+        "BUGZILLA": "https://localhost/bugzilla/",
+        "STATUS": "http://status.localhost/",
+       "WEBURL": "http://10.10.10.35",
+        "APIURL": "http://10.10.10.35/osapi/",
+        "APITMFURL": "http://10.10.10.35/tmf-api",
+        "OAUTH_CONFIG" : {
+            "issuer": "http://10.10.10.35/auth/realms/openslice/protocol/openid-connect/auth",
+            "loginUrl": "http://10.10.10.35/auth/realms/openslice/protocol/openid-connect/auth",
+            "tokenEndpoint": "http://10.10.10.35/auth/realms/openslice/protocol/openid-connect/token",
+            "redirectUri": "http://10.10.10.35/services/services_marketplace",
+            "logoutUrl": "http://10.10.10.35/auth/realms/openslice/protocol/openid-connect/logout",
+            "postLogoutRedirectUri": "http://10.10.10.35/services/services_marketplace",
+            "responseType": "code",
+            "oidc": false,
+            "clientId": "osapiWebClientId",
+            "dummyClientSecret": "secret",
+            "requireHttps": false,
+            "useHttpBasicAuth": true,
+            "clearHashAfterLogin": false,
+            "showDebugInformation": true
+        }
+    }

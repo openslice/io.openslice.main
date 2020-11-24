@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: centrallog
+  name: centrallog
+spec:
+  ports:
+    - name: "13013"
+      port: 13013
+  selector:
+    io.kompose.service: centrallog
+status:
+  loadBalancer: {}

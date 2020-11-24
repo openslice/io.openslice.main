@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"  
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/services"
+        backend:    
+          service:
+            name: tmfweb
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/tmfapi"
+        backend:
+          service:
+            name: osscapi
+            port:
+              number: 13082
+

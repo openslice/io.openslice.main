@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: PersistentVolumeClaim
+metadata:
+   name: mysql-storage-example # MARK Z
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 1Gi
