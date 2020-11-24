@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: manoclient
+    io.openslice.service: manoclient
   name: manoclient
 spec:
   ports:
@@ -14,6 +15,6 @@ spec:
       port: 13011
       targetPort: 13011
   selector:
-    io.kompose.service: manoclient
+    io.openslice.service: manoclient
 status:
   loadBalancer: {}

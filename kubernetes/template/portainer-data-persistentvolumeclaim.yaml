@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: openslice
   creationTimestamp: null
   labels:
-    io.kompose.service: portainer-data
+    io.openslice.service: portainer-data
   name: portainer-data
 spec:
   accessModes:

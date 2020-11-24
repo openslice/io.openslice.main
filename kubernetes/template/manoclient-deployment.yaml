@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: manoclient
+    io.openslice.service: manoclient
   name: manoclient
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: manoclient
+      io.openslice.service: manoclient
   strategy: {}
   template:
     metadata:
@@ -22,7 +23,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
-        io.kompose.service: manoclient
+        io.openslice.service: manoclient
     spec:
       containers:
         - env:

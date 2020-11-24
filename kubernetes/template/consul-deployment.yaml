@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: consul
+    io.openslice.service: consul
   name: consul
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: consul
+      io.openslice.service: consul
   strategy: {}
   template:
     metadata:
@@ -23,7 +24,7 @@ spec:
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
-        io.kompose.service: consul
+        io.openslice.service: consul
     spec:
       containers:
         - image: consul

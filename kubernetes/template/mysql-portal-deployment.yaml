@@ -1,17 +1,18 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: mysql-portal
+    io.openslice.service: mysql-portal
   name: mysql-portal
 spec:
   selector:
     matchLabels:
-      io.kompose.service: mysql-portal
+      io.openslice.service: mysql-portal
   serviceName: mysql-portal
   replicas: 1
   template:
@@ -22,7 +23,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
-        io.kompose.service: mysql-portal
+        io.openslice.service: mysql-portal
     spec:
       containers:
         - env:

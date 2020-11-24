@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  namespace: openslice
   name: osscapi-pv-volume
   labels:
     type: local
@@ -18,7 +19,7 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: osscapi-claim0
+    io.openslice.service: osscapi-claim0
   name: osscapi-claim0
 spec:
   storageClassName: osscapi-pv-manual

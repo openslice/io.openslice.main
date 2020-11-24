@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: osportalapi
+    io.openslice.service: osportalapi
   name: osportalapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: osportalapi
+      io.openslice.service: osportalapi
   strategy:
     type: Recreate
   template:
@@ -24,7 +25,7 @@ spec:
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
-        io.kompose.service: osportalapi
+        io.openslice.service: osportalapi
     spec:
       containers:
         - env:

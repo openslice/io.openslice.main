@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  namespace: openslice
   name: osom-pv-volume
   labels:
     type: local
@@ -18,7 +19,7 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: osom-claim0
+    io.openslice.service: osom-claim0
   name: osom-claim0
 spec:
   storageClassName: osom-pv-manual

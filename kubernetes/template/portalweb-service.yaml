@@ -1,18 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: openslice
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: portalweb
+    io.openslice.service: portalweb
   name: portalweb
 spec:
   ports:
     - name: "portalwebport"
       port: 80
   selector:
-    io.kompose.service: portalweb
+    io.openslice.service: portalweb
 status:
   loadBalancer: {}
