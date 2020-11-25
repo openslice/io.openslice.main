@@ -31,16 +31,16 @@ spec:
             port:
               number: 8080
       - pathType: Prefix
-        path: "/nfvportal"
-        backend:
-          service:
-            name: portalweb
-            port:
-              number: 80
-      - pathType: Prefix
         path: "/osapi"
         backend:
           service:
             name: osportalapi
             port:
               number: 13000
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: portalweb
+            port:
+              number: 80
