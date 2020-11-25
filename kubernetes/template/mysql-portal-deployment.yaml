@@ -62,7 +62,7 @@ spec:
           readinessProbe:
             exec:
               # Check we can execute queries over TCP (skip-networking is off).
-              command: ["mysql", "-h", "127.0.0.1", "-p", "letmein", "-e", "SELECT 1"]
+              command: ["mysql", "-h", "127.0.0.1", "-u", "root",  "-p", "letmein", "-e", "SELECT 1"]
             initialDelaySeconds: 5
             periodSeconds: 2
             timeoutSeconds: 1

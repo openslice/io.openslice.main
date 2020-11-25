@@ -27,6 +27,13 @@ spec:
         io.kompose.network/front: "true"
         io.openslice.service: osportalapi
     spec:
+      initContainers:
+      - name: init-keycloak
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
+      - name: init-mysql-portal
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql-portal; do echo waiting for mysql-portal; sleep 2; done"]
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
