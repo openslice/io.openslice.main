@@ -27,6 +27,11 @@ spec:
         io.kompose.network/front: "true"
         io.openslice.service: keycloak
     spec:
+      initContainers:
+      - name: init-mysql-portal
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql-portal; do echo waiting for mysql-portal; sleep 2; done"]
+      
       containers:
         - env:
             - name: DB_ADDR
