@@ -39,6 +39,10 @@ spec:
           volumeMounts:
             - mountPath: /root
               name: osscapi-claim0
+          readinessProbe:
+            httpGet:
+              path: /tmf-api/serviceCatalogManagement/v4/serviceCatalog
+              port: 13082
       restartPolicy: Always
       volumes:
         - name: osscapi-claim0
