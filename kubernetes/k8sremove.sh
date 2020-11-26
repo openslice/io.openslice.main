@@ -41,7 +41,6 @@ kubectl delete -f centrallog-deployment.yaml
 kubectl delete -f bugzilla-client-service.yaml
 kubectl delete -f bugzilla-client-deployment.yaml
 
-kubectl delete -f test-ingress.yaml
 
 
 
@@ -50,4 +49,3 @@ kubectl delete -f osom-claim0-persistentvolumeclaim.yaml
 kubectl delete -f osportalapi-claim0-persistentvolumeclaim.yaml
 kubectl delete -f osscapi-claim0-persistentvolumeclaim.yaml
 
-kubectl delete namespace openslice

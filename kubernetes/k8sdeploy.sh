@@ -1,12 +1,11 @@
 #!/bin/bash
 
-cp template/* .
 
 display_usage() { 
 	echo -e "\nUsage:\k8sdeploy.sh ExposeAddress(IP or URL) \n" 
 	} 
 	
-if [  $# -le 1 ] 
+if [  $# -le 0 ] 
 then 
 	display_usage
 	exit 1
@@ -15,7 +14,10 @@ fi
 	
 # kubectl apply -f openslice-ingress.yaml
 
-grep 'INGRESSADDR' . | xargs -0 sed 's/INGRESSADDR/$1/g'
+
+cp -r template/ deployment
+
+grep -n 'INGRESSADDR' ./deployment/* | xargs -0 sed 's/INGRESSADDR/$1/g'
 
 kubectl create namespace openslice
 
