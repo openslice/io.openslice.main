@@ -178,7 +178,9 @@ The related scripts are inside the kubernetes folder. Follow these steps along t
 
 1) Create an openslice namespace
 
-`kubectl create namespace openslice`
+```
+kubectl create namespace openslice
+```
 
 2) Apply or create an ingress. Igress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic. You must have an Ingress controller to satisfy an Ingress.
@@ -188,13 +190,19 @@ You can also adapt it to connect to public cloud load balancers depending on you
 
 The following will expose an ingress resource from one of your a k8s nodes on port 80
 
-` kubectl apply -f openslice-ingress.yaml`
+```
+ kubectl apply -f openslice-ingress.yaml
+ ```
 
 
 Finding the ingress IP:
 
 
-`kubectl describe -f openslice-ingress.yaml
+```
+
+kubectl describe -f openslice-ingress.yaml
+
+
 Name:             openslice-ingress
 Namespace:        openslice
 Address:          10.10.10.35
@@ -213,18 +221,23 @@ Events:
   Type    Reason  Age                    From                      Message
   ----    ------  ----                   ----                      -------
   Normal  Sync    9m29s (x2 over 9m58s)  nginx-ingress-controller  Scheduled for sync
-`
+  
+```
 
 From the above example, our exposed ingress is at Address: 10.10.10.35
 
 3) We need to configure the expose address and deploy openslice (IP or URL e.g. http://myopenslice.xxx)
 
-`./k8sdeploy.sh 10.10.10.35`
+```
+./k8sdeploy.sh 10.10.10.35
+```
 
 
 4) Check the status of Openslice  in the cluster. Should be similar to the following:
 
-`kubectl get pods --namespace=openslice  -o wide
+```
+
+kubectl get pods --namespace=openslice  -o wide
 
 NAME                               READY   STATUS    RESTARTS   AGE    IP               NODE     NOMINATED NODE   READINESS GATES
 activemq-59d4bfdb4b-bvjqr          1/1     Running   0          109s   192.168.43.97    kc-2     <none>           <none>
@@ -272,7 +285,8 @@ osportalapi       ClusterIP   10.104.121.164   <none>        13000/TCP          
 osscapi           ClusterIP   10.108.6.161     <none>        13082/TCP            2m16s   io.openslice.service=osscapi
 portalweb         ClusterIP   10.97.126.98     <none>        80/TCP               2m15s   io.openslice.service=portalweb
 tmfweb            ClusterIP   10.98.56.82      <none>        80/TCP               2m15s   io.openslice.service=tmfweb
-`
+
+```
 
 
 #Post installation steps 
