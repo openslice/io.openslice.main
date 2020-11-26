@@ -1,3 +1,4 @@
+#!/bin/bash
 
 kubectl delete -f activemq-service.yaml
 kubectl delete -f activemq-deployment.yaml

@@ -772,23 +772,23 @@
     {
       "id": "40ec2a52-1033-4471-80a3-404167935e6f",
       "clientId": "osapiWebClientId",
-      "rootUrl": "http://localhost:13000",
-      "adminUrl": "http://localhost:13000",
+      "rootUrl": "http://INGRESSADDR",
+      "adminUrl": "http://INGRESSADDR",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://openslice.io/*",
-        "http://localhost:13000/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
+        "http://INGRESSADDR/*",
+        "http://INGRESSADDR/osapi/webjars/springfox-swagger-ui/oauth2-redirect.html",
         "http://localhost:13082/*",
         "http://localhost:13000/*",
         "http://localhost/*",
         "http://localhost:13000/osapi/testweb/oauthresp.html"
       ],
       "webOrigins": [
-        "http://localhost:13082",
+        "http://INGRESSADDR",
         "http://localhost",
         "http://openslice.io",
         "http://localhost:13000"

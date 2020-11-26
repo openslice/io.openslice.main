@@ -1,6 +1,24 @@
+#!/bin/bash
+
+cp template/* .
+
+display_usage() { 
+	echo -e "\nUsage:\k8sdeploy.sh ExposeAddress(IP or URL) \n" 
+	} 
+	
+if [  $# -le 1 ] 
+then 
+	display_usage
+	exit 1
+fi 
+	
+	
+# kubectl apply -f openslice-ingress.yaml
+
+grep 'INGRESSADDR' . | xargs -0 sed 's/INGRESSADDR/$1/g'
+
 kubectl create namespace openslice
 
-kubectl apply -f openslice-ingress.yaml
 
 kubectl apply -f mysql-portal-claim0-persistentvolumeclaim.yaml
 
