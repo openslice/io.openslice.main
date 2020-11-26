@@ -17,7 +17,7 @@ fi
 
 cp -r template/ deployment
 
-grep -n 'INGRESSADDR' ./deployment/* | xargs -0 sed 's/INGRESSADDR/$1/g'
+find ./deployment/ -type f  -print0 |  xargs -0 sed -i 's/INGRESSADDR/$1/g'
 
 kubectl create namespace openslice
 
