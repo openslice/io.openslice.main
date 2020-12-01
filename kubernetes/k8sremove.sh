@@ -1,51 +1,48 @@
 #!/bin/bash
 
-kubectl delete -f activemq-service.yaml
-kubectl delete -f activemq-deployment.yaml
+kubectl delete -f ./deployment/activemq-service.yaml
+kubectl delete -f ./deployment/activemq-deployment.yaml
 
 
-kubectl delete -f consul-service.yaml
-kubectl delete -f consul-deployment.yaml
+kubectl delete -f ./deployment/consul-service.yaml
+kubectl delete -f ./deployment/consul-deployment.yaml
 
-kubectl delete -f mysql-portal-service.yaml
-kubectl delete -f mysql-portal-deployment.yaml
+kubectl delete -f ./deployment/mysql-portal-service.yaml
+kubectl delete -f ./deployment/mysql-portal-deployment.yaml
 
 #kubectl delete -f keycloak-realm-config.yaml
 kubectl delete configmap keycloak-realm-config
-kubectl delete -f keycloak-service.yaml
-kubectl delete -f keycloak-deployment.yaml
+kubectl delete -f ./deployment/keycloak-service.yaml
+kubectl delete -f ./deployment/keycloak-deployment.yaml
 
-kubectl delete -f osom-service.yaml
-kubectl delete -f osom-deployment.yaml
+kubectl delete -f ./deployment/osom-service.yaml
+kubectl delete -f ./deployment/osom-deployment.yaml
 
-kubectl delete -f manoclient-service.yaml
-kubectl delete -f manoclient-deployment.yaml
+kubectl delete -f ./deployment/manoclient-service.yaml
+kubectl delete -f ./deployment/manoclient-deployment.yaml
 
-kubectl delete -f osportalapi-service.yaml
-kubectl delete -f osportalapi-deployment.yaml
+kubectl delete -f ./deployment/osportalapi-service.yaml
+kubectl delete -f ./deployment/osportalapi-deployment.yaml
 
-kubectl delete -f osscapi-service.yaml
-kubectl delete -f osscapi-deployment.yaml
+kubectl delete -f ./deployment/osscapi-service.yaml
+kubectl delete -f ./deployment/osscapi-deployment.yaml
 
-kubectl delete -f tmfweb-config.yaml
-kubectl delete -f tmfweb-service.yaml
-kubectl delete -f tmfweb-deployment.yaml
+kubectl delete -f ./deployment/tmfweb-config.yaml
+kubectl delete -f ./deployment/tmfweb-service.yaml
+kubectl delete -f ./deployment/tmfweb-deployment.yaml
 
-kubectl delete -f portalweb-config.yaml
-kubectl delete -f portalweb-service.yaml
-kubectl delete -f portalweb-deployment.yaml
+kubectl delete -f ./deployment/portalweb-config.yaml
+kubectl delete -f ./deployment/portalweb-service.yaml
+kubectl delete -f ./deployment/portalweb-deployment.yaml
 
-kubectl delete -f centrallog-service.yaml
-kubectl delete -f centrallog-deployment.yaml
+kubectl delete -f ./deployment//centrallog-service.yaml
+kubectl delete -f ./deployment/centrallog-deployment.yaml
 
-kubectl delete -f bugzilla-client-service.yaml
-kubectl delete -f bugzilla-client-deployment.yaml
+kubectl delete -f ./deployment/bugzilla-client-service.yaml
+kubectl delete -f ./deployment/bugzilla-client-deployment.yaml
 
-
-
-
-kubectl delete -f mysql-portal-claim0-persistentvolumeclaim.yaml
-kubectl delete -f osom-claim0-persistentvolumeclaim.yaml
-kubectl delete -f osportalapi-claim0-persistentvolumeclaim.yaml
-kubectl delete -f osscapi-claim0-persistentvolumeclaim.yaml
+kubectl delete -f ./deployment/mysql-portal-claim0-persistentvolumeclaim.yaml
+kubectl delete -f ./deployment/osom-claim0-persistentvolumeclaim.yaml
+kubectl delete -f ./deployment/osportalapi-claim0-persistentvolumeclaim.yaml
+kubectl delete -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
 
