@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.openslice.service: osscapi
+  name: osscapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: osscapi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/back: "true"
+        io.kompose.network/front: "true"
+        io.openslice.service: osscapi
+    spec:
+      initContainers:
+      - name: init-keycloak
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
+      - name: init-mysql-portal
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql-portal; do echo waiting for mysql-portal; sleep 2; done"]
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON
+              value: '{ "spring.datasource.url": "jdbc:mysql://mysql-portal/ostmfdb?createDatabaseIfNotExist=true&useSSL=false&requireSSL=false&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "spring.datasource.username":"root", "spring.datasource.password":"letmein", "keycloak-internal-auth-server-url": "http://keycloak:8080/auth", "keycloak-admin-password": "Pa55w0rd", "keycloak.auth-server-url": "http://keycloak:8080/auth", "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://osscapi:13082/osapi/actuator/health", "swagger.authserver" : "http://INGRESSADDR/auth/realms/openslice", "swagger.clientid" : "osapiWebClientId", "swagger.clientsecret" : "secret", "logging.level.org.springframework" : "INFO" }'
+          image: openslice/io.openslice.tmf.api:latest
+          name: openslice-scapi
+          ports:
+            - containerPort: 13082
+          resources: {}
+          volumeMounts:
+            - mountPath: /root
+              name: osscapi-claim0
+          readinessProbe:
+            httpGet:
+              path: /tmf-api/serviceCatalogManagement/v4/serviceCatalog
+              port: 13082
+      restartPolicy: Always
+      volumes:
+        - name: osscapi-claim0
+          persistentVolumeClaim:
+            claimName: osscapi-claim0
+status: {}

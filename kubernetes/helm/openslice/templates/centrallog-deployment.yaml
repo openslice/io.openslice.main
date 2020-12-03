@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.openslice.service: centrallog
+  name: centrallog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: centrallog
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/back: "true"
+        io.openslice.service: centrallog
+    spec:
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON
+              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog:13013/actuator/health", "centrallogurl":"http://elk_ip:elk_port/index_name/_doc" }'
+          image: openslice/io.openslice.centrallog.service
+          name: centrallog
+          ports:
+            - containerPort: 13013
+          resources: {}
+      restartPolicy: Always
+status: {}

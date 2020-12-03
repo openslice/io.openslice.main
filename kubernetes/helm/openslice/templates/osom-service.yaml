@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.openslice.service: osom
+  name: osom
+spec:
+  ports:
+    - name: "13100"
+      port: 13100
+      targetPort: 13100
+  selector:
+    io.openslice.service: osom
+status:
+  loadBalancer: {}

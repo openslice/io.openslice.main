@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.openslice.service: keycloak
+  name: keycloak
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+    - name: "8443"
+      port: 8443
+  selector:
+    io.openslice.service: keycloak
+status:
+  loadBalancer: {}

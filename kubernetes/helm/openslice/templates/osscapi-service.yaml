@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.openslice.service: osscapi
+  name: osscapi
+spec:
+  ports:
+    - name: "13082"
+      port: 13082
+      targetPort: 13082
+  selector:
+    io.openslice.service: osscapi
+status:
+  loadBalancer: {}

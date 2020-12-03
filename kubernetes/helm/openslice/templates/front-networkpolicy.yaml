@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: openslice
+  creationTimestamp: null
+  name: front
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/front: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/front: "true"
