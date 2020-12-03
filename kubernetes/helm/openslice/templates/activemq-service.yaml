@@ -4,8 +4,10 @@ metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-activemq
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-  name: {{ template "fullname" . }}
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ .Release.Name }}-activemq
 spec:
+  type: {{ .Values.service.type }}
   ports:
     - name: '8161'
       port: 8161

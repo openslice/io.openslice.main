@@ -3,21 +3,27 @@ kind: Deployment
 metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-activemq
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
   name: {{ .Release.Name }}-activemq
 spec:
-  replicas: 1
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      io.openslice.service: {{ .Release.Name }}-activemq
+      io.openslice.service: {{ .Release.Name }}-activemq      
   strategy:
     type: Recreate
   template:
     metadata:
+      annotations:
+        {{- toYaml . | nindent 8 }}
       labels:
         io.openslice.service: {{ .Release.Name }}-activemq
     spec:
       containers:
-        - image: webcenter/activemq:5.14.3
+          image: "{{ .Values.image.activemq.repository }}:{{ .Values.image.activemq.tag | default .Chart.AppVersion }}"
           name: {{ .Release.Name }}-activemq
           ports:
             - containerPort: 8161
