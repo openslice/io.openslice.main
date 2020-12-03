@@ -18,7 +18,7 @@ spec:
         io.openslice.service: {{ .Release.Name }}-consul
     spec:
       containers:
-        - image: consul
+        - image: "{{ .Values.image.consul.repository }}:{{ .Values.image.consul.tag | default .Chart.AppVersion }}"
           name: {{ .Release.Name }}-consul
           ports:
             - containerPort: 8500

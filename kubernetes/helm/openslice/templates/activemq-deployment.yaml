@@ -21,7 +21,7 @@ spec:
         io.openslice.service: {{ .Release.Name }}-activemq
     spec:
       containers:
-          image: "{{ .Values.image.activemq.repository }}:{{ .Values.image.activemq.tag | default .Chart.AppVersion }}"
+        - image: "{{ .Values.image.activemq.repository }}:{{ .Values.image.activemq.tag | default .Chart.AppVersion }}"
           name: {{ .Release.Name }}-activemq
           ports:
             - containerPort: 8161
