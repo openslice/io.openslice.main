@@ -4,7 +4,7 @@ metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-consul
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-  name: {{ template "fullname" . }}
+  name: {{ .Release.Name }}-consul
 spec:
   replicas: 1
   selector:

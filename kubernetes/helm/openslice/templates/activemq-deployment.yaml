@@ -17,8 +17,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        {{- toYaml . | nindent 8 }}
       labels:
         io.openslice.service: {{ .Release.Name }}-activemq
     spec:
