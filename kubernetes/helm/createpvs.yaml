@@ -6,7 +6,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: manual
+  storageClassName: mysql-pv-volume
   capacity:
     storage: 10Gi
   accessModes:

@@ -7,7 +7,7 @@ metadata:
     {{- include "openslice.labels" . | nindent 4 }}
   name:  {{ .Release.Name }}-mysql-claim0
 spec:
-  storageClassName: manual
+  storageClassName: mysql-pv-volume
   accessModes:
     - ReadWriteOnce
   resources:

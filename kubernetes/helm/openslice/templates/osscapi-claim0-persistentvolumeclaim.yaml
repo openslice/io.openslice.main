@@ -5,7 +5,7 @@ metadata:
     io.openslice.service: {{ .Release.Name }}-osscapi-claim0
   name: {{ .Release.Name }}-osscapi-claim0
 spec:
-  storageClassName: manual
+  storageClassName: osscapi-pv-manual
   accessModes:
     - ReadWriteOnce
   resources:
