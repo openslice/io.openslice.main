@@ -3,32 +3,31 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-mysql-initdb-config
 data:
-  01-databases.sql: |
+  01-databases.sql: | 
     # create databases
     CREATE DATABASE IF NOT EXISTS `osdb`;
     CREATE DATABASE IF NOT EXISTS `keycloak`;
     
     # create root user and grant rights
-    CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '{{.Values.oscred.mysqlpassword}}';
-    GRANT ALL PRIVILEGES ON *.* TO 'portaluser'@'%' IDENTIFIED BY '{{.Values.oscred.mysqlpassword}}';
+    CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '{{.Values.oscreds.mysqlpassword}}';
+    GRANT ALL PRIVILEGES ON *.* TO 'portaluser'@'%' IDENTIFIED BY '{{.Values.oscreds.mysqlpassword}}';
     
     # create root user and grant rights
-    CREATE USER 'keycloak'@'localhost' IDENTIFIED BY '{{.Values.oscred.keycloakdbpassword}}';
-    GRANT ALL PRIVILEGES ON *.* TO 'keycloak'@'%' IDENTIFIED BY '{{.Values.oscred.keycloakdbpassword}}';
+    CREATE USER 'keycloak'@'localhost' IDENTIFIED BY '{{.Values.oscreds.keycloakdbpassword}}';
+    GRANT ALL PRIVILEGES ON *.* TO 'keycloak'@'%' IDENTIFIED BY '{{.Values.oscreds.keycloakdbpassword}}';
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    io.openslice.service:{{ .Release.Name }}- mysql
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    io.openslice.service: {{ .Release.Name }}-mysql
     {{- include "openslice.labels" . | nindent 4 }}
   name: mysql-portal
 spec:
   selector:
     matchLabels:
       io.openslice.service: {{ .Release.Name }}- mysql
-  serviceName: {{ .Release.Name }}- mysql
+  serviceName: {{ .Release.Name }}-mysql
   replicas: 1
   template:
     metadata:
@@ -41,7 +40,7 @@ spec:
             - name: MYSQL_ROOT_HOST
               value: '%'
             - name: MYSQL_ROOT_PASSWORD
-              value: {{.Values.oscred.mysqlpassword}}
+              value: {{.Values.oscreds.mysqlpassword}}
           image: mysql:5.7.27
           name: mysql-portal
           ports:
@@ -55,7 +54,7 @@ spec:
           readinessProbe:
             exec:
               # Check we can execute queries over TCP (skip-networking is off).
-              command: ["mysql", "-h", "127.0.0.1", "-u", "root",  "-p{{.Values.oscred.keycloakdbpassword}}", "-e", "SELECT 1"]
+              command: ["mysql", "-h", "127.0.0.1", "-u", "root",  "-p{{.Values.oscreds.keycloakdbpassword}}", "-e", "SELECT 1"]
             initialDelaySeconds: 5
             periodSeconds: 2
             timeoutSeconds: 1

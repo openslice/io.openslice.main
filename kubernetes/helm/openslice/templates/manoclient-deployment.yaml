@@ -13,9 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        io.openslice.service:{{ .Release.Name }}- manoclient
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    {{- include "openslice.labels" . | nindent 4 }}
+        io.openslice.service: {{ .Release.Name }}-manoclient
     spec:
       containers:
         - env:

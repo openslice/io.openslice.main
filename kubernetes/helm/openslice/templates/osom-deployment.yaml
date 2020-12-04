@@ -20,7 +20,7 @@ spec:
         - env:
             - name: SPRING_APPLICATION_JSON
               value: '{ "spring.activemq.brokerUrl": "tcp://{{ .Release.Name }}-activemq:61616", "spring.activemq.user": "{{.Values.oscreds.activemq_user}}", "spring.activemq.password": "{{.Values.oscreds.activemq_pass}}", "spring.cloud.consul.host": "http://{{ .Release.Name }}-consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://{{ .Release.Name }}-osom:13100/osom/actuator/health", "logging.level.org.springframework" : "INFO" }'
-          image: image: "{{ .Values.image.osom.repository }}:{{ .Values.image.osom.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.osom.repository }}:{{ .Values.image.osom.tag | default .Chart.AppVersion }}"
           name: {{ .Release.Name }}-osom
           ports:
             - containerPort: 13100

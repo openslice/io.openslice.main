@@ -73,7 +73,7 @@ oscreds:
   mysqlpassword: letmein
   keycloakdbpassword: letmein
   keycloakadminpassword: Pa55w0rd
-	
+
 
 imagePullSecrets: []
 nameOverride: ""

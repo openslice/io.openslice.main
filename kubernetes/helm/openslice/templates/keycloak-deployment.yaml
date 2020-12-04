@@ -35,7 +35,7 @@ spec:
             - name: DB_DATABASE
               value: keycloak
             - name: DB_PASSWORD
-              value: {{.Values.oscred.keycloakdbpassword}}
+              value: {{.Values.oscreds.keycloakdbpassword}}
             - name: DB_USER
               value: keycloak
             - name: DB_VENDOR
@@ -47,7 +47,7 @@ spec:
             - name: KEYCLOAK_IMPORT
               value: /tmp/realm-export.json
             - name: KEYCLOAK_PASSWORD
-              value: {{.Values.oscred.keycloakadminpassword}}
+              value: {{.Values.oscreds.keycloakadminpassword}}
             - name: KEYCLOAK_USER
               value: admin
             - name: PROXY_ADDRESS_FORWARDING
