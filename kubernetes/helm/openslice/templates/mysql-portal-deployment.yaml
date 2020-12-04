@@ -26,13 +26,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      io.openslice.service: {{ .Release.Name }}- mysql
+      io.openslice.service: {{ .Release.Name }}-mysql
   serviceName: {{ .Release.Name }}-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        io.openslice.service: {{ .Release.Name }}- mysql
+        io.openslice.service: {{ .Release.Name }}-mysql
     metadata:
     spec:
       containers:
