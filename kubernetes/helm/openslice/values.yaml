@@ -14,7 +14,66 @@ image:
     repository: consul
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: "1.9.0"
+  bugzillaclient:
+    repository: openslice/io.openslice.bugzilla
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  centrallog:
+    repository: openslice/io.openslice.centrallog.service
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  keycloak:
+    repository: quay.io/keycloak/keycloak
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "11.0.3"
+  manoclient:
+    repository: openslice/io.openslice.mano
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  osom:
+    repository: openslice/io.openslice.osom
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  portalapi:
+    repository: openslice/io.openslice.portal.api
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  tmfapi:
+    repository: openslice/io.openslice.tmf.api
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  portalweb:
+    repository: openslice/io.openslice.portal.web
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  tmfweb:
+    repository: openslice/io.openslice.tmf.web
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
+bugzillaurl: example.com:443/bugzilla
+bugzillakey: VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z
+main_operations_product: My Operations
+centrallogurl: http://elk_ip:elk_port/index_name/_doc
+
+
+oscreds:
+  activemq_user: admin
+  activemq_pass: admin
+  mysqlpassword: letmein
+  keycloakdbpassword: letmein
+  keycloakadminpassword: Pa55w0rd
+	
 
 imagePullSecrets: []
 nameOverride: ""

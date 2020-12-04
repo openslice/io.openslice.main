@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: openslice
-  name: mysql-initdb-config
+  name: {{ .Release.Name }}-mysql-initdb-config
 data:
   01-databases.sql: |
     # create databases
@@ -10,45 +9,39 @@ data:
     CREATE DATABASE IF NOT EXISTS `keycloak`;
     
     # create root user and grant rights
-    CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '12345';
-    GRANT ALL PRIVILEGES ON *.* TO 'portaluser'@'%' IDENTIFIED BY '12345';
+    CREATE USER 'portaluser'@'localhost' IDENTIFIED BY '{{.Values.oscred.mysqlpassword}}';
+    GRANT ALL PRIVILEGES ON *.* TO 'portaluser'@'%' IDENTIFIED BY '{{.Values.oscred.mysqlpassword}}';
     
     # create root user and grant rights
-    CREATE USER 'keycloak'@'localhost' IDENTIFIED BY 'password';
-    GRANT ALL PRIVILEGES ON *.* TO 'keycloak'@'%' IDENTIFIED BY 'password';
+    CREATE USER 'keycloak'@'localhost' IDENTIFIED BY '{{.Values.oscred.keycloakdbpassword}}';
+    GRANT ALL PRIVILEGES ON *.* TO 'keycloak'@'%' IDENTIFIED BY '{{.Values.oscred.keycloakdbpassword}}';
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
-    io.openslice.service: mysql-portal
+    io.openslice.service:{{ .Release.Name }}- mysql
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
   name: mysql-portal
 spec:
   selector:
     matchLabels:
-      io.openslice.service: mysql-portal
-  serviceName: mysql-portal
+      io.openslice.service: {{ .Release.Name }}- mysql
+  serviceName: {{ .Release.Name }}- mysql
   replicas: 1
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
       labels:
-        io.kompose.network/back: "true"
-        io.openslice.service: mysql-portal
+        io.openslice.service: {{ .Release.Name }}- mysql
+    metadata:
     spec:
       containers:
         - env:
             - name: MYSQL_ROOT_HOST
               value: '%'
             - name: MYSQL_ROOT_PASSWORD
-              value: letmein
+              value: {{.Values.oscred.mysqlpassword}}
           image: mysql:5.7.27
           name: mysql-portal
           ports:
@@ -56,23 +49,23 @@ spec:
           resources: {}
           volumeMounts:
             - mountPath: /var/lib/mysql
-              name: mysql-portal-claim0
+              name:  {{ .Release.Name }}-mysql-claim0
             - mountPath: /docker-entrypoint-initdb.d
               name: mysql-initdb
           readinessProbe:
             exec:
               # Check we can execute queries over TCP (skip-networking is off).
-              command: ["mysql", "-h", "127.0.0.1", "-u", "root",  "-pletmein", "-e", "SELECT 1"]
+              command: ["mysql", "-h", "127.0.0.1", "-u", "root",  "-p{{.Values.oscred.keycloakdbpassword}}", "-e", "SELECT 1"]
             initialDelaySeconds: 5
             periodSeconds: 2
             timeoutSeconds: 1
       restartPolicy: Always
       volumes:
-        - name: mysql-portal-claim0
+        - name: {{ .Release.Name }}-mysql-claim0
           persistentVolumeClaim:
-            claimName: mysql-portal-claim0
+            claimName: {{ .Release.Name }}-mysql-claim0
         - name: mysql-initdb
           configMap:
-            name: mysql-initdb-config
+            name: {{ .Release.Name }}-mysql-initdb-config
 
 

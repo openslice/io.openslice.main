@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.openslice.service: {{ .Release.Name }}-manoclient
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ .Release.Name }}-manoclient
+spec:
+  ports:
+    - name: "13011"
+      port: 13011
+      targetPort: 13011
+  selector:
+    io.openslice.service: {{ .Release.Name }}-manoclient
+status:
+  loadBalancer: {}

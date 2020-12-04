@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.openslice.service: {{ .Release.Name }}-centrallog
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: centrallog
+spec:
+  ports:
+    - name: "13013"
+      port: 13013
+  selector:
+    io.openslice.service: {{ .Release.Name }}-centrallog
+status:
+  loadBalancer: {}
