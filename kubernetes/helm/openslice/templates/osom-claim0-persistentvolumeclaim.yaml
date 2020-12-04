@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-osom-claim0
-  name: osom-claim0
+  name: {{ .Release.Name }}-osom-claim0
 spec:
   storageClassName: manual
   accessModes:
