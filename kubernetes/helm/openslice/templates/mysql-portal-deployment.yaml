@@ -21,8 +21,7 @@ kind: StatefulSet
 metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-mysql
-    {{- include "openslice.labels" . | nindent 4 }}
-  name: mysql-portal
+  name: {{ .Release.Name }}-mysql
 spec:
   selector:
     matchLabels:
@@ -33,7 +32,6 @@ spec:
     metadata:
       labels:
         io.openslice.service: {{ .Release.Name }}-mysql
-    metadata:
     spec:
       containers:
         - env:
@@ -42,7 +40,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: {{.Values.oscreds.mysqlpassword}}
           image: mysql:5.7.27
-          name: mysql-portal
+          name: {{ .Release.Name }}-mysql
           ports:
             - containerPort: 3306
           resources: {}

@@ -37,7 +37,7 @@ spec:
               name: {{ .Release.Name }}-osportalapi-claim0
       restartPolicy: Always
       volumes:
-        - name: osportalapi-claim0
+        - name: {{ .Release.Name }}-osportalapi-claim0
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-osportalapi-claim0
 status: {}

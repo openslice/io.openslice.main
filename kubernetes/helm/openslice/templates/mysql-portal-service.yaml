@@ -2,10 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.openslice.service: {{ .Release.Name }}-mysql-portal
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    {{- include "openslice.labels" . | nindent 4 }}
-  name: mysql-portal
+    io.openslice.service: {{ .Release.Name }}-mysql
+  name: {{ .Release.Name }}-mysql
 spec:
   ports:
     - name: mysql
@@ -13,6 +11,6 @@ spec:
       targetPort: 3306
   clusterIP: None
   selector:
-    io.openslice.service: {{ .Release.Name }}-mysql-portal
+    io.openslice.service: {{ .Release.Name }}-mysql
 status:
   loadBalancer: {}
