@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-osportalapi
-  name: osportalapi
+  name: {{ .Release.Name }}-osportalapi
 spec:
   ports:
     - name: "13000"

@@ -22,7 +22,7 @@ spec:
         command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
       - name: init-mysql-portal
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup mysql-portal; do echo waiting for mysql-portal; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup {{ .Release.Name }}-mysql; do echo waiting for {{ .Release.Name }}-mysql; sleep 2; done"]
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON

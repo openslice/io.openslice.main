@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     io.openslice.service: {{ .Release.Name }}-osscapi
-  name: osscapi
+  name: {{ .Release.Name }}-osscapi
 spec:
   ports:
     - name: "13082"

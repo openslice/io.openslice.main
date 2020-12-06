@@ -5,7 +5,7 @@ metadata:
     io.openslice.service: {{ .Release.Name }}-centrallog
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{- include "openslice.labels" . | nindent 4 }}
-  name: centrallog
+  name: {{ .Release.Name }}-centrallog
 spec:
   ports:
     - name: "13013"

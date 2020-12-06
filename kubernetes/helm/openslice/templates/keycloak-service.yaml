@@ -5,7 +5,7 @@ metadata:
     io.openslice.service: {{ .Release.Name }}-keycloak
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{- include "openslice.labels" . | nindent 4 }}
-  name: keycloak
+  name: {{ .Release.Name }}-keycloak
 spec:
   ports:
     - name: "8080"

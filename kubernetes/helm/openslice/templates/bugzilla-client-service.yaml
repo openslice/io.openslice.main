@@ -5,7 +5,7 @@ metadata:
     io.openslice.service: {{ .Release.Name }}-bugzilla-client
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{- include "openslice.labels" . | nindent 4 }}
-  name: bugzilla-client
+  name: {{ .Release.Name }}-bugzilla-client
 spec:
   ports:
     - name: "13010"

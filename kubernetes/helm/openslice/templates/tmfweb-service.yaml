@@ -5,7 +5,7 @@ metadata:
     io.openslice.service: {{ .Release.Name }}-tmfweb
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{- include "openslice.labels" . | nindent 4 }}
-  name: tmfweb
+  name: {{ .Release.Name }}-tmfweb
 spec:
   ports:
     - name: "tmwebport"
