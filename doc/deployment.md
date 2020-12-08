@@ -328,6 +328,11 @@ Keycloak also allows new users to register  On Tab Login-> check for example Use
 Also, enter the details on Realm->Email->Enable Authentication
 
 
+### add an openslice admin user
+
+Go to manage/users and add an admin user, e.g. username=admin . Set a password and go also to Role Mappings and add to Assigned Roles ADMIN and MENTOR.
+
+
 
 ## Note about admin accounts
 
