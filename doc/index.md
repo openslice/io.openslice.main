@@ -109,3 +109,20 @@ Get source code here: <https://github.com/openslice>
 
 [![Part of OSM Ecosystem](./images/osm_ecosystem_ossbss.png)](https://osm.etsi.org/wikipub/index.php/OSS_BSS)
 
+
+## Citation
+
+Please cite our [![paper]](https://arxiv.org/abs/2102.03290) if you use Openslice
+
+```
+
+@misc{tranoris2021openslice,
+      title={Openslice: An opensource OSS for Delivering Network Slice as a Service}, 
+      author={Christos Tranoris},
+      year={2021},
+      eprint={2102.03290},
+      archivePrefix={arXiv},
+      primaryClass={cs.NI}
+}
+
+```
