@@ -8,6 +8,7 @@ site_url: http://openslice.io
 repo_name: openslice
 repo_url: https://github.com/openslice
 edit_uri: ""
+docs_dir: doc
 
 # edit_uri: edit/docs-revamp/docs/
 # edit_uri: blob/docs-revamp/docs/
