@@ -28,6 +28,7 @@
 		<spring-cloud-consul-version>2.2.2.RELEASE</spring-cloud-consul-version>
 		<swagger.version>2.9.2</swagger.version>
 		<java.version>11</java.version>
+		<keycloak.version>9.0.2</keycloak.version>
 
 		<!-- mainly for gw api -->
 		<oauth.version>2.4.0.RELEASE</oauth.version>
