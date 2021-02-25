@@ -229,6 +229,40 @@ services:
     depends_on:
     - mysql-portal
 
+
+  oasapi:
+    container_name: openslice-oasapi
+    build:
+        context:  ../../io.openslice.oas/
+        dockerfile: Dockerfile.oasapi      
+    image: io.openslice.oas:latest
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://amysql/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&nullCatalogMeansCurrent=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+        "spring.datasource.username":"root",
+        "spring.datasource.password":"letmein",
+        "keycloak-internal-auth-server-url": "http://keycloak:8080/auth",        
+        "keycloak-admin-password": "Pa55w0rd",
+        "keycloak.auth-server-url": "http://keycloak:8080/auth",
+        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
+        "spring.activemq.user": "admin",
+        "spring.activemq.password": "adminx",
+        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-assurance-services-management-api:13101/oasapi/actuator/health",
+        "swagger.authserver" : "http://localhost/auth/realms/openslice",
+        "swagger.clientid" : "osapiWebClientId",
+        "swagger.clientsecret" : "secret",
+        "logging.level.org.springframework" : "INFO"        
+      }'
+    volumes:
+    - ./repo:/root
+    ports:
+    - 13101:13101
+    networks:
+    - front
+    - back
+    
+    
   portainer:
     container_name: portainer
     image: portainer/portainer

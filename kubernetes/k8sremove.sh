@@ -27,6 +27,9 @@ kubectl delete -f ./deployment/osportalapi-deployment.yaml
 kubectl delete -f ./deployment/osscapi-service.yaml
 kubectl delete -f ./deployment/osscapi-deployment.yaml
 
+kubectl delete -f ./deployment/oasapi-service.yaml
+kubectl delete -f ./deployment/oasapi-deployment.yaml
+
 kubectl delete -f ./deployment/tmfweb-config.yaml
 kubectl delete -f ./deployment/tmfweb-service.yaml
 kubectl delete -f ./deployment/tmfweb-deployment.yaml

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.openslice.service: {{ .Release.Name }}-oasapi
+  name: {{ .Release.Name }}-oasapi
+spec:
+  ports:
+    - name: "13101"
+      port: 13101
+      targetPort: 13101
+  selector:
+    io.openslice.service: {{ .Release.Name }}-oasapi
+status:
+  loadBalancer: {}

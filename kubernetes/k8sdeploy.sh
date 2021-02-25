@@ -53,6 +53,10 @@ kubectl apply -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
 kubectl apply -f ./deployment/osscapi-deployment.yaml
 kubectl apply -f ./deployment/osscapi-service.yaml
 
+kubectl apply -f ./deployment/oasapi-claim0-persistentvolumeclaim.yaml
+kubectl apply -f ./deployment/oasapi-deployment.yaml
+kubectl apply -f ./deployment/oasapi-service.yaml
+
 kubectl apply -f ./deployment/tmfweb-config.yaml
 kubectl apply -f ./deployment/tmfweb-deployment.yaml
 kubectl apply -f ./deployment/tmfweb-service.yaml

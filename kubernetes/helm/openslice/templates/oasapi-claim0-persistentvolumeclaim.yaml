@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.openslice.service: {{ .Release.Name }}-oasapi-claim0
+  name: {{ .Release.Name }}-oasapi-claim0
+spec:
+  storageClassName: oasapi-pv-manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+status: {}

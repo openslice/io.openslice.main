@@ -24,6 +24,13 @@ spec:
             port:
               number: 13082
       - pathType: Prefix
+        path: "/oas-api"
+        backend:
+          service:
+            name: oasapi
+            port:
+              number: 13101
+      - pathType: Prefix
         path: "/auth"
         backend:
           service:

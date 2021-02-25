@@ -33,6 +33,7 @@ updaterepo io.openslice.gateway.api
 updaterepo io.openslice.mano
 updaterepo io.openslice.bugzilla
 updaterepo io.openslice.osom
+updaterepo io.openslice.oas
 updaterepo io.openslice.portal.web
 updaterepo io.openslice.tmf.api
 updaterepo io.openslice.tmf.web

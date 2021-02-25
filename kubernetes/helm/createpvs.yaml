@@ -62,3 +62,19 @@ spec:
   hostPath:
     path: "/dockerdata-nfs/osscapi"
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: openslice
+  name: oasapi-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: oasapi-pv-manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/dockerdata-nfs/oasapi"
+---
