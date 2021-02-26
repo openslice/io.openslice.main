@@ -17,6 +17,19 @@ You can create a new Service Specification from the menu. The services created t
 Any Service Specification Characteristics from the RFS are copied to the CFS specification. A CFS can include multiple RFS or/and CFSs.
 For example you can create a CFS spec called "A 5G Service" which is a bundle of two other services (include them in Service Specification Relationships) such as 5G eMBB Slice and a Customer VPN. So when the user orders  "A 5G Service"  services from 5G eMBB Slice and a Customer VPN will be created during the order.
 
+### Initial configuration
+
+if you have an initial configuration that needs to be applied in the NSD deployment, then you go to the RFS (or CFS) and in Service Specification Characteristics go and edit the CONFIG characteristic. 
+You can add in the Service Characteristic Value, in the Value field something like the following example which gives a floating IP to a VNF:
+
+```
+{ "nsdId": "e855be91-567b-45cf-9f86-18653e7ea", "vimAccountId": "4efd8bf4-5292-4634-87b7-7b3d49108" , "vnf": [ {"member-vnf-index": "1", "vdu": [ {"id": "MyCharmedVNF-VM", "interface": [{"name": "eth0", "floating-ip-required": true }]}]}]}
+ 
+```
+
+You can leave the Alias and Unit of Measure as is. Check also the is Default.
+
+
 
 ### Day 2 Primitive Actions
 
