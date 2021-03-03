@@ -274,6 +274,48 @@ It is based on ActiveMQ.
 ---
 
 
+#ALARMS
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  ALARMS_ADD_ALARM  |
+|**Name** |  jms:queue:ALARMS.ADD.ALARM  |
+|**Type** | queue  |
+|**Publishers** |  |
+|**Consumers** | TMF API |
+|**Body** |  AlarmCreate   |
+|**Headers** | |
+|**Description** |   Add an alarm  |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  ALARMS_UPDATE_ALARM  |
+|**Name** |  jms:queue:ALARMS.UPDATE.ALARM  |
+|**Type** | queue  |
+|**Publishers** |  |
+|**Consumers** | TMF API |
+|**Body** |  AlarmUpdate   |
+|**Headers** | alarmid = alarm id, body (AlarmUpdate object) |
+|**Description** | Update an alarm |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  ALARMS_GET_ALARM  |
+|**Name** |  jms:queue:ALARMS.GET.ALARM  |
+|**Type** | queue  |
+|**Publishers** |  |
+|**Consumers** | TMF API |
+|**Body** |     |
+|**Headers** | alarmid = alarm id |
+|**Description** |   get an alarm |
+
+---
+
 ## EVENT TOPICS IN Message Bus
 | Message |    |
 | ------------- |----------------|
@@ -377,5 +419,15 @@ It is based on ActiveMQ.
 
 ---
 
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  EVENT_ALARM_CREATE  |
+|**Name** |  jms:topic:EVENT.ALARM.CREATE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | OAS, BUGZILLA Service, CentralLog Service |
+|**Body** |  AlarmCreateEvent |
+|**Headers** |  |
+|**Description** |   The Event  contains the Alarm object in payload |
 
-
+---
