@@ -175,6 +175,18 @@ It is based on ActiveMQ.
 |**Body** |  |
 |**Headers** |  |
 |**Description** | Get a list of ACTIVE services with END DAte in the past  |
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_SERVICES_OF_PARTNERS  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICESOFPARTNERS  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  |
+|**Headers** |  |
+|**Description** | Get a list of ACTIVE services from the inventory of partners  |
 
 
 
