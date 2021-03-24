@@ -127,7 +127,18 @@ It is based on ActiveMQ.
 |**Body** |  String serviceID |
 |**Description** |   returns a Service instance |
 
+---| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICE_BY_ORDERID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICE_BY_ORDERID  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** |  |
+|**Body** |  String serviceID |
+|**Description** |   returns Service IDs of a specific order given then order id |
+
 ---
+
 
 | Message |    |
 | ------------- |----------------|
