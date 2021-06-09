@@ -2,3 +2,6 @@ Q2 2021
 
 - Edit your docker-compose.yaml and add oasapi section. Edit the oasapi section according to your needs (db password, keycloak etc)
 - Edit your /openslice/io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config/config.prod.json with the new API endpoints. Please consult the config.prod.default.json
+- Edit nginx.conf to add the new oas-api
+- Added OSM NINE support
+- Updated TMF Recource Model TMF 634 to latest version 4.0.0

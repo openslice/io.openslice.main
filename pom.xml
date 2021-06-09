@@ -23,9 +23,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<camel.version>3.0.1</camel.version>
-		<spring-boot-version>2.2.4.RELEASE</spring-boot-version>
-		<spring-cloud-consul-version>2.2.2.RELEASE</spring-cloud-consul-version>
+		<camel.version>3.9.0</camel.version>
+		<spring-boot-version>2.4.0</spring-boot-version>
+		<spring-cloud-consul-version>3.0.2</spring-cloud-consul-version>
 		<swagger.version>2.9.2</swagger.version>
 		<java.version>11</java.version>
 		<keycloak.version>9.0.2</keycloak.version>
@@ -52,6 +52,7 @@
 		<module>../io.openslice.sol005nbi.osm</module>
 		<module>../io.openslice.sol005nbi.osm7</module>
 		<module>../io.openslice.sol005nbi.osm8</module>
+		<module>../io.openslice.sol005nbi.osm9</module>
 		<module>../io.openslice.sol005nbi.etsi</module>
 		<module>../io.openslice.model</module>
 		<module>../io.openslice.centrallog.client</module>
