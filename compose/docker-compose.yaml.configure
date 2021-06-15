@@ -103,7 +103,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "admin",
-        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.host": "http://aconsul",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
         "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
@@ -133,7 +133,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",
+        "spring.cloud.consul.host": "http://aconsul",
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://mano:13011/mano/actuator/health",
         "logging.level.org.springframework" : "INFO"
       }'      
@@ -155,7 +155,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",        
+        "spring.cloud.consul.host": "http://aconsul",        
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://abugzilla:13010/actuator/health",
         "bugzillaurl":"",
         "bugzillakey":"",
@@ -186,7 +186,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.host": "http://aconsul",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-service-catalog-management-api:13082/osapi/actuator/health",
         "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
@@ -215,7 +215,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.host": "http://aconsul",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-osom:13100/osom/actuator/health",
         "logging.level.org.springframework" : "INFO"        
       }'
@@ -247,7 +247,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",  
+        "spring.cloud.consul.host": "http://aconsul",  
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-assurance-services-management-api:13101/oasapi/actuator/health",
         "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
@@ -286,7 +286,7 @@ services:
         "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
         "spring.activemq.user": "admin",
         "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul:8500",        
+        "spring.cloud.consul.host": "http://aconsul",        
         "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog:13013/actuator/health",
         "centrallogurl":"http://elk_ip:elk_port/index_name/_doc"
       }'
