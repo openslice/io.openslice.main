@@ -192,7 +192,7 @@ The following will expose an ingress resource from one of your a k8s nodes on po
 
 ```
  kubectl apply -f openslice-ingress.yaml
- ```
+```
 
 
 Finding the ingress IP:
