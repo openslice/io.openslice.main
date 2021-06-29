@@ -59,6 +59,7 @@ nav:
       - NFV Catalogs: nfvcatalogs.md
       - Consuming Services From External OSS: ./architecture/consumingServicesFromExternalPartners.md
       - Service Inventory: service_inventory.md
+      - Alarms and Actions: alarms_actions.md
   - Design & Architecture:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
