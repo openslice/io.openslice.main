@@ -454,3 +454,137 @@ It is based on ActiveMQ.
 |**Description** |   The Event  contains the Alarm object in payload |
 
 ---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_RESOURCE  |
+|**Name** |  jms:queue:CATALOG.ADD.RESOURCE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  ResourceCreate |
+|**Headers** |  |
+|**Description** |   The Body  contains the ResourceCreate object to add |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_RESOURCE  |
+|**Name** |  jms:queue:CATALOG.UPD.RESOURCE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  ResourceUpdate |
+|**Headers** | resourceid , propagateToSO  |
+|**Description** |   The Body  contains the ResourceCreate object to update |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_RESOURCE_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.RESOURCE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  resourceid |
+|**Headers** |  |
+|**Description** |   The Body  contains the ResourceCreate object to update |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_RESOURCES_OF_PARTNERS  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICESOFPARTNERS  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  none |
+|**Headers** | none |
+|**Description** |   retrieve all active services of partners |
+
+---
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  EVENT_RESOURCE_CREATE  |
+|**Name** |  jms:topic:EVENT.RESOURCE.CREATE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | BUGZILLA Service, CentralLog Service, other |
+|**Body** |  Notification object.  |
+|**Headers** | "eventid"=eventid, "objId"= objId |
+|**Description** |   The Event of the Notification object contains the Resource object |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  EVENT_RESOURCE_STATE_CHANGED  |
+|**Name** |  jms:topic:EVENT.RESOURCE.STATECHANGED  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | BUGZILLA Service, CentralLog Service, other |
+|**Body** |  Notification object.  |
+|**Headers** | "eventid"=eventid, "objId"= objId |
+|**Description** |   The Event of the Notification object contains the Resource object |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  EVENT_RESOURCE_DELETE  |
+|**Name** |  jms:topic:EVENT.SERVICE.RESOURCE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | BUGZILLA Service, CentralLog Service, other |
+|**Body** |  Notification object.  |
+|**Headers** | "eventid"=eventid, "objId"= objId |
+|**Description** |   The Event of the Notification object contains the Resource object |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED  |
+|**Name** |  jms:topic:EVENT.RESOURCE.ATTRCHANGED  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | BUGZILLA Service, CentralLog Service, other |
+|**Body** |  Notification object.  |
+|**Headers** | "eventid"=eventid, "objId"= objId |
+|**Description** |   The Event of the Notification object contains the Resource object |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_LCMRULE_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.LCMRULE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  lcmid |
+|**Headers** |  |
+|**Description** |   The Body  contains the LCMRuleSpec object  |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_LCMRULES_BY_SPECID_PHASE  |
+|**Name** |  jms:queue:CATALOG.GET.LCMRULES_BY_SPECID_PHASE  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |   |
+|**Headers** | header.servicespecid, header.phasename |
+|**Description** |   The Body  contains the LCMRuleSpec objects of the specific Service Spec and the specific phase  |
+
