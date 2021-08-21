@@ -40,7 +40,9 @@ updaterepo io.openslice.tmf.api
 updaterepo io.openslice.tmf.web
 
 cd $dirlocation
-docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main adoptopenjdk/maven-openjdk13:latest mvn clean verify -DskipTests
+docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.8.2-adoptopenjdk-15-openj9 mvn clean verify -DskipTests
+
+
 
 cd $dirlocation/io.openslice.tmf.web
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli npm install
