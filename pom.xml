@@ -50,7 +50,6 @@
 
 	<modules>
 		<module>../io.openslice.sol005nbi.osm</module>
-		<module>../io.openslice.sol005nbi.osm7</module>
 		<module>../io.openslice.sol005nbi.osm8</module>
 		<module>../io.openslice.sol005nbi.osm9</module>
 		<module>../io.openslice.sol005nbi.etsi</module>
