@@ -47,6 +47,20 @@ It is based on ActiveMQ.
 
 ---
 
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_SERVICEORDER  |
+|**Name** |  jms:queue:CATALOG.ADD.SERVICEORDER  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  ServiceOrderCreate serviceOrder |
+|**Headers** |  |
+|**Description** | Creates a ServiceOrder and  returns a ServiceOrder as String |
+
+---
+
+
 
 | Message |    |
 | ------------- |----------------|
