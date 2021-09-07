@@ -23,6 +23,7 @@ updaterepo io.openslice.main
 updaterepo io.openslice.sol005nbi.osm
 updaterepo io.openslice.sol005nbi.osm8
 updaterepo io.openslice.sol005nbi.osm9
+updaterepo io.openslice.sol005nbi.osm10
 updaterepo io.openslice.sol005nbi.etsi
 updaterepo io.openslice.centrallog.client
 updaterepo io.openslice.centrallog.service

@@ -52,6 +52,7 @@
 		<module>../io.openslice.sol005nbi.osm</module>
 		<module>../io.openslice.sol005nbi.osm8</module>
 		<module>../io.openslice.sol005nbi.osm9</module>
+		<module>../io.openslice.sol005nbi.osm10</module>
 		<module>../io.openslice.sol005nbi.etsi</module>
 		<module>../io.openslice.model</module>
 		<module>../io.openslice.centrallog.client</module>
