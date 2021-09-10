@@ -57,6 +57,7 @@ nav:
       - NFV Orchestrator Configuration: nfvoconfig.md
       - Service Catalogs: catalogs.md
       - NFV Catalogs: nfvcatalogs.md
+      - LCM Rules: lcm.md
       - Consuming Services From External OSS: ./architecture/consumingServicesFromExternalPartners.md
       - Service Inventory: service_inventory.md
       - Alarms and Actions: alarms_actions.md

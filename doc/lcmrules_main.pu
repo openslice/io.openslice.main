@@ -1,0 +1,24 @@
+@startuml 
+
+note
+    Notes
+    ----
+    Each LCM rule might be executed during the following phases:
+    "Pre-provision phase"
+    "Activation phase"
+    "Supervision phase", 
+    "De-activation phase"
+    
+    A rule may:
+    1) Modify some parameters of the requested service according to user request. 
+    These parameters might be part of other services (or related resources?) already included in Service order
+    2) Modify the service order by including other services
+    3) Initiate new Service Orders for Other Services (including their parameters) 
+    4) May call external services (e.g. via REST)
+end note
+
+start
+stop
+
+
+@enduml

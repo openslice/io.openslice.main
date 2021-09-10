@@ -17,9 +17,9 @@ You can create a new Service Specification from the menu. The services created t
 Any Service Specification Characteristics from the RFS are copied to the CFS specification. A CFS can include multiple RFS or/and CFSs.
 For example you can create a CFS spec called "A 5G Service" which is a bundle of two other services (include them in Service Specification Relationships) such as 5G eMBB Slice and a Customer VPN. So when the user orders  "A 5G Service"  services from 5G eMBB Slice and a Customer VPN will be created during the order.
 
-### Initial configuration
+### Initial configuration for OSM deployment
 
-if you have an initial configuration that needs to be applied in the NSD deployment, then you go to the RFS (or CFS) and in Service Specification Characteristics go and edit the CONFIG characteristic. 
+if you have an initial configuration that needs to be applied in the NSD deployment, then you go to the RFS (or CFS) and in Service Specification Characteristics go and edit the OSM_CONFIG characteristic. 
 You can add in the Service Characteristic Value, in the Value field something like the following example which gives a floating IP to a VNF:
 
 ```
@@ -27,7 +27,7 @@ You can add in the Service Characteristic Value, in the Value field something li
  
 ```
 
-or a more complex example (beautify it first if you want to view it, but in the parameter CONFIG must be minified like the example):
+or a more complex example (beautify it first if you want to view it, but in the parameter OSM_CONFIG must be minified like the example):
 
 ```
 {"nsdId":"e855be91-567b-45cf-9f86-18653e7","vimAccountId":"4efd8bf4-5292-4634-87b7-7b3d491","vnf":[{"member-vnf-index":"1","vdu":[{"id":"haproxy_vdu","interface":[{"name":"haproxy_vdu_eth1","floating-ip-required":true}]}]}],"vld":[{"name":"pub_net","vim-network-name":"OSMFIVE_selfservice01"},{"name":"management","vim-network-name":"OSMFIVE_selfservice01"},{"name":"lba_net","vim-network-name":"lba_net","vnfd-connection-point-ref":[{"member-vnf-index-ref":"1","vnfd-connection-point-ref":"haproxy_private","ip-address":"192.168.28.2"}]},{"name":"backend_net","vim-network-name":"backend_net","vnfd-connection-point-ref":[{"member-vnf-index-ref":"3","vnfd-connection-point-ref":"haproxy_public","ip-address":"192.168.20.2"}]},{"name":"lb_sb_net","vim-network-name":"lb_sb_net","vnfd-connection-point-ref":[{"member-vnf-index-ref":"3","vnfd-connection-point-ref":"haproxy_private","ip-address":"192.168.28.2"}]},{"name":"breaking_point_Spain","vim-network-name":"sb_repo_net"},{"name":"breaking_point_Greece","vim-network-name":"5TONICexternal"}],"additionalParamsForVnf":[{"member-vnf-index":"2","additionalParams":{"target_IP":"192.168.20.2"}},{"member-vnf-index":"4","additionalParams":{"target1_IP":"192.168.21.2","target2_IP":"10.154.252.10"}}]}

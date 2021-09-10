@@ -11,6 +11,7 @@ Openslice NFV Services target to accommodate the following envisaged user roles.
 * Services administrator: This role represents the user that are responsible for maintenance of the Openslice services
 
 (obsolete: )
+
 * Testbed provider: This role represents users that are responsible for testbed administration, configuration, integration, adaptation, support, etc
 * Experimenter: This role represents the user that will utilize our services and tools to deploy an experiment. That is the experiment description in terms of e.g.: NSD (Network Service Descriptor) or TOSCA Specification (in future versions)
     
@@ -19,6 +20,7 @@ Finally an anonymous user role exists who has some really simple usage scenarios
 
 
 During the onboarding process the following occurs:
+
 • A NFV developer submits a NFV archive (VNF or NSD) (he can later manage if needed some metadata)
 • The administrator can manage the NFV artifact (e.g. edit it)
 • The administrator On-Boards the NFV artifact to the target MANO
@@ -30,7 +32,8 @@ o As Certified which means this is certified by a certain entity
 ## Request a new NSD deployment (this is different in comparison to Services)
 
 
-An developer requests a new network service deployment (which NSD, tentative dates, target infrastructure, etc.). The request is marked as UNDER_REVIEW
+A developer requests a new network service deployment (which NSD, tentative dates, target infrastructure, etc.). The request is marked as UNDER_REVIEW
+
 * The administrator is notified about the new request and he has the following options:
 * Schedule the deployment for the requested dates or propose other dates. The request is marked as SCHEDULED
 * Reject the request for some reason. The Request is marked as REJECTED
