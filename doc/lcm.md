@@ -83,9 +83,10 @@ The following images provide some examples of rules.
 
 ### define variables according to cases
 
-In the following example we 
+In the following example we :
+
 * define a String variable. 
-- Then according to the Area of Service selected from the Service Order of the Service Specification we need to define it properly.
+* Then according to the Area of Service selected from the Service Order of the Service Specification we need to define it properly.
 * We output the value to the OSOM Log
 * Define dynamically the value of another parameter (This is fictional) and then do some other condition check
 
@@ -99,7 +100,9 @@ The strAreaCodes could be passed then e.g. to NFVO for instantiation of services
 ### Define complex OSM configs for DAY 0
 
 The following displays some complex examples for defining the parameters to pass to the NFV. In this case is OSM.
+
 * NOTE: The OSM_CONFIG characteristic of a service is the one that it is used in orchestration to instantiate NS from OSM
+
 * check the variable strTargetsParam. It is passed to the variable strOsmConfig3 which is executed if the Number of Cameras is more than 100. 
 * if the Video quality requested is 3, then the Maximum Namber of camers will be 8. Check the OSM detailed configuration block and its syntax.
 * if the Video quality requested is 2, we use a simpler OSM Config block to configure the parameter OSM_CONFIG. We just injected a json text ( watch the Escape of the string for the Quotes!)
