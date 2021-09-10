@@ -12,10 +12,10 @@ LCM Rules are used for defining complex conditions and actions during the lifecy
 
 The following figure displays the different phases that the rules are performed, during the lifecycle of a Network Slice Instance.
 
-[![Rules in NSI](../images/lcm/lcmfig2.png)](../images/lcm/lcmfig1.png)
+[![Rules in NSI](../images/lcm/lcmfig1.png)](../images/lcm/lcmfig1.png)
 
 
-In general the rules allowto perform many actions during service LCM. Thes are some examples:
+In general the rules allow to perform many actions during service LCM. Thes are some examples:
 
 * Modify service specification parameters before the instantiation of a service (or during operation) based on other dependencies. These parameters might be part of other services already included in Service order
 * Translate GST/NEST parameter values to other values passed later to NFVO for instantiation or control
@@ -49,7 +49,7 @@ Execution order of rules on a specific phase is random
 * NOTE: There is a priority field. The lower the number the highest the priority of rule execution. For example Rule with priority 0 will run before rule with priority 1.
 
 
-### Used definition language
+### Definition language
 
 * The visual language that Openslice used is based on Google's Blockly (see https://developers.google.com/blockly)
 * The blockly graph is automatically translated to Java internally and then dynamically executed during orchestration phases.
@@ -59,7 +59,7 @@ The following figure is an example of such a rule design. The rule for example w
 [![lcmrules](../images/lcm/lcmfig3.png)](../images/lcm/lcmfig3.png)
 
 * The goal of the above rule is to properly define a variable AreaCodes given the chosen AreaOfService from a Service Order.
-* On the right side the user can define some rule properties or observe the underlying generated java Code.
+* On the right side the user can define some rule properties or observe the underlying generated java code.
 
 
 ## The blocks library
@@ -109,7 +109,7 @@ The following displays some complex examples for defining the parameters to pass
 [![lcmrules](../images/lcm/lcmfig10.png)](../images/lcm/lcmfig10.png)
 
 
-### Define and instantiate differnet services according to Service Order request
+### Define and instantiate different services according to Service Order request
 
 In the following example we would like to offer a service either as Platinum, Gold or Silver. Depending on the selection we need to instantiate different services.
 
@@ -135,7 +135,7 @@ This is useful in cases for example of alarms , external logging, calling other 
 
 ### Create New Service Orders
 
-The following example calls to ORder a New Service Specification with specific Parameter Values
+The following example calls to Order a New Service Specification with specific Parameter Values
 
 [![lcmrules](../images/lcm/lcmfig14.png)](../images/lcm/lcmfig14.png)
 
