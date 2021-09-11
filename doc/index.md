@@ -1,13 +1,9 @@
 <img src="images/openslice_logo.png" alt="drawing" width="200"/>
 
-version: 2020-Q4 1.0.3-SNAPSHOT
+version: 2021-Q3 1.1.0-SNAPSHOT
 
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
 
-
-## Latest news
-
-* 17/2/2020 Openslice will participate in the next ETSI NFV&MEC Plugtests 2020, at Sophia Antipolis, France  15-19 June 2020 as a supporting open source communities . Read more at: <https://www.etsi.org/events/upcoming-events/1683-nfv-mec-plugtests#pane-1/> 
 
 ## Usage
 
@@ -30,6 +26,9 @@ Customers make Service Orders and Openslice instantiates the requested Service S
 
 [![Openslice  Service Specification instantiation](./images/service_specification_instantiation.png)](./images/service_specification_instantiation.png)
 
+## Service Lifecycle Rules
+
+Openslice constains support for defining rules of services, affecting their behavior. See [LCm Rules](./lcm.md)
 
 ## Multidomain scenarios and federation
 
@@ -85,8 +84,8 @@ However you can try with a minimum installation on a VM on a laptop with:
 
 For a quick access check our swagger links:
 
-* TMF APIs: <http://portal.openslice.io/tmf-api/swagger-ui.html>
-* API for VNF/NSD management: <http://portal.openslice.io/osapi/swagger-ui.html>
+* TMF APIs: <http://portal.openslice.io/tmf-api/swagger-ui/>
+* API for VNF/NSD management: <http://portal.openslice.io/osapi/swagger-ui/l>
 
 ## Source code
 

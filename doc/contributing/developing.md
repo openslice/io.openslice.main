@@ -49,7 +49,7 @@ run it with `mvn spring-boot:run`
 You can check your consul server if it registered. 
 
 ### Swagger API
-Swagger API of the service is at `http://localhost:13000/osapi/swagger-ui.html`. You can try there various REST actions and authenticate via the OAuth server
+Swagger API of the service is at `http://localhost:13000/osapi/swagger-ui/`. You can try there various REST actions and authenticate via the OAuth server
 
 
 ## VNF/NSD Catalog Management and NSD Deployment WEB UI service 

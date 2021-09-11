@@ -6,7 +6,7 @@ data:
   config.prod.json: |+
     {
         "TITLE": "Openslice",
-        "PORTALVERSION":"1.0.2-SNAPSHOT",
+        "PORTALVERSION":"1.1.0-SNAPSHOT",
         "WIKI": "{BASEURL}/wiki",
         "BUGZILLA": "{BASEURL}/bugzilla/",
         "STATUS": "{BASEURL}/status/",

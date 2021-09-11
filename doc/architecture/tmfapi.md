@@ -1,6 +1,6 @@
 #OpenAPI specification
 
-PLease check the complete spec in http://portal.openslice.io/tmf-api/swagger-ui.html
+PLease check the complete spec in http://portal.openslice.io/tmf-api/swagger-ui/l
 
 #API interaction
 

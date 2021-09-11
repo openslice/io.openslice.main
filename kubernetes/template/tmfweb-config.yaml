@@ -7,7 +7,7 @@ data:
   config.prod.json: |+
     {
         "TITLE": "Openslice K8S demo",
-        "PORTALVERSION":"1.0.2-SNAPSHOT",
+        "PORTALVERSION":"1.1.0-SNAPSHOT",
         "WIKI": "http://INGRESSADDR",
         "BUGZILLA": "https://INGRESSADDR/bugzilla/",
         "STATUS": "http://INGRESSADDR/status/",

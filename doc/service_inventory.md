@@ -30,3 +30,10 @@ You can terminate the service with one of the following processes:
 * To terminate or inactivate a service, select the specific service from the inventory, press Edit and set the State either to Inactive or Terminated
 
 <b>Warning: if you terminate or inactivate a service the action cannot be undone.</b>   
+
+
+## uml: sequence diagram
+Here I will embed PlantUML markup to generate a sequence diagram.
+
+I can include as many plantuml segments as I want in my Markdown, and the diagrams can be of any type supported by PlantUML.
+
