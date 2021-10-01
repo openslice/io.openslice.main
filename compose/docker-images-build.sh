@@ -20,3 +20,4 @@ buildimg io.openslice.osom Dockerfile.osom
 buildimg io.openslice.portal.web Dockerfile
 buildimg io.openslice.tmf.api Dockerfile.tmfapi
 buildimg io.openslice.tmf.web Dockerfile
+buildimg io.openslice.oas Dockerfile.oasapi
