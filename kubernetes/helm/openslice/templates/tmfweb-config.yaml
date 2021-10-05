@@ -11,7 +11,8 @@ data:
         "BUGZILLA": "{BASEURL}/bugzilla/",
         "STATUS": "{BASEURL}/status/",
        "WEBURL": "{BASEURL}",
-        "APIURL": "{BASEURL}/osapi/",
+        "PORTAL_REPO_APIURL": "{BASEURL}/osapi/",
+    	"ASSURANCE_SERVICE_MGMT_APIURL": "{BASEURL}/oas-api",
         "APITMFURL": "{BASEURL}/tmf-api",
         "OAUTH_CONFIG" : {
             "issuer": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/auth",

@@ -20,7 +20,7 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://{{ .Release.Name }}-activemq:61616", "spring.activemq.user": "{{.Values.oscreds.activemq_user}}", "spring.activemq.password": "{{.Values.oscreds.activemq_pass}}", "spring.cloud.consul.host": "http://{{ .Release.Name }}-consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://{{ .Release.Name }}-bugzilla-client:13010/actuator/health", "bugzillaurl":"{{ .Values.bugzillaurl }}", "bugzillakey":"{{ .Values.bugzillakey }}", "main_operations_product":"{{ .Values.main_operations_product }}" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://{{ .Release.Name }}-activemq:61616", "spring.activemq.user": "{{.Values.oscreds.activemq_user}}", "spring.activemq.password": "{{.Values.oscreds.activemq_pass}}", "spring.cloud.consul.host": "http://{{ .Release.Name }}-consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://{{ .Release.Name }}-bugzilla-client:13010/actuator/health", "bugzillaurl":"{{ .Values.bugzillaurl }}", "bugzillakey":"{{ .Values.bugzillakey }}", "main_operations_product":"{{ .Values.main_operations_product }}" }'
           image: {{ .Values.image.bugzillaclient.repository }}:{{ .Values.image.bugzillaclient.tag }}
           name: {{ .Release.Name }}-bugzilla-client
           ports:

@@ -3,5 +3,5 @@ apiVersion: v1
 metadata:
   name: {{ .Release.Name }}-portalweb-config
 data:
-  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice\",\n\t\tWIKI: \"ROOTURL\",\n\t\tBUGZILLA: \"ROOTURL/bugzilla/\",\n\t\tSTATUS: \"ROOTURL/status\",\n\t\tAPIURL: \"ROOTURL\",\n\t\tWEBURL: \"ROOTURL/nfvportal\",\n\t\tAPIOAUTHURL: \"ROOTURL/auth/realms/openslice\",\n\t\tAPITMFURL: \"ROOTURL/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
+  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice\",\n\t\tWIKI: \"{{ .Values.rooturl }}/wiki\",\n\t\tBUGZILLA: \"{{ .Values.rooturl }}/bugzilla/\",\n\t\tSTATUS: \"{{ .Values.rooturl }}/status\",\n\t\tAPIURL: \"{{ .Values.rooturl }}\",\n\t\tWEBURL: \"{{ .Values.rooturl }}/nfvportal\",\n\t\tAPIOAUTHURL: \"{{ .Values.rooturl }}/auth/realms/openslice\",\n\t\tAPITMFURL: \"{{ .Values.rooturl }}/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
 

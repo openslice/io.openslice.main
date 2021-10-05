@@ -19,5 +19,11 @@ buildimg io.openslice.bugzilla Dockerfile.bugzilla
 buildimg io.openslice.osom Dockerfile.osom
 buildimg io.openslice.portal.web Dockerfile
 buildimg io.openslice.tmf.api Dockerfile.tmfapi
-buildimg io.openslice.tmf.web Dockerfile
 buildimg io.openslice.oas Dockerfile.oasapi
+
+
+
+cd $dirlocation/io.openslice.tmf.web
+docker run -u 0 --rm -v "$PWD":/app trion/ng-cli npm install
+docker run -u 0 --rm -v "$PWD":/app trion/ng-cli ng build --prod --deleteOutputPath=false
+buildimg io.openslice.tmf.web Dockerfile
