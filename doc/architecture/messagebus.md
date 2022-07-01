@@ -602,3 +602,62 @@ It is based on ActiveMQ.
 |**Headers** | header.servicespecid, header.phasename |
 |**Description** |   The Body  contains the LCMRuleSpec objects of the specific Service Spec and the specific phase  |
 
+
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICETESTSPEC_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICETESTSPEC_BY_ID  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  specid |
+|**Description** | Return a ServiceTestSpecification |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_SERVICETEST  |
+|**Name** |  jms:queue:CATALOG.ADD.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  ServiceTestCreate String json |
+|**Headers** | "orderid"=orderid, "serviceTestSpecid"= specid |
+|**Description** |   Creates Service Test based an a Service Test Spec, Returns a ServiceTest object |
+
+---
+
+
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_SERVICETEST  |
+|**Name** |  jms:queue:CATALOG.UPD.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | |
+|**Body** |  ServiceTestUpdate |
+|**Headers** | "serviceid" = serviceId, "propagateToSO" = true/false |
+|**Description** |  will update a service test by id and return the service instance. If propagateToSO=true then any service change will be handled by OSOM. This is needed to be controlled in order to avoid update loops|
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICETEST_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  String serviceID |
+|**Description** |   returns a Service TEST instance |
+
+

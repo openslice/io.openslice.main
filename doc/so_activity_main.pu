@@ -20,120 +20,29 @@ partition "**process** Start Order Process" {
         ----
         //Start Order Process//
     end note
+    :Find Order Items;
+    repeat :for each ServiceOrderItem
     
-    	partition "**process** Automation Check" {
-    	
-		    note
-		        Automation Check process
-		        ----
-		        //Automation Check process 
-		        decides which 
-		        services can be automatically 
-		        handled by NFVO
-		        or can be managed 
-		        by external partner//
-		    end note
-    
-    		:get service order id;
-    		repeat :for each ServiceOrderItem
-				if (ServiceOrderActionType.ADD) then (yes)
-				  :create Underl Service for ServiceSpecification and for ServiceSpecRelationships;
-				  if ( partnerOrg != null  ) then (yes)
-				  	:createServiceByServiceSpec
-				  	AUTOMATICALLY_MANAGED;
-				  	:execute any LCM rules "PRE_PROVISION" phase;
-				  else if ( "CustomerFacingServiceSpecification" && isIsBundle)  then (yes)
-				  	:createServiceByServiceSpec
-				  	AUTOMATICALLY_MANAGED;
-				  	:copy characteristics from Service Order Item;
-				  	:copy the rest of characteristics from Service Spec;
-				  	:execute any LCM rules "PRE_PROVISION" phase;
-				  	:create the related Service Instance;
-				  	note
-				        the underlying actual 
-				        running service 
-				        is not created here. 
-				        this spec is not an RFS
-				    end note
-				  else if ( CustomerFacingServiceSpecification) && (specrel.findSpecCharacteristicByName("OSAUTOMATED")  ) then	  
-				  	:createServiceByServiceSpec
-				  	AUTOMATICALLY_MANAGED;
-				  	:execute any LCM rules "PRE_PROVISION" phase;
-				  else if ( ResourceFacingServiceSpecification ) then
-				  	:createServiceByServiceSpec
-				  	AUTOMATICALLY_MANAGED;
-				  	:copy characteristics from Service Order Item;
-				  	:copy the rest of characteristics from Service Spec;
-				  	:execute any LCM rules "PRE_PROVISION" phase;
-				  	:create the related Service Instance;
-				  	note
-				        the underlying actual 
-				        running service 
-				        is not created yet 
-				        but is propaged 
-				        to NFVO next 
-				        if there is an NSD
-				    end note
-				  	if ( specrel.findSpecCharacteristicByName( "NSDID" ) != null ) then
-						:servicesHandledByNFVOAutomated.add(createdServ.getId());						
-					else 
-						:servicesLocallyAutomated.add(createdServ.getId());
-				  	endif
-				  else
-				  	:createServiceByServiceSpec
-				  	(sor, soi, specrel, EServiceStartMode.MANUALLY_BY_SERVICE_PROVIDER, null);;
-				  endif
+    	partition "**process** Process Order Item" {    	
+    		:ProcessOrderItemActionCheck;
+    		if (ServiceOrderActionType.ADD) then (yes)
+				  :Action Add;
+				  :CreateServiceProcess;
+				  
 				  
 				else if (ServiceOrderActionType.MODIFY) then  (yes)
-					if (ServiceStateType.INACTIVE || ServiceStateType.TERMINATED) then (yes)
-						:make ServiceStateType.TERMINATED;
-					else
-				  		:copy characteristics;
-					endif
+					:Action MODIFY;
 				else if (ServiceOrderActionType.DELETE) then  (yes)
-						:make ServiceStateType.TERMINATED;
+					:Action DELETE;
 				endif
-			repeat while
-			:setVariables sHandledByExternalSP, HandledManual, HandledByNFVOAutomated, LocallyAutomated;
-			:updateServiceOrder;
-    	}
-    fork    	
-    	partition "**process** User Task Manual Complete Service" {
-    		:UserOrderCompleteService;
-    	}
-    fork again	
-    	partition "**process** NFVO Deployment Request" {
-    		:NFVO RFS Task;
-    		:Check service deployment;
-    	}
-    fork again
-    	partition "**process** External Service Provider Deployment Request" {
-    		:Submit Order To External Service Provider;
-    		:Check external service order fulfilment;
-    	}
-    fork again
-    	partition "**process** Local Service Orchestration" {
-    		:Local Service Orchestration; 
-    		:Check Service Deployment Task;
-    	}
-    end fork {and}
-    :Order Complete;
+    		:Process OrderItemComplete;
+    	
+	}
+	repeat while    
+    
 }
 
 
-
-:for each ACKNOWLEDGED and scheduled service order;
-repeat :for each ServiceItem
-	:execute any LCM rules "Pre-provision phase";
-repeat while
-
-
-if (Graphviz installed?) then (yes)
-  :process all\ndiagrams;
-else (no)
-  :process only
-  __sequence__ and __activity__ diagrams;
-endif
 
 stop
 @enduml

@@ -4,7 +4,8 @@
 
 LCM Rules are used for defining complex conditions and actions during the lifecycle of a service. In Openslice there are four types of rules defined:
 
-* PRE_PROVISION 
+* PRE_PROVISION
+* CREATION
 * AFTER_ACTIVATION 
 * SUPERVISION 
 * AFTER_DEACTIVATION 
@@ -14,14 +15,23 @@ The following figure displays the different phases that the rules are performed,
 
 [![Rules in NSI](../images/lcm/lcmfig1.png)](../images/lcm/lcmfig1.png)
 
+* PRE_PROVISION rules: Run only once just before creating a service with a given priority. 
+* CREATION rules: Run while the referenced service dependencies of a service are created
+* AFTER_ACTIVATION rules: Run only once just after a service get the ACTIVE state
+* SUPERVISION rules: Run when a characteristic of a service is changed and the service is in the ACTIVE state 
+* AFTER_DEACTIVATION rules: Run only once just after a service get the INACTIVE/TERMINATED state 
 
 In general the rules allow to perform many actions during service LCM. Thes are some examples:
 
 * Modify service specification parameters before the instantiation of a service (or during operation) based on other dependencies. These parameters might be part of other services already included in Service order
 * Translate GST/NEST parameter values to other values passed later to NFVO for instantiation or control
 * Define complex OSM Configs based on other dependencies and passing variables
+* Define any dependencies when creating the referenced services
+* Dynamically include new service dependencies
 * Create new service orders so include dynamically other services
 * Call external (RESTful) services (via http(s), define payload, examine response)
+
+
 
 
 ## Examine if the rules are executed successfully 
