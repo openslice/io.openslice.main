@@ -133,8 +133,9 @@ TITLE: "Openslice demo",
 ```
 cd io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config
 sudo cp config.prod.default.json config.prod.json
+sudo cp theming.default.scss theming.scss
 ```
-and edit config.prod.json
+and edit config.prod.json & theming.scss
 
 edit config.oauth.ts with your domain details for example:
 
