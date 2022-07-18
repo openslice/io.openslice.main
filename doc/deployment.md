@@ -130,14 +130,23 @@ TITLE: "Openslice demo",
 ```
 
 ##Configure TMF web ui
+
+```
+cd io.openslice.tmf.web/src/assets/config
+sudo cp theming.default.scss theming.scss
+```
+
+> **_NOTE:_**  This action needs to be executed before project building and prior to first git pull this directory does not exist. If you have not build the project before an error will arise. After this error prompt you will be able to execute the above commands. Project re-deployments are not affected. This check will be automated in future releases. 
+
+and edit theming.scss
+
 ```
 cd io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config
 sudo cp config.prod.default.json config.prod.json
-sudo cp theming.default.scss theming.scss
 ```
-and edit config.prod.json & theming.scss
+and edit config.prod.json
 
-edit config.oauth.ts with your domain details for example:
+edit OAUTH_CONFIG of config.prod.json with your domain details for example:
 
 ```
  issuer: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
