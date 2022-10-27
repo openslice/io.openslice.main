@@ -311,6 +311,35 @@ It is based on ActiveMQ.
 ---
 
 
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_NSACTIONS_SCALE  |
+|**Name** |  jms:queue:NSACTIONS.SCALE  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM or maybe used by others that would like scale a NS |
+|**Body** | A ScaleDescriptor as json string  |
+|**Headers** | none |
+|**Description** | performs a scale |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_NS_LCMCHANGED  |
+|**Name** |  NFV_CATALOG_NS_LCMCHANGED  |
+|**Type** | topic  |
+|**Destination** |   any |
+|**Producers** | MANO client |
+|**Body** | A json string  |
+|**Headers** | none |
+|**Description** | A NFV_CATALOG_NS_LCMCHANGED message is published when LCM of a running NS is changed |
+
+---
+
 #ALARMS
 
 

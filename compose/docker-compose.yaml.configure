@@ -59,7 +59,7 @@ services:
 
   keycloak:
       container_name: keycloak
-      image: jboss/keycloak:9.0.2
+      image: jboss/keycloak:9.0.3
       environment:
         DB_VENDOR: MYSQL
         DB_ADDR: amysql
