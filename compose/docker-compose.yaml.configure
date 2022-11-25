@@ -191,7 +191,8 @@ services:
         "swagger.authserver" : "http://localhost/auth/realms/openslice",
         "swagger.clientid" : "osapiWebClientId",
         "swagger.clientsecret" : "secret",
-        "logging.level.org.springframework" : "INFO"        
+        "logging.level.org.springframework" : "INFO",      
+        "kroki.serverurl" : "http://localhost/kroki"  
       }'
     volumes:
     - ./repo:/root
@@ -294,6 +295,29 @@ services:
     - 13013:13013
     networks:
     - back
+      
+  kroki:
+    container_name: kroki
+    image: yuzutech/kroki
+    depends_on:
+      - blockdiag
+    environment:
+      - KROKI_BLOCKDIAG_HOST=blockdiag
+    ports:
+      - "8000:8000"
+    networks:
+    - front
+    - back
+
+
+  blockdiag:
+    image: yuzutech/kroki-blockdiag
+    expose:
+      - "8001"
+    networks:
+    - front
+    - back
+
       
 networks:
   front:
