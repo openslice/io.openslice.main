@@ -33,11 +33,11 @@ spec:
         command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
       - name: init-mysql-portal
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup mysql-portal; do echo waiting for mysql-portal; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup mysql; do echo waiting for mysql; sleep 2; done"]
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.datasource.url": "jdbc:mysql://mysql-portal/osdb?createDatabaseIfNotExist=true", "spring.datasource.username":"root", "spring.datasource.password":"letmein", "keycloak-internal-auth-server-url": "http://keycloak:8080/auth", "keycloak-admin-password": "Pa55w0rd", "keycloak.auth-server-url": "http://keycloak:8080/auth", "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "admin", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://osportalapi:13000/osapi/actuator/health", "swagger.authserver" : "http://INGRESSADDR/auth/realms/openslice", "swagger.clientid" : "osapiWebClientId", "swagger.clientsecret" : "secret", "logging.level.org.springframework" : "INFO" }'
+              value: '{ "spring.datasource.url": "jdbc:mysql://mysql/osdb?createDatabaseIfNotExist=true", "spring.datasource.username":"root", "spring.datasource.password":"letmein", "keycloak-internal-auth-server-url": "http://keycloak/auth", "keycloak-admin-password": "Pa55w0rd", "keycloak.auth-server-url": "http://keycloak/auth", "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "admin", "spring.cloud.consul.host": "http://consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://osportalapi/osapi/actuator/health", "swagger.authserver" : "http://INGRESSADDR/auth/realms/openslice", "swagger.clientid" : "osapiWebClientId", "swagger.clientsecret" : "secret", "logging.level.org.springframework" : "INFO" }'
           image: openslice/io.openslice.portal.api:latest
           name: openslice-portalapi
           ports:

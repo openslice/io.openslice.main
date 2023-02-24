@@ -11,7 +11,7 @@ kubectl delete -f ./deployment/mysql-portal-service.yaml
 kubectl delete -f ./deployment/mysql-portal-deployment.yaml
 
 #kubectl delete -f keycloak-realm-config.yaml
-kubectl delete configmap keycloak-realm-config
+kubectl delete configmap keycloak-realm-config -n openslice
 kubectl delete -f ./deployment/keycloak-service.yaml
 kubectl delete -f ./deployment/keycloak-deployment.yaml
 
@@ -38,7 +38,7 @@ kubectl delete -f ./deployment/portalweb-config.yaml
 kubectl delete -f ./deployment/portalweb-service.yaml
 kubectl delete -f ./deployment/portalweb-deployment.yaml
 
-kubectl delete -f ./deployment//centrallog-service.yaml
+kubectl delete -f ./deployment/centrallog-service.yaml
 kubectl delete -f ./deployment/centrallog-deployment.yaml
 
 kubectl delete -f ./deployment/bugzilla-client-service.yaml
@@ -48,4 +48,8 @@ kubectl delete -f ./deployment/mysql-portal-claim0-persistentvolumeclaim.yaml
 kubectl delete -f ./deployment/osom-claim0-persistentvolumeclaim.yaml
 kubectl delete -f ./deployment/osportalapi-claim0-persistentvolumeclaim.yaml
 kubectl delete -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
+kubectl delete -f ./deployment/oasapi-claim0-persistentvolumeclaim.yaml
 
+kubectl delete -f ./deployment/openslice-ingress.yaml
+
+rm -r deployment

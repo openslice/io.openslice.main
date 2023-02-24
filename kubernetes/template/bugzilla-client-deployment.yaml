@@ -29,7 +29,7 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://bugzilla-client:13010/actuator/health", "bugzillaurl":"example.com:443/bugzilla", "bugzillakey":"VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z", "main_operations_product":"My Operations" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://bugzilla-client/actuator/health", "bugzillaurl":"example.com:443/bugzilla", "bugzillakey":"VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z", "main_operations_product":"My Operations" }'
           image: openslice/io.openslice.bugzilla:latest
           name: bugzilla-client
           ports:

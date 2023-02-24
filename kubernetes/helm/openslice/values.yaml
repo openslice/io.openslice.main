@@ -70,7 +70,7 @@ bugzillaurl: example.com:443/bugzilla
 bugzillakey: VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z
 main_operations_product: My Operations
 centrallogurl: http://elk_ip:elk_port/index_name/_doc
-rooturl: http://10.10.10.35
+rooturl: http://10.10.10.223 # This is the ingress LB IP
 
 oscreds:
   activemq_user: admin

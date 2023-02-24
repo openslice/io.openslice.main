@@ -26,13 +26,13 @@ metadata:
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.openslice.service: mysql-portal
-  name: mysql-portal
+    io.openslice.service: mysql
+  name: mysql
 spec:
   selector:
     matchLabels:
-      io.openslice.service: mysql-portal
-  serviceName: mysql-portal
+      io.openslice.service: mysql
+  serviceName: mysql
   replicas: 1
   template:
     metadata:
@@ -41,7 +41,7 @@ spec:
         kompose.version: 1.22.0 (955b78124)
       labels:
         io.kompose.network/back: "true"
-        io.openslice.service: mysql-portal
+        io.openslice.service: mysql
     spec:
       containers:
         - env:
@@ -50,7 +50,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: letmein
           image: mysql:5.7.27
-          name: mysql-portal
+          name: mysql
           ports:
             - containerPort: 3306
           resources: {}
