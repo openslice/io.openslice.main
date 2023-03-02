@@ -1,16 +1,4 @@
-#!/bin/bash
-
-
-# display_usage() { 
-# 	echo -e "\nUsage:\k8sdeploy.sh ExposeAddress(IP or URL) \n" 
-# 	} 
-	
-# if [  $# -le 0 ] 
-# then 
-# 	display_usage
-# 	exit 1
-# fi 
-	
+#!/bin/bash	
 cp -r template/ deployment
 
 kubectl create namespace openslice
