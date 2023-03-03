@@ -1,26 +1,19 @@
-#!/bin/bash
-
-
-display_usage() { 
-	echo -e "\nUsage:\k8sdeploy.sh ExposeAddress(IP or URL) \n" 
-	} 
-	
-if [  $# -le 0 ] 
-then 
-	display_usage
-	exit 1
-fi 
-	
-	
-# kubectl apply -f openslice-ingress.yaml
-
-
+#!/bin/bash	
 cp -r template/ deployment
 
-find ./deployment/ -type f  -print0 |  xargs -0 sed -i 's/INGRESSADDR/$1/g'
-
 kubectl create namespace openslice
+kubectl apply -f ./deployment/openslice-ingress.yaml
 
+# wait for ingress to get IP address
+INGRESSADDR=""
+while [ -z $INGRESSADDR ]; do
+  echo "Waiting for external IP"
+  INGRESSADDR=$(kubectl -n openslice get ingress openslice-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  [ -z "$INGRESSADDR" ] && sleep 5
+done
+echo 'Found external IP: '$INGRESSADDR
+
+find ./deployment/ -type f  -print0 |  xargs -0 sed -i "s/INGRESSADDR/$INGRESSADDR/g"
 
 kubectl apply -f ./deployment/mysql-portal-claim0-persistentvolumeclaim.yaml
 

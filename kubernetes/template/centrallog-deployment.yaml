@@ -28,7 +28,7 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog:13013/actuator/health", "centrallogurl":"http://elk_ip:elk_port/index_name/_doc" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog/actuator/health", "centrallogurl":"http://elk_ip:elk_port/index_name/_doc" }'
           image: openslice/io.openslice.centrallog.service
           name: centrallog
           ports:

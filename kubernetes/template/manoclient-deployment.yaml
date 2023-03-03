@@ -28,7 +28,7 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul:8500", "spring.cloud.consul.discovery.healthCheckUrl" : "http://manoclient:13011/mano/actuator/health", "logging.level.org.springframework" : "INFO" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://manoclient/mano/actuator/health", "logging.level.org.springframework" : "INFO" }'
           image: openslice/io.openslice.mano:latest
           name: manoclient
           ports:
