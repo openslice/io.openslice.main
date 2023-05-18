@@ -136,7 +136,7 @@ cd io.openslice.tmf.web/src/assets/config
 sudo cp theming.default.scss theming.scss
 ```
 
-> **_NOTE:_**  This action needs to be executed before project building and prior to first git pull this directory does not exist. If you have not build the project before an error will arise. After this error prompt you will be able to execute the above commands. Project re-deployments are not affected. This check will be automated in future releases. 
+> **_NOTE:_**  This action needs to be executed before project building, and prior to first git pull this directory does not exist. If you have not built the project before, an error will arise. After this error prompt you will be able to execute the above commands. Project re-deployments are not affected. This check will be automated in future releases. 
 
 and edit theming.scss
 
@@ -149,9 +149,11 @@ and edit config.prod.json
 edit OAUTH_CONFIG of config.prod.json with your domain details for example:
 
 ```
- issuer: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
+ issuer: 'http://portal.openslice.io/auth/realms/openslice',
  loginUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
  tokenEndpoint: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token',
+ logoutUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/logout' 
+
 ```
 
 
