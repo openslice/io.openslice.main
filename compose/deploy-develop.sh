@@ -44,5 +44,8 @@ docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /o
 
 
 cd $dirlocation/io.openslice.tmf.web
+if [ ! -f  "./src/assets/config/theming.scss" ]; then
+    sudo cp ./src/assets/config/theming.default.scss ./src/assets/config/theming.scss
+fi
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli:14.2.6 npm install
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli:14.2.6 ng build --configuration production --deleteOutputPath=false
