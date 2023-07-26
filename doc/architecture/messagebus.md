@@ -45,6 +45,59 @@ It is based on ActiveMQ.
 |**Headers** | "orderid"= orderid |
 |**Description** |   Returns a ServiceOrder as String |
 
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICESPEC_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICESPEC_BY_ID  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  specid |
+|**Description** | Return a ServiceSpecification |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_SERVICESPEC  |
+|**Name** |  jms:queue:CATALOG.ADD.SERVICESPEC  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | CRIDGE |
+|**Body** |  ServiceSpecCreate |
+|**Description** |  Creates a ServiceSpecification and  returns a ServiceSpecification as String  |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_SERVICESPEC  |
+|**Name** |  jms:queue:CATALOG.UPD.SERVICESPEC  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | CRIDGE |
+|**Body** |  ServiceSpecUpdate |
+|**Headers** | "serviceSpecid" = serviceSpecId|
+|**Description** |  Updates a ServiceSpecification and  returns a ServiceSpecification as String.   |
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPDADD_SERVICESPEC  |
+|**Name** |  jms:queue:CATALOG.UPDADD.SERVICESPEC  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | CRIDGE |
+|**Body** |  ServiceSpecUpdate |
+|**Headers** | "serviceSpecid" = serviceSpecId, "forceId"=forceId |
+|**Description** |  Updates a ServiceSpecification and  returns a ServiceSpecification as String. If forceId is true then tries to assign the requested ID to the spec  |
+
 ---
 
 | Message |    |
@@ -57,20 +110,6 @@ It is based on ActiveMQ.
 |**Body** |  ServiceOrderCreate serviceOrder |
 |**Headers** |  |
 |**Description** | Creates a ServiceOrder and  returns a ServiceOrder as String |
-
----
-
-
-
-| Message |    |
-| ------------- |----------------|
-|**Alias** |  CATALOG_GET_SERVICESPEC_BY_ID  |
-|**Name** |  jms:queue:CATALOG.GET.SERVICESPEC_BY_ID  |
-|**Type** | queue  |
-|**Destination** |   TMF API service |
-|**Producers** | OSOM |
-|**Body** |  specid |
-|**Description** | Return a ServiceSpecification |
 
 ---
 
@@ -550,8 +589,56 @@ It is based on ActiveMQ.
 |**Description** |   retrieve all active services of partners |
 
 ---
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_RESOURCESPEC  |
+|**Name** |  jms:queue:CATALOG.ADD.RESOURCESPEC  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  ResourceSpecificationCreate |
+|**Headers** |  |
+|**Description** |   The Body  contains the ResourceSpecificationCreate object to add |
+
+---
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_RESOURCESPEC  |
+|**Name** |  jms:queue:CATALOG.UPD.RESOURCESPEC  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  ResourceSpecificationUpdate |
+|**Headers** | resourceSpecId  |
+|**Description** |   The Body  contains the ResourceSpecificationCreate object to update |
 
 
+---
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_RESOURCESPEC_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.RESOURCESPEC_BY_ID  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  resourceSpecid |
+|**Headers** |  |
+|**Description** |   The Body  contains the object id to find |
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPDADD_RESOURCESPEC  |
+|**Name** |  jms:queue:CATALOG.UPDADD.RESOURCESPEC  |
+|**Type** | topic  |
+|**Publishers** | TMF API |
+|**Consumers** | any |
+|**Body** |  resourceid |
+|**Headers** |  |
+|**Description** |   The Body  contains the ResourceSpecificationCreate object to update or create if not exist |
+
+---
 
 | Message |    |
 | ------------- |----------------|
