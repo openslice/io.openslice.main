@@ -50,9 +50,6 @@ fi
 if [ ! -f  "./src/assets/config/config.prod.json" ]; then
     cp ./src/assets/config/config.prod.default.json ./src/assets/config/config.prod.json
 fi
-if [ ! -f  "./src/assets/config/config.theming.json" ]; then
-    cp ./src/assets/config/config.theming.default.json ./src/assets/config/config.theming.json
-fi
 
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli:14.2.6 npm install
 docker run -u 0 --rm -v "$PWD":/app trion/ng-cli:14.2.6 ng build --configuration production --deleteOutputPath=false

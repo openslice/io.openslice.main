@@ -134,18 +134,18 @@ TITLE: "Openslice demo",
 There are 3 files available for configuration:
 
 * config.prod.json (Basic information + API configuration)
-* config.theming.json (HTML configuration - Logo, Favicon, Footer)
 * theming.scss (CSS color palette theming)
+* config.theming.json (HTML configuration - Logo, Favicon, Footer)
 
 
-The files above are created automatically during the initial deployment at **io.openslice.tmf.web/src/assets/config** directory as a copy of the default ones from the remote repository.
+The first 2 files above (i.e. config.prod.json, theming.scss) are essential for the successful deployment of Openslice, thus created automatically during the initial deployment at **io.openslice.tmf.web/src/assets/config** directory as a copy of the default ones from the remote repository.
 
 <br>
 
 Ensure that you check the **config.prod.json** file and readjust to your deployment if needed. 
 
 ```
-cd io.openslice.tmf.web/src/assets/
+cd io.openslice.tmf.web/src/assets/config
 ```
 and edit config.prod.json
 
@@ -157,6 +157,15 @@ WIKI: 'https://openslice.io',
 ```
 
 _NOTE:_  The {BASEURL} placeholder in the file automatically detects the Origin (Protocol://Domain:Port) of the deployment and applies it to every respective property. E.g. If you are attempting a local deployment of Openslice, then {BASEURL} is automatically translated to "http://localhost". Similarly, you may use {BASEURL} to translate to a public deployment configuration, e.g. "https://portal.openslice.io".
+
+<br>
+
+If further customization, apart from the default provided, is needed for branding (Logo, Footer) then **config.theming.json** needs to be created in **io.openslice.tmf.web/src/assets/config** directory, as follows:
+
+```
+cd io.openslice.tmf.web/src/assets/config
+sudo cp config.theming.default.json config.theming.json
+```
 
 <br>
 
