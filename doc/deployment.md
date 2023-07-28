@@ -111,7 +111,7 @@ sudo cp nginx.conf.default nginx.conf
 Edit server_name
 
 
-##Configure web ui
+##Configure Web UI
 
 `cd io.openslice.portal.web/src/js/  `
 `cp config.js.default config.js  `
@@ -129,32 +129,39 @@ TITLE: "Openslice demo",
 
 ```
 
-##Configure TMF web ui
+##Configure TMF Web UI
+
+There are 3 files available for configuration:
+ - config.prod.json (Basic information + API configuration)
+ - config.theming.json (HTML configuration - Logo, Favicon, Footer)
+ - theming.scss (CSS color palette theming)
+
+
+The files above are created automatically during the initial deployment at **io.openslice.tmf.web/src/assets/config** directory as a copy of the default ones from the remote repository.
+
+<br>
+
+Ensure that you check the **config.prod.json** file and readjust to your deployment if needed. 
 
 ```
-cd io.openslice.tmf.web/src/assets/config
-sudo cp theming.default.scss theming.scss
-```
-
-> **_NOTE:_**  This action needs to be executed before project building, and prior to first git pull this directory does not exist. If you have not built the project before, an error will arise. After this error prompt you will be able to execute the above commands. Project re-deployments are not affected. This check will be automated in future releases. 
-
-and edit theming.scss
-
-```
-cd io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config
-sudo cp config.prod.default.json config.prod.json
+cd io.openslice.tmf.web/src/assets/
 ```
 and edit config.prod.json
 
-edit OAUTH_CONFIG of config.prod.json with your domain details for example:
+E.g. Edit "TITLE" or "WIKI" property with your domain title 
 
 ```
- issuer: 'http://portal.openslice.io/auth/realms/openslice',
- loginUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
- tokenEndpoint: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token',
- logoutUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/logout' 
-
+TITLE: 'Openslice',
+WIKI: 'https://openslice.io',
 ```
+
+_NOTE:_  The {BASEURL} placeholder in the file automatically detects the Origin (Protocol://Domain:Port) of the deployment and applies it to every respective property. E.g. If you are attempting a local deployment of Openslice, then {BASEURL} is automatically translated to "http://localhost". Similarly, you may use {BASEURL} to translate to a public deployment configuration, e.g. "https://portal.openslice.io".
+
+<br>
+
+> **_IMPORTANT NOTE:_**  If you want to apply changes to the JSON configuration files without the need to rebuild the application, you have to apply the changes at the **io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config** directory. Although, it is <u>mandatory</u> to also apply these changes to the **io.openslice.tmf.web/src/assets/config** for <u>persistancy</u>, as after any future rebuilt of Openslice the **/dist** directory is being ovewritten along with its contents. The Openslice team strongly recommends to always apply your changes to the TMF web UI configuration files at **io.openslice.tmf.web/src/assets/config** and rebuild the application.
+
+
 
 
 
