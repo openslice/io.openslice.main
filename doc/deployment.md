@@ -132,9 +132,10 @@ TITLE: "Openslice demo",
 ##Configure TMF Web UI
 
 There are 3 files available for configuration:
- - config.prod.json (Basic information + API configuration)
- - config.theming.json (HTML configuration - Logo, Favicon, Footer)
- - theming.scss (CSS color palette theming)
+
+* config.prod.json (Basic information + API configuration)
+* config.theming.json (HTML configuration - Logo, Favicon, Footer)
+* theming.scss (CSS color palette theming)
 
 
 The files above are created automatically during the initial deployment at **io.openslice.tmf.web/src/assets/config** directory as a copy of the default ones from the remote repository.
@@ -159,10 +160,9 @@ _NOTE:_  The {BASEURL} placeholder in the file automatically detects the Origin 
 
 <br>
 
-> **_IMPORTANT NOTE:_**  If you want to apply changes to the JSON configuration files without the need to rebuild the application, you have to apply the changes at the **io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config** directory. Although, it is <u>mandatory</u> to also apply these changes to the **io.openslice.tmf.web/src/assets/config** for <u>persistancy</u>, as after any future rebuilt of Openslice the **/dist** directory is being ovewritten along with its contents. The Openslice team strongly recommends to always apply your changes to the TMF web UI configuration files at **io.openslice.tmf.web/src/assets/config** and rebuild the application.
+> **_IMPORTANT NOTE:_**  If you want to apply changes to the JSON configuration files without the need to rebuild the application, you have to apply the changes at the **io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config** directory. Although, it is <u>mandatory</u> to also apply these changes to the **io.openslice.tmf.web/src/assets/config** for <u>persistancy</u>, as after any future rebuild of Openslice the **/dist** directory is being ovewritten along with its contents. The Openslice team strongly recommends to always apply your changes to the TMF web UI configuration files at **io.openslice.tmf.web/src/assets/config** and rebuild the application.
 
-
-
+<br>
 
 
 ## Deploying docker compose
