@@ -1,0 +1,106 @@
+@startuml 
+
+
+start
+       
+:create Underl Service for ServiceSpecification and for ServiceSpecRelationships;
+:Create Service in RESERVED;
+->human accepts;
+:Service has state=RESERVED;
+
+:Process Create Rules;
+repeat :for each service reference
+	:decide what to create;
+	if (anyNotCreatedSupportingServices[!allSupportingServicesCreatedAndActive]) then  (yes)			
+		if (allSupportingServicesCreated ) then  (yes)
+			:wait a few seconds;
+		else 
+			partition "**process** Create Service" { 
+			}	
+		endif
+	endif
+	
+repeat while
+
+:Automation Check;
+ note right: allSupportingServicesCreatedAndActive
+note
+	        Automation Check process
+	        ----
+	        //Automation Check process 
+	        decides which 
+	        services can be automatically 
+	        handled by NFVO
+	        or can be managed 
+	        by external partner//
+end note
+
+
+
+	  if ( partnerOrg != null  ) then (yes)
+	  	:createServiceByServiceSpec
+	  	AUTOMATICALLY_MANAGED;
+	  	:execute any LCM rules "PRE_PROVISION" phase;
+	    partition "**process** External Service Provider Deployment Request" {
+    		:Submit Order To External Service Provider;
+    		:Check external service order fulfilment;
+    	}
+	  else if ( "CustomerFacingServiceSpecification" && isIsBundle)  then (yes)
+	  	:createServiceByServiceSpec
+	  	AUTOMATICALLY_MANAGED;
+	  	:copy characteristics from Service Order Item;
+	  	:copy the rest of characteristics from Service Spec;
+	  	:execute any LCM rules "PRE_PROVISION" phase;
+	  	:create the related Service Instance;
+	  	note
+	        the underlying actual 
+	        running service 
+	        is not created here. 
+	        this spec is not an RFS
+	    end note
+    	partition "**process** Local Service Orchestration" {
+    		:Local Service Orchestration; 
+    		:Check Service Deployment Task;
+    	}
+	  else if ( CustomerFacingServiceSpecification) && (specrel.findSpecCharacteristicByName("OSAUTOMATED")  ) then	  
+	  	:createServiceByServiceSpec
+	  	AUTOMATICALLY_MANAGED;
+	  	:execute any LCM rules "PRE_PROVISION" phase;
+	  else if ( ResourceFacingServiceSpecification ) then
+	  	:createServiceByServiceSpec
+	  	AUTOMATICALLY_MANAGED;
+	  	:copy characteristics from Service Order Item;
+	  	:copy the rest of characteristics from Service Spec;
+	  	:execute any LCM rules "PRE_PROVISION" phase;
+	  	:create the related Service Instance;
+	  	note
+	        the underlying actual 
+	        running service 
+	        is not created yet 
+	        but is propaged 
+	        to NFVO next 
+	        if there is an NSD
+	    end note
+	  	if ( specrel.findSpecCharacteristicByName( "NSDID" ) != null ) then
+			:servicesHandledByNFVOAutomated.add(createdServ.getId());						
+		else 
+			:servicesLocallyAutomated.add(createdServ.getId());
+	  	endif
+	  	partition "**process** NFVO Deployment Request" {
+    		:NFVO RFS Task;
+    		:Check service deployment;
+    	}
+	  else
+	  	:createServiceByServiceSpec
+	  	(sor, soi, specrel, EServiceStartMode.MANUALLY_BY_SERVICE_PROVIDER, null);;
+	  	partition "**process** User Task Manual Complete Service" {
+    		:UserOrderCompleteService;
+    	}
+	  endif
+				  
+
+    :Evaluate Created Services Task ;
+
+
+stop
+@enduml

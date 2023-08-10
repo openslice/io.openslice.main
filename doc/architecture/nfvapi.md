@@ -98,8 +98,8 @@ Example response:
           "apikey": "e41c1cc4-aa56-4b7e-9f4d-64589549d768",
           "createdAt": 1568711859000,
           "roles": [
-            "ROLE_ADMIN",
-            "ROLE_MENTOR"
+            "ADMIN",
+            "MENTOR"
           ]
         },
         "published": false,
