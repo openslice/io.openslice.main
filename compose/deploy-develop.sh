@@ -21,8 +21,6 @@ updaterepo(){
 
 updaterepo io.openslice.main
 updaterepo io.openslice.sol005nbi.osm
-updaterepo io.openslice.sol005nbi.osm8
-updaterepo io.openslice.sol005nbi.osm9
 updaterepo io.openslice.sol005nbi.osm10
 updaterepo io.openslice.sol005nbi.etsi
 updaterepo io.openslice.centrallog.client
@@ -39,7 +37,7 @@ updaterepo io.openslice.tmf.api
 updaterepo io.openslice.tmf.web
 
 cd $dirlocation
-docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.8.2-adoptopenjdk-15-openj9 mvn clean verify -DskipTests
+docker run -it --rm -v "/home/ubuntu/.m2":/root/.m2 -v "$(pwd)":/opt/maven -w /opt/maven/io.openslice.main maven:3.9.3-ibm-semeru-17-focal mvn clean verify -DskipTests
 
 
 
