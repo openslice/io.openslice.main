@@ -57,7 +57,7 @@ See more on [Consuming Services From External Partner Organizations](./architect
 
 ## Installing
 
-See [Deployment](./deployment.md)
+See [Deployment/Installation](./deployment.md)
 
 ---
 

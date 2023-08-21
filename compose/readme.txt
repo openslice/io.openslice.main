@@ -5,6 +5,16 @@ nginx.conf:
 - comment location /tmf-api
 - comment location /oas-api
 
+fix auth location in nginx.conf as follows:
+
+        location /auth {
+                proxy_pass http://keycloak:8080/auth;
+                        proxy_set_header  X-Real-IP $remote_addr;
+                        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header  Host $http_host;
+        }
+
+
 docker-compose --profile dev down;docker-compose --profile dev up -d 
 
 Keycloak for development
@@ -25,6 +35,10 @@ Explanation:
 
 
 nginx serves already the frontend from the project io.openslice.tmf.web
+
+
+
+
 If you would like to use the frontend to test your backend config.prod.json should look similar to the following example
 
 
@@ -61,6 +75,24 @@ If you would like to use the frontend to test your backend config.prod.json shou
 
 
 
+for the NFV frontend, config.js should be like the following:
+
+var appConfig = angular.module('portalwebapp.config',[]);
+
+
+appConfig.factory('APIEndPointService', function() {
+	  return {	      
+		TITLE: "Openslice",
+		WIKI: "ROOTURL",
+		BUGZILLA: "ROOTURL/bugzilla/",
+		STATUS: "ROOTURL/status/",
+		APIURL: "http://localhost:13000",
+		WEBURL: "ROOTURL/nfvportal",
+		APIOAUTHURL: "http://keycloak:8080/auth/realms/openslice",
+		APITMFURL: "http://localhost:13082/tmf-api/serviceCatalogManagement/v4"
+		
+	  };
+});
 
 
     

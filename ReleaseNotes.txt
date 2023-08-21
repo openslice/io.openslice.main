@@ -1,3 +1,16 @@
+Q3 2023 1.2.0-SNAPSHOT
+
+Upgraded to java17 and SpingBoot3
+Upgraded from ActiveMQ to Artemis
+
+Upgrade Keycloak to 16
+
+backup your previous database if necessary:
+sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
+restore your previous database:
+cat backup_ostmfdb.sql | docker exec -i amysql /usr/bin/mysql -u root --password=letmein ostmfdb
+
+
 Q3 2021
 
 - There have been some minor changes in the databases. THerefore some older artifacts might be deleted. Especially RFS relationships

@@ -1,7 +1,9 @@
 ## Preparing the environment
 
-
 Note: See the Kubernetes section, if you would like to deploy Openslice in a Kubernetes cluster
+
+backup your previous database if necessary:
+sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
 
 Install docker  
 Install docker-compose
@@ -164,8 +166,7 @@ edit OAUTH_CONFIG of config.prod.json with your domain details for example:
 
 
 Go to compose directory and issue then:
-`sudo docker-compose down;sudo COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build`
-
+`sudo docker-compose --profile prod down;sudo docker-compose --profile prod up -d  --build`
 
 Note: depending on your machine, this process might take time. 
 

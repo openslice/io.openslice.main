@@ -53,7 +53,7 @@ nav:
   - Overview:
       - Introduction: index.md
   - Getting Started:
-      - Deployment: deployment.md
+      - Deployment/Installation: deployment.md
       - NFV Orchestrator Configuration: nfvoconfig.md
       - Service Catalogs: catalogs.md
       - NFV Catalogs: nfvcatalogs.md
