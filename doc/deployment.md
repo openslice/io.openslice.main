@@ -3,7 +3,9 @@
 Note: See the Kubernetes section, if you would like to deploy Openslice in a Kubernetes cluster
 
 backup your previous database if necessary:
+```
 sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
+```
 
 Install docker  
 Install docker-compose
@@ -36,6 +38,7 @@ Edit docker-compose.yaml
 
 In folder mysql-init edit the file 01-databases.sql. Edit the credentials that services connect to the database (if you wish) of portaluser (default is 12345) and keycloak (default is password).
 
+delete the exposed ports
 
 ###2.keycloak container
 
@@ -51,21 +54,30 @@ DB_PASSWORD: password
 KEYCLOAK_PASSWORD: Pa55w0rd
 ```
 
-2.3
-
-check the line JAVA_OPTS and configure the frontendUrl
-
--Dkeycloak.frontendUrl=http://localhost/auth
 
 ###3.osportalapi container (NFV services)
 
-Edit the following if you changed mysql and keycloak credentials and adjust properly th domain
+Edit the following if you changed mysql and keycloak credentials and adjust properly the domain (replace everywhere the http://keycloak:8080)
 
 ```
-"spring.datasource.username":"xx",
-"spring.datasource.password":"xx",
-"keycloak-admin-password": "Pa55w0rd",
-Edit properly with your domain "swagger.authserver" : "http://localhost/auth/realms/openslice",
+SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
+        "spring.datasource.username":"root",
+        "spring.datasource.password":"letmein",
+        "spring-addons.issuers[0].uri": "http://portal.openslice.io/auth/realms/openslice",
+        "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+        "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+        "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://portal.openslice.io/auth/realms/openslice",
+        "springdoc.oAuthFlow.authorizationUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth",
+        "springdoc.oAuthFlow.tokenUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token",
+        "springdoc.oauth.client-id" : "osapiWebClientId",
+        "springdoc.oauth.clientsecret" : "secret",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
+        "logging.level.org.springframework" : "INFO"
+
 
 ```
 
@@ -103,6 +115,7 @@ Edit properly with your domain "swagger.authserver" : "http://localhost/auth/rea
 
 ```
 
+delete the exposed ports in other services like activemq
 
 ##Configure nginx
 
