@@ -1,6 +1,6 @@
 <img src="images/openslice_logo.png" alt="drawing" width="200"/>
 
-version: 2021-Q3 1.1.0-SNAPSHOT
+version: 2023-Q3 1.2.0-SNAPSHOT
 
 Openslice is a prototype open source, operations support system. It supports VNF/NSD onboarding to OpenSourceMANO (OSM) and NSD deployment management. It also supports TMFORUM OpenAPIs regarding Service Catalog Management, Ordering, Resource, etc.
 
@@ -57,7 +57,7 @@ See more on [Consuming Services From External Partner Organizations](./architect
 
 ## Installing
 
-See [Deployment](./deployment.md)
+See [Deployment/Installation](./deployment.md)
 
 ---
 

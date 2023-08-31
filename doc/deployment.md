@@ -1,7 +1,11 @@
 ## Preparing the environment
 
-
 Note: See the Kubernetes section, if you would like to deploy Openslice in a Kubernetes cluster
+
+backup your previous database if necessary:
+```
+sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
+```
 
 Install docker  
 Install docker-compose
@@ -34,6 +38,7 @@ Edit docker-compose.yaml
 
 In folder mysql-init edit the file 01-databases.sql. Edit the credentials that services connect to the database (if you wish) of portaluser (default is 12345) and keycloak (default is password).
 
+delete the exposed ports
 
 ###2.keycloak container
 
@@ -49,21 +54,30 @@ DB_PASSWORD: password
 KEYCLOAK_PASSWORD: Pa55w0rd
 ```
 
-2.3
-
-check the line JAVA_OPTS and configure the frontendUrl
-
--Dkeycloak.frontendUrl=http://localhost/auth
 
 ###3.osportalapi container (NFV services)
 
-Edit the following if you changed mysql and keycloak credentials and adjust properly th domain
+Edit the following if you changed mysql and keycloak credentials and adjust properly the domain (replace everywhere the http://keycloak:8080)
 
 ```
-"spring.datasource.username":"xx",
-"spring.datasource.password":"xx",
-"keycloak-admin-password": "Pa55w0rd",
-Edit properly with your domain "swagger.authserver" : "http://localhost/auth/realms/openslice",
+SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
+        "spring.datasource.username":"root",
+        "spring.datasource.password":"letmein",
+        "spring-addons.issuers[0].uri": "http://portal.openslice.io/auth/realms/openslice",
+        "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+        "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+        "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://portal.openslice.io/auth/realms/openslice",
+        "springdoc.oAuthFlow.authorizationUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth",
+        "springdoc.oAuthFlow.tokenUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token",
+        "springdoc.oauth.client-id" : "osapiWebClientId",
+        "springdoc.oauth.clientsecret" : "secret",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
+        "logging.level.org.springframework" : "INFO"
+
 
 ```
 
@@ -101,6 +115,7 @@ Edit properly with your domain "swagger.authserver" : "http://localhost/auth/rea
 
 ```
 
+delete the exposed ports in other services like activemq
 
 ##Configure nginx
 
@@ -111,7 +126,7 @@ sudo cp nginx.conf.default nginx.conf
 Edit server_name
 
 
-##Configure web ui
+##Configure Web UI
 
 `cd io.openslice.portal.web/src/js/  `
 `cp config.js.default config.js  `
@@ -129,33 +144,49 @@ TITLE: "Openslice demo",
 
 ```
 
-##Configure TMF web ui
+##Configure TMF Web UI
+
+There are 3 files available for configuration:
+
+* config.prod.json (Basic information + API configuration)
+* theming.scss (CSS color palette theming)
+* config.theming.json (HTML configuration - Logo, Favicon, Footer)
+
+
+The first 2 files above (i.e. config.prod.json, theming.scss) are essential for the successful deployment of Openslice, thus created automatically during the initial deployment at **io.openslice.tmf.web/src/assets/config** directory as a copy of the default ones from the remote repository.
+
+<br>
+
+Ensure that you check the **config.prod.json** file and readjust to your deployment if needed. 
 
 ```
 cd io.openslice.tmf.web/src/assets/config
-sudo cp theming.default.scss theming.scss
-```
-
-> **_NOTE:_**  This action needs to be executed before project building, and prior to first git pull this directory does not exist. If you have not built the project before, an error will arise. After this error prompt you will be able to execute the above commands. Project re-deployments are not affected. This check will be automated in future releases. 
-
-and edit theming.scss
-
-```
-cd io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config
-sudo cp config.prod.default.json config.prod.json
 ```
 and edit config.prod.json
 
-edit OAUTH_CONFIG of config.prod.json with your domain details for example:
+E.g. Edit "TITLE" or "WIKI" property with your domain title 
 
 ```
- issuer: 'http://portal.openslice.io/auth/realms/openslice',
- loginUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth',
- tokenEndpoint: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token',
- logoutUrl: 'http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/logout' 
-
+TITLE: 'Openslice',
+WIKI: 'https://openslice.io',
 ```
 
+_NOTE:_  The {BASEURL} placeholder in the file automatically detects the Origin (Protocol://Domain:Port) of the deployment and applies it to every respective property. E.g. If you are attempting a local deployment of Openslice, then {BASEURL} is automatically translated to "http://localhost". Similarly, you may use {BASEURL} to translate to a public deployment configuration, e.g. "https://portal.openslice.io".
+
+<br>
+
+If further customization, apart from the default provided, is needed for branding (Logo, Footer) then **config.theming.json** needs to be created in **io.openslice.tmf.web/src/assets/config** directory, as follows:
+
+```
+cd io.openslice.tmf.web/src/assets/config
+sudo cp config.theming.default.json config.theming.json
+```
+
+<br>
+
+> **_IMPORTANT NOTE:_**  If you want to apply changes to the JSON configuration files without the need to rebuild the application, you have to apply the changes at the **io.openslice.tmf.web/dist/io-openslice-portal-web/assets/config** directory. Although, it is <u>mandatory</u> to also apply these changes to the **io.openslice.tmf.web/src/assets/config** for <u>persistancy</u>, as after any future rebuild of Openslice the **/dist** directory is being ovewritten along with its contents. The Openslice team strongly recommends to always apply your changes to the TMF web UI configuration files at **io.openslice.tmf.web/src/assets/config** and rebuild the application.
+
+<br>
 
 
 ## Deploying docker compose
@@ -164,8 +195,7 @@ edit OAUTH_CONFIG of config.prod.json with your domain details for example:
 
 
 Go to compose directory and issue then:
-`sudo docker-compose down;sudo COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build`
-
+`sudo docker-compose --profile prod down;sudo docker-compose --profile prod up -d  --build`
 
 Note: depending on your machine, this process might take time. 
 
