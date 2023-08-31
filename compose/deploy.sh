@@ -18,8 +18,7 @@ updaterepo(){
         fi
 
         cd $1/
-        git checkout -b $branch
-        sudo  git branch --set-upstream-to=origin/$branch $branch
+        git checkout $branch
         git pull
 }
 
