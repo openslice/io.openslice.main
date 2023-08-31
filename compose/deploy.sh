@@ -14,11 +14,12 @@ updaterepo(){
         cd $dirlocation
         echo "Build " $1
         if [ ! -d $1 ]; then
-                git clone --single-branch --branch $branch https://github.com/openslice/$1.git
+                git clone https://github.com/openslice/$1.git
+                git checkout -b $branch
                 cd $1/
         else
                 cd $1/
-                git checkout develop
+                git checkout -b $branch
                 git pull
         fi
 }
