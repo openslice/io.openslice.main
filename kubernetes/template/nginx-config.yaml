@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+    events {
+        worker_connections  1024;
+    }
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+        client_max_body_size 5000M;
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+        access_log  /var/log/nginx/access.log  main;
+        sendfile        on;
+        keepalive_timeout  65;
+        server {
+            listen 80;
+            listen [::]:80;
+            server_name  localhost;
+            location / {
+                root /webstatic/services/;
+                index index.html;
+                try_files $uri $uri/ /index.html;
+            }
+            location /nfvportal {
+                root /webstatic;
+                index index.html;
+                autoindex off;
+                try_files $uri $uri/ /nfvportal/index.html;
+            }
+            location /osapi {
+                proxy_pass http://osportalapi:13000/osapi;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  Host $http_host;
+            }
+            location /tmf-api {
+                proxy_pass http://osscapi:13082/tmf-api;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  Host $http_host;
+            }
+            location /oas-api {
+                proxy_pass http://oasapi:13101/oas-api;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  Host $http_host;
+            }
+            location /auth {
+                proxy_pass http://keycloak:8080/auth;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  Host $http_host;
+            }
+            location /kroki {
+                rewrite /kroki/(.*) /$1  break;
+                proxy_pass http://kroki:8000;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  Host $http_host;
+            }
+        }
+    }

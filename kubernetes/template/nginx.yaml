@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: nginx	
+  template:
+    metadata:
+      labels:
+        io.kompose.network/front: "true"	
+        io.openslice.service: nginx	
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: nginx-certificates
+              mountPath: /etc/nginx/certificates
+            - name: web-static-nfvportal
+              mountPath: /webstatic/nfvportal
+            - name: web-static-services
+              mountPath: /webstatic/services
+      restartPolicy: Always	
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: nginx-certificates
+          secret:
+            secretName: nginx-certificates
+        - name: web-static-nfvportal
+          hostPath:
+            path: /path/to/io.openslice.portal.web/src
+        - name: web-static-services
+          hostPath:
+            path: /path/to/io.openslice.tmf.web/dist/io-openslice-portal-web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: nginx
+  name: nginx
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+    - port: 443
+      targetPort: 443
+  selector:
+    io.openslice.service: nginx

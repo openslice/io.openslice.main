@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
     io.openslice.service: portainer
   name: portainer
@@ -18,20 +14,15 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/front: "true"
         io.openslice.service: portainer
     spec:
       containers:
-        - image: portainer/portainer
+        - image: portainer/portainer-ce:2.18.4
           name: portainer
           ports:
             - containerPort: 9000
-          resources: {}
           volumeMounts:
             - mountPath: /var/run/docker.sock
               name: portainer-claim0
@@ -45,4 +36,17 @@ spec:
         - name: portainer-data
           persistentVolumeClaim:
             claimName: portainer-data
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: portainer
+  name: portainer
+spec:
+  ports:
+    - targetPort: 9000
+      port: 9000
+  selector:
+    io.openslice.service: portainer

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: centrallog
+  name: centrallog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: centrallog
+  template:
+    metadata:
+      labels:
+        io.kompose.network/back: "true"
+        io.openslice.service: centrallog
+    spec:
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON
+              value: '{ "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "centrallogurl":"http://elk_ip:elk_port/index_name/_doc" }'
+          image: io.openslice.centrallog.service:latest
+          name: centrallog
+          ports:
+            - containerPort: 13013
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: centrallog
+  name: centrallog
+spec:
+  ports:
+    - targetPort: 13013
+      port: 13013
+  selector:
+    io.openslice.service: centrallog
+

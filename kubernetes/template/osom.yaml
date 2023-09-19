@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
     io.openslice.service: osom
   name: osom
@@ -18,10 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
@@ -30,12 +22,11 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://activemq:61616", "spring.activemq.user": "admin", "spring.activemq.password": "adminx", "spring.cloud.consul.host": "http://consul", "spring.cloud.consul.discovery.healthCheckUrl" : "http://osom/osom/actuator/health", "logging.level.org.springframework" : "INFO" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "logging.level.org.springframework" : "INFO" }'
           image: openslice/io.openslice.osom:latest
           name: openslice-osom
           ports:
             - containerPort: 13100
-          resources: {}
           volumeMounts:
             - mountPath: /root
               name: osom-claim0
@@ -44,4 +35,17 @@ spec:
         - name: osom-claim0
           persistentVolumeClaim:
             claimName: osom-claim0
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: osom
+  name: osom
+spec:
+  ports:
+    - targetPort: 13100
+      port: 13100
+  selector:
+    io.openslice.service: osom
