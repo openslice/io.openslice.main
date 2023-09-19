@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(dirname "$0")"
+cd $SCRIPT_DIR
+
 kubectl delete -f ./deployment/activemq-service.yaml
 kubectl delete -f ./deployment/activemq-deployment.yaml
 
@@ -51,5 +54,7 @@ kubectl delete -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
 kubectl delete -f ./deployment/oasapi-claim0-persistentvolumeclaim.yaml
 
 kubectl delete -f ./deployment/openslice-ingress.yaml
+
+kubectl delete ns openslice
 
 rm -r deployment

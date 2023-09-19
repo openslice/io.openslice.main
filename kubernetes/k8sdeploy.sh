@@ -1,4 +1,7 @@
 #!/bin/bash	
+
+SCRIPT_DIR="$(dirname "$0")"
+cd $SCRIPT_DIR
 cp -r template/ deployment
 
 kubectl create namespace openslice
