@@ -2,17 +2,17 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   namespace: openslice
-  name: osportalapi-pv-volume
+  name: osscapi-pv-volume
   labels:
     type: local
 spec:
-  storageClassName: osportalapi-pv-volume
+  storageClassName: osscapi-pv-manual
   capacity:
-    storage: 100Mi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/dockerdata-nfs/osportalapi-pv-volume"
+    path: "/dockerdata-nfs/osscapi"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -20,13 +20,12 @@ metadata:
   namespace: openslice
   creationTimestamp: null
   labels:
-    io.openslice.service: osportalapi-claim0
-  name: osportalapi-claim0
+    io.openslice.service: osscapi-claim0
+  name: osscapi-claim0
 spec:
-  storageClassName: osportalapi-pv-volume
+  storageClassName: osscapi-pv-manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
-status: {}
+      storage: 1Gi

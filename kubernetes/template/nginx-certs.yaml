@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nginx-certificates
+type: Opaque
+data:
+  nginx.crt: <base64-encoded-certificate> 
+  nginx.key: <base64-encoded-key>         
+
+# fullchain.pem
+# privkey.pem

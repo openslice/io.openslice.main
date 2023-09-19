@@ -13,10 +13,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
@@ -51,7 +47,7 @@ spec:
               value: admin
             - name: PROXY_ADDRESS_FORWARDING
               value: "true"
-          image: quay.io/keycloak/keycloak:11.0.3
+          image: jboss/keycloak:16.1.1
           name: keycloak
           ports:
             - containerPort: 8080
@@ -68,4 +64,29 @@ spec:
         - name: "keycloak-configuration"
           configMap:
             name: keycloak-realm-config
-status: {}
+
+	        volumeMounts:	
+          - name: "keycloak-configuration"	
+            readOnly: true	
+            mountPath: "/tmp/realm-export.json"
+      volumes:	
+        - name: "keycloak-configuration"	
+          hostPath:	
+            path: "./realm-export.json"	
+            type: File
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.openslice.service: keycloak
+  name: keycloak
+  namespace: openslice
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+    - port: 8443
+      targetPort: 8443
+  selector:
+    io.openslice.service: keycloak

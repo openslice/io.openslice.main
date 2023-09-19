@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
     io.openslice.service: osscapi
   name: osscapi
@@ -18,10 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
@@ -42,7 +34,6 @@ spec:
           name: openslice-scapi
           ports:
             - containerPort: 13082
-          resources: {}
           volumeMounts:
             - mountPath: /root
               name: osscapi-claim0
@@ -55,4 +46,17 @@ spec:
         - name: osscapi-claim0
           persistentVolumeClaim:
             claimName: osscapi-claim0
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: osscapi
+  name: osscapi
+spec:
+  ports:
+    - targetPort: 13082
+      port: 13082
+  selector:
+    io.openslice.service: osscapi

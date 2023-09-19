@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: kroki
+  name: kroki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: kroki
+  template:
+    metadata:
+      labels:
+        io.kompose.network/front: "true"
+        io.kompose.network/back: "true"
+        io.openslice.service: kroki
+    spec:
+      containers:
+        - image: yuzutech/kroki
+          name: kroki
+          env:
+            - name: KROKI_BLOCKDIAG_HOST
+              value: "blockdiag"
+          ports:
+            - containerPort: 8000
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: kroki
+  name: kroki
+spec:
+  ports:
+    - targetPort: 8000
+      port: 8000
+  selector:
+    io.openslice.service: kroki

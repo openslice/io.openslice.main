@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
     io.openslice.service: osportalapi
   name: osportalapi
@@ -18,10 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
@@ -42,7 +34,6 @@ spec:
           name: openslice-portalapi
           ports:
             - containerPort: 13000
-          resources: {}
           volumeMounts:
             - mountPath: /root
               name: osportalapi-claim0
@@ -51,4 +42,17 @@ spec:
         - name: osportalapi-claim0
           persistentVolumeClaim:
             claimName: osportalapi-claim0
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: osportalapi
+  name: osportalapi
+spec:
+  ports:
+    - port: 13000
+      targetPort: 13000
+  selector:
+    io.openslice.service: osportalapi
