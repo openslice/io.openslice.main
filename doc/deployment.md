@@ -8,19 +8,16 @@ Note: See the Kubernetes section, if you would like to deploy Openslice in a Kub
 ```
 sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
 ```
-<br>
 
  2 - Install docker
 
 _NOTE:_  Since July 2023 Docker Compose V1 stopped receiving updates. Openslice fully reverted to Compose V2, which is integrated in the Docker installation.
 
-<br>
 
 3 - Download environment preparation script
 ```
 wget https://raw.githubusercontent.com/openslice/io.openslice.main/master/compose/deploy.sh
 ```
-<br>
 
 4 - Work with main/master branch:
 
@@ -32,15 +29,12 @@ Alternatively, work with develop or any other branch:
 ```
 sudo ./deploy.sh develop [or replace develop with other branch name]
 ```
-<br>
 
 5 - Create configuration specific docker compose file
 ```
 cd io.openslice.main/compose/
 sudo cp docker-compose.yaml.configure docker-compose.yaml
 ```
-
-<br>
 
 6 - Configure containers to properly resolve the DNS of your domain
 
@@ -60,9 +54,9 @@ and restart docker daemon.
 
 <br>
 
-Edit your configuration specific docker-compose.yaml that is previously created.
+Edit your configuration specific docker-compose.yaml that is previously created:
 
-<br>
+
 
 ###1. mysql-portal container 
 
