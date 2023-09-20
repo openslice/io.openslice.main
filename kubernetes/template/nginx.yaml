@@ -56,9 +56,11 @@ metadata:
   name: nginx
 spec:
   ports:
-    - port: 80
+    - name: "80"
+      port: 80
       targetPort: 80
-    - port: 443
+    - name: "443"
+      port: 443
       targetPort: 443
   selector:
     io.openslice.service: nginx

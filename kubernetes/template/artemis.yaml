@@ -42,11 +42,14 @@ metadata:
   name: artemis
 spec:
   ports:
-    - port: 8161
+    - name: "8161"
+      port: 8161
       targetPort: 8161
-    - port: 61616
+    - name: "61616"
+      port: 61616
       targetPort: 61616
-    - port: 61613
+    - name: "61613"
+      port: 61613
       targetPort: 61613
   selector:
     io.openslice.service: artemis

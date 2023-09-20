@@ -46,7 +46,8 @@ metadata:
   name: portainer
 spec:
   ports:
-    - targetPort: 9000
+    - name: "9000"
+      targetPort: 9000
       port: 9000
   selector:
     io.openslice.service: portainer

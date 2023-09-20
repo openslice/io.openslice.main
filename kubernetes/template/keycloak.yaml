@@ -64,16 +64,6 @@ spec:
         - name: "keycloak-configuration"
           configMap:
             name: keycloak-realm-config
-
-	        volumeMounts:	
-          - name: "keycloak-configuration"	
-            readOnly: true	
-            mountPath: "/tmp/realm-export.json"
-      volumes:	
-        - name: "keycloak-configuration"	
-          hostPath:	
-            path: "./realm-export.json"	
-            type: File
 ---
 apiVersion: v1
 kind: Service
@@ -84,9 +74,11 @@ metadata:
   namespace: openslice
 spec:
   ports:
-    - port: 8080
+    - name: "8080"
+      port: 8080
       targetPort: 8080
-    - port: 8443
+    - name: "8443"
+      port: 8443
       targetPort: 8443
   selector:
     io.openslice.service: keycloak

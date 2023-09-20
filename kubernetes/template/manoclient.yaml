@@ -35,7 +35,8 @@ metadata:
   name: manoclient
 spec:
   ports:
-    - port: 13011
+    - name: "13011"
+      port: 13011
       targetPort: 13011
   selector:
     io.openslice.service: manoclient

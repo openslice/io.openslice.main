@@ -56,7 +56,8 @@ metadata:
   name: oasapi
 spec:
   ports:
-    - targetPort: 13101
+    - name: "13101"
+      targetPort: 13101
       port: 13101
   selector:
     io.openslice.service: oasapi

@@ -36,7 +36,8 @@ metadata:
   name: kroki
 spec:
   ports:
-    - targetPort: 8000
+    - name: "8000"
+      targetPort: 8000
       port: 8000
   selector:
     io.openslice.service: kroki
