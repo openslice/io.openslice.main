@@ -20,7 +20,7 @@ spec:
         - env:
             - name: SPRING_APPLICATION_JSON
               value: '{ "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "centrallogurl":"http://elk_ip:elk_port/index_name/_doc" }'
-          image: io.openslice.centrallog.service:latest
+          image: openslice/io.openslice.centrallog.service:latest
           name: centrallog
           ports:
             - containerPort: 13013
@@ -35,7 +35,8 @@ metadata:
   name: centrallog
 spec:
   ports:
-    - targetPort: 13013
+    - name: "13013"
+      targetPort: 13013
       port: 13013
   selector:
     io.openslice.service: centrallog

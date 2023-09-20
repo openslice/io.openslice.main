@@ -1,70 +1,62 @@
 #!/bin/bash	
 
+CURRENT_DIR="$(pwd)"
 SCRIPT_DIR="$(dirname "$0")"
 cd $SCRIPT_DIR
-cp -r template/ deployment
 
 kubectl create namespace openslice
-kubectl apply -f ./deployment/openslice-ingress.yaml
+
+kubectl apply -f ./template/artemis.yaml
+kubectl apply -f ./template/bugzilla.yaml
+kubectl apply -f ./template/centrallog.yaml
+kubectl apply -f ./template/manoclient.yaml
+kubectl apply -f ./template/kroki.yaml
+kubectl apply -f ./template/blockdiag.yaml
+
+kubectl apply -f ./template/mysql-configmap.yaml
+kubectl apply -f ./template/mysql-pv-pvc.yaml
+kubectl apply -f ./template/mysql.yaml
+
+kubectl create configmap keycloak-realm-config --from-file=./template/realm-export.json --namespace=openslice
+kubectl apply -f ./template/keycloak.yaml
+
+kubectl apply -f ./template/portainer-pvc.yaml
+kubectl apply -f ./template/portainer.yaml
+
+kubectl apply -f ./template/osom-pv-pvc.yaml
+kubectl apply -f ./template/osom.yaml
+
+kubectl apply -f ./template/oasapi-pv-pvc.yaml
+kubectl apply -f ./template/oasapi.yaml
+
+kubectl apply -f ./template/osportalapi-pv-pvc.yaml
+kubectl apply -f ./template/osportalapi.yaml
+
+kubectl apply -f ./template/osscapi-pv-pvc.yaml
+kubectl apply -f ./template/osscapi.yaml
+
+kubectl apply -f ./template/nginx-certs.yaml
+kubectl apply -f ./template/nginx-config.yaml
+kubectl apply -f ./template/nginx.yaml
+
+kubectl apply -f ./template/front-networkpolicy.yaml
+kubectl apply -f ./template/back-networkpolicy.yaml
+
+kubectl apply -f ./template/openslice-ingress.yaml
 
 # wait for ingress to get IP address
-INGRESSADDR=""
-while [ -z $INGRESSADDR ]; do
-  echo "Waiting for external IP"
-  INGRESSADDR=$(kubectl -n openslice get ingress openslice-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-  [ -z "$INGRESSADDR" ] && sleep 5
-done
-echo 'Found external IP: '$INGRESSADDR
+# INGRESSADDR=""
+# while [ -z $INGRESSADDR ]; do
+#   echo "Waiting for external IP"
+#   INGRESSADDR=$(kubectl -n openslice get ingress openslice-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+#   [ -z "$INGRESSADDR" ] && sleep 5
+# done
+# echo 'Found external IP: '$INGRESSADDR
 
-find ./deployment/ -type f  -print0 |  xargs -0 sed -i "s/INGRESSADDR/$INGRESSADDR/g"
+# find ./template/ -type f  -print0 |  xargs -0 sed -i "s/INGRESSADDR/$INGRESSADDR/g"
 
-kubectl apply -f ./deployment/mysql-portal-claim0-persistentvolumeclaim.yaml
+# kubectl apply -f ./template/tmfweb-config.yaml
+# kubectl apply -f ./template/tmfweb-template.yaml
+# kubectl apply -f ./template/tmfweb-service.yaml
 
-kubectl apply -f ./deployment/activemq-deployment.yaml
-kubectl apply -f ./deployment/activemq-service.yaml
-
-kubectl apply -f ./deployment/consul-deployment.yaml
-kubectl apply -f ./deployment/consul-service.yaml
-
-kubectl apply -f ./deployment/mysql-portal-deployment.yaml
-kubectl apply -f ./deployment/mysql-portal-service.yaml
-
-#kubectl apply -f ./deployment/keycloak-realm-config.yaml
-kubectl create configmap keycloak-realm-config --from-file=./deployment/realm-export.json --namespace=openslice
-kubectl apply -f ./deployment/keycloak-deployment.yaml
-kubectl apply -f ./deployment/keycloak-service.yaml
-
-kubectl apply -f ./deployment/osom-claim0-persistentvolumeclaim.yaml
-kubectl apply -f ./deployment/osom-deployment.yaml
-kubectl apply -f ./deployment/osom-service.yaml
-
-kubectl apply -f ./deployment/manoclient-deployment.yaml
-kubectl apply -f ./deployment/manoclient-service.yaml
-
-kubectl apply -f ./deployment/osportalapi-claim0-persistentvolumeclaim.yaml
-kubectl apply -f ./deployment/osportalapi-deployment.yaml
-kubectl apply -f ./deployment/osportalapi-service.yaml
-
-kubectl apply -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
-kubectl apply -f ./deployment/osscapi-deployment.yaml
-kubectl apply -f ./deployment/osscapi-service.yaml
-
-kubectl apply -f ./deployment/oasapi-claim0-persistentvolumeclaim.yaml
-kubectl apply -f ./deployment/oasapi-deployment.yaml
-kubectl apply -f ./deployment/oasapi-service.yaml
-
-kubectl apply -f ./deployment/tmfweb-config.yaml
-kubectl apply -f ./deployment/tmfweb-deployment.yaml
-kubectl apply -f ./deployment/tmfweb-service.yaml
-
-kubectl apply -f ./deployment/portalweb-config.yaml
-kubectl apply -f ./deployment/portalweb-deployment.yaml
-kubectl apply -f ./deployment/portalweb-service.yaml
-
-kubectl apply -f ./deployment/centrallog-deployment.yaml
-kubectl apply -f ./deployment/centrallog-service.yaml
-
-kubectl apply -f ./deployment/bugzilla-client-deployment.yaml
-kubectl apply -f ./deployment/bugzilla-client-service.yaml
-
-
+cd $CURRENT_DIR

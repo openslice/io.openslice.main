@@ -45,7 +45,8 @@ metadata:
   name: osom
 spec:
   ports:
-    - targetPort: 13100
+    - name: "13100"
+      targetPort: 13100
       port: 13100
   selector:
     io.openslice.service: osom

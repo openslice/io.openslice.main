@@ -1,60 +1,47 @@
 #!/bin/bash
 
+CURRENT_DIR="$(pwd)"
 SCRIPT_DIR="$(dirname "$0")"
 cd $SCRIPT_DIR
 
-kubectl delete -f ./deployment/activemq-service.yaml
-kubectl delete -f ./deployment/activemq-deployment.yaml
+kubectl delete -f ./template/openslice-ingress.yaml
 
+kubectl delete -f ./template/front-networkpolicy.yaml
+kubectl delete -f ./template/back-networkpolicy.yaml
 
-kubectl delete -f ./deployment/consul-service.yaml
-kubectl delete -f ./deployment/consul-deployment.yaml
+kubectl delete -f ./template/nginx.yaml
+kubectl delete -f ./template/nginx-config.yaml
+kubectl delete -f ./template/nginx-certs.yaml
 
-kubectl delete -f ./deployment/mysql-portal-service.yaml
-kubectl delete -f ./deployment/mysql-portal-deployment.yaml
+kubectl delete -f ./template/osscapi.yaml
+kubectl delete -f ./template/osscapi-pv-pvc.yaml
 
-#kubectl delete -f keycloak-realm-config.yaml
+kubectl delete -f ./template/osportalapi.yaml
+kubectl delete -f ./template/osportalapi-pv-pvc.yaml
+
+kubectl delete -f ./template/oasapi.yaml
+kubectl delete -f ./template/oasapi-pv-pvc.yaml
+
+kubectl delete -f ./template/osom.yaml
+kubectl delete -f ./template/osom-pv-pvc.yaml
+
+kubectl delete -f ./template/portainer.yaml
+kubectl delete -f ./template/portainer-pvc.yaml
+
+kubectl delete -f ./template/keycloak.yaml
 kubectl delete configmap keycloak-realm-config -n openslice
-kubectl delete -f ./deployment/keycloak-service.yaml
-kubectl delete -f ./deployment/keycloak-deployment.yaml
 
-kubectl delete -f ./deployment/osom-service.yaml
-kubectl delete -f ./deployment/osom-deployment.yaml
+kubectl delete -f ./template/mysql.yaml
+kubectl delete -f ./template/mysql-pv-pvc.yaml
+kubectl delete -f ./template/mysql-configmap.yaml
 
-kubectl delete -f ./deployment/manoclient-service.yaml
-kubectl delete -f ./deployment/manoclient-deployment.yaml
-
-kubectl delete -f ./deployment/osportalapi-service.yaml
-kubectl delete -f ./deployment/osportalapi-deployment.yaml
-
-kubectl delete -f ./deployment/osscapi-service.yaml
-kubectl delete -f ./deployment/osscapi-deployment.yaml
-
-kubectl delete -f ./deployment/oasapi-service.yaml
-kubectl delete -f ./deployment/oasapi-deployment.yaml
-
-kubectl delete -f ./deployment/tmfweb-config.yaml
-kubectl delete -f ./deployment/tmfweb-service.yaml
-kubectl delete -f ./deployment/tmfweb-deployment.yaml
-
-kubectl delete -f ./deployment/portalweb-config.yaml
-kubectl delete -f ./deployment/portalweb-service.yaml
-kubectl delete -f ./deployment/portalweb-deployment.yaml
-
-kubectl delete -f ./deployment/centrallog-service.yaml
-kubectl delete -f ./deployment/centrallog-deployment.yaml
-
-kubectl delete -f ./deployment/bugzilla-client-service.yaml
-kubectl delete -f ./deployment/bugzilla-client-deployment.yaml
-
-kubectl delete -f ./deployment/mysql-portal-claim0-persistentvolumeclaim.yaml
-kubectl delete -f ./deployment/osom-claim0-persistentvolumeclaim.yaml
-kubectl delete -f ./deployment/osportalapi-claim0-persistentvolumeclaim.yaml
-kubectl delete -f ./deployment/osscapi-claim0-persistentvolumeclaim.yaml
-kubectl delete -f ./deployment/oasapi-claim0-persistentvolumeclaim.yaml
-
-kubectl delete -f ./deployment/openslice-ingress.yaml
+kubectl delete -f ./template/blockdiag.yaml
+kubectl delete -f ./template/kroki.yaml
+kubectl delete -f ./template/manoclient.yaml
+kubectl delete -f ./template/centrallog.yaml
+kubectl delete -f ./template/bugzilla.yaml
+kubectl delete -f ./template/artemis.yaml
 
 kubectl delete ns openslice
 
-rm -r deployment
+cd $CURRENT_DIR
