@@ -777,3 +777,15 @@ It is based on ActiveMQ.
 |**Description** |   returns a Service TEST instance |
 
 
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CRD_DEPLOY_CR_REQ  |
+|**Name** |  jms:queue:CRD.DEPLOY.CR_REQ  |
+|**Type** | queue  |
+|**Destination** |   CRD  service |
+|**Producers** | OSOM |
+|**Body** |  CR spec as String |
+|**Headers** |  related service id |
+|**Description** |   Returns a String object containing deployment info|
