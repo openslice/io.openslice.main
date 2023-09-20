@@ -11,7 +11,7 @@ Install docker
 Install docker-compose
 
 ```
-download https://raw.githubusercontent.com/openslice/io.openslice.main/master/compose/deploy.sh
+wget https://raw.githubusercontent.com/openslice/io.openslice.main/master/compose/deploy.sh
 sudo ./deploy.sh
 cd io.openslice.main/compose/
 sudo cp docker-compose.yaml.configure docker-compose.yaml
@@ -195,7 +195,7 @@ sudo cp config.theming.default.json config.theming.json
 
 
 Go to compose directory and issue then:
-`sudo docker-compose --profile prod down;sudo docker-compose --profile prod up -d  --build`
+`sudo docker compose --profile prod down;sudo docker compose --profile prod up -d  --build`
 
 Note: depending on your machine, this process might take time. 
 
