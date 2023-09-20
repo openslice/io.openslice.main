@@ -2,37 +2,67 @@
 
 Note: See the Kubernetes section, if you would like to deploy Openslice in a Kubernetes cluster
 
-backup your previous database if necessary:
+<br>
+
+1 - Backup your previous database if necessary:
 ```
 sudo docker exec amysql /usr/bin/mysqldump -u root --password=letmein ostmfdb > backup_ostmfdb.sql
 ```
+<br>
 
-Install docker  
-Install docker-compose
+ 2 - Install docker
 
+_NOTE:_  Since July 2023 Docker Compose V1 stopped receiving updates. Openslice fully reverted to Compose V2, which is integrated in the Docker installation.
+
+<br>
+
+3 - Download environment preparation script
 ```
 wget https://raw.githubusercontent.com/openslice/io.openslice.main/master/compose/deploy.sh
+```
+<br>
+
+4 - Work with main/master branch:
+
+```
 sudo ./deploy.sh
+```
+Alternatively, work with develop or any other branch:
+
+```
+sudo ./deploy.sh develop [or replace develop with other branch name]
+```
+<br>
+
+5 - Create configuration specific docker compose file
+```
 cd io.openslice.main/compose/
 sudo cp docker-compose.yaml.configure docker-compose.yaml
 ```
 
-Containers need to properly resolve the DNS of your domain
+<br>
+
+6 - Configure containers to properly resolve the DNS of your domain
 
 edit /etc/docker/daemon.json and add:
 
 ```
-{ "dns": ["8.8.8.8", "8.8.4.4"]
- }
-
+{ 
+  "dns": ["8.8.8.8", "8.8.4.4"]
+}
 ```
 
 and restart docker daemon.
 
+<br>
 
 ##Configure docker-compose services
 
-Edit docker-compose.yaml
+<br>
+
+Edit your configuration specific docker-compose.yaml that is previously created.
+
+<br>
 
 ###1. mysql-portal container 
 
@@ -195,7 +225,9 @@ sudo cp config.theming.default.json config.theming.json
 
 
 Go to compose directory and issue then:
-`sudo docker compose --profile prod down;sudo docker compose --profile prod up -d  --build`
+```
+sudo docker compose --profile prod down;sudo docker compose --profile prod up -d  --build
+```
 
 Note: depending on your machine, this process might take time. 
 
