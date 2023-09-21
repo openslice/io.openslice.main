@@ -1,0 +1,37 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: tmfweb-config
+  namespace: openslice
+data:
+  config.prod.json: |+
+      {	      
+      "TITLE": "Openslice demo",
+      "PORTALVERSION":"2023-Q3 1.2.0-SNAPSHOT",
+      "WIKI": "https://openslice.readthedocs.io/en/stable/",
+      "BUGZILLA": "{BASEURL}/bugzilla/",
+      "STATUS": "http://status.localhost/",
+      "WEBURL": "{BASEURL}",
+      "PORTAL_REPO_APIURL": "{BASEURL}/osapi",
+      "ASSURANCE_SERVICE_MGMT_APIURL": "{BASEURL}/oas-api",
+      "APITMFURL": "{BASEURL}/tmf-api",
+      "OAUTH_CONFIG" : {
+          "issuer": "{BASEURL}/auth/realms/openslice",
+          "loginUrl": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/auth",
+          "tokenEndpoint": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/token",
+          "redirectUri": "{BASEURL}/redirect",
+          "logoutUrl": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/logout", 
+          "postLogoutRedirectUri": "{BASEURL}",
+          
+          "responseType": "code",
+          "oidc": false,
+          "clientId": "osapiWebClientId",
+          "dummyClientSecret": "secret",
+              
+          "requireHttps": false,
+          "useHttpBasicAuth": true,
+          "clearHashAfterLogin": false,
+        
+          "showDebugInformation": true
+        }
+      }
