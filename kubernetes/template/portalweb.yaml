@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment 
 metadata:
   namespace: openslice
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
-  creationTimestamp: null
   labels:
     io.openslice.service: portalweb
   name: portalweb
@@ -18,10 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.22.0 (955b78124)
-      creationTimestamp: null
       labels:
         io.kompose.network/back: "true"
         io.kompose.network/front: "true"
@@ -42,4 +34,17 @@ spec:
             name: portalweb-config
             defaultMode: 420
       restartPolicy: Always
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: portalweb
+  name: portalweb
+spec:
+  ports:
+    - name: "portalwebport"
+      port: 80
+  selector:
+    io.openslice.service: portalweb

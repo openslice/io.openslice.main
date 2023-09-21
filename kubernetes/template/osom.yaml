@@ -22,7 +22,7 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "logging.level.org.springframework" : "INFO" }'
+              value: '{ "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "logging.level.org.springframework" : "INFO" }'
           image: openslice/io.openslice.osom:latest
           name: openslice-osom
           ports:
