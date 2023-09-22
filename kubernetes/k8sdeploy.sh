@@ -19,12 +19,12 @@ echo 'Found external IP: '$INGRESSADDR
 
 find ./template/ -type f  -print0 |  xargs -0 sed -i "s/INGRESSADDR/$INGRESSADDR/g"
 
-# kubectl apply -f ./template/artemis.yaml
-# kubectl apply -f ./template/bugzilla.yaml
-# kubectl apply -f ./template/centrallog.yaml
-# kubectl apply -f ./template/manoclient.yaml
-# kubectl apply -f ./template/kroki.yaml
-# kubectl apply -f ./template/blockdiag.yaml
+kubectl apply -f ./template/artemis.yaml
+kubectl apply -f ./template/bugzilla.yaml
+kubectl apply -f ./template/centrallog.yaml
+kubectl apply -f ./template/manoclient.yaml
+kubectl apply -f ./template/kroki.yaml
+kubectl apply -f ./template/blockdiag.yaml
 
 kubectl apply -f ./template/portalweb-config.yaml
 kubectl apply -f ./template/portalweb.yaml
@@ -32,26 +32,26 @@ kubectl apply -f ./template/portalweb.yaml
 kubectl apply -f ./template/tmfweb-config.yaml
 kubectl apply -f ./template/tmfweb.yaml
 
-# kubectl apply -f ./template/mysql-config.yaml
-# kubectl apply -f ./template/mysql-pv-pvc.yaml
-# kubectl apply -f ./template/mysql.yaml
+kubectl apply -f ./template/mysql-config.yaml
+kubectl apply -f ./template/mysql-pv-pvc.yaml
+kubectl apply -f ./template/mysql.yaml
 
-# kubectl create configmap keycloak-realm-config --from-file=./template/realm-export.json --namespace=openslice
-# kubectl apply -f ./template/keycloak.yaml
+kubectl create configmap keycloak-realm-config --from-file=./template/realm-export.json --namespace=openslice
+kubectl apply -f ./template/keycloak.yaml
 
-# kubectl apply -f ./template/osom-pv-pvc.yaml
-# kubectl apply -f ./template/osom.yaml
+kubectl apply -f ./template/osom-pv-pvc.yaml
+kubectl apply -f ./template/osom.yaml
 
-# kubectl apply -f ./template/oasapi-pv-pvc.yaml
-# kubectl apply -f ./template/oasapi.yaml
+kubectl apply -f ./template/oasapi-pv-pvc.yaml
+kubectl apply -f ./template/oasapi.yaml
 
-# kubectl apply -f ./template/osportalapi-pv-pvc.yaml
-# kubectl apply -f ./template/osportalapi.yaml
+kubectl apply -f ./template/osportalapi-pv-pvc.yaml
+kubectl apply -f ./template/osportalapi.yaml
 
-# kubectl apply -f ./template/osscapi-pv-pvc.yaml
-# kubectl apply -f ./template/osscapi.yaml
+kubectl apply -f ./template/osscapi-pv-pvc.yaml
+kubectl apply -f ./template/osscapi.yaml
 
-# kubectl apply -f ./template/front-networkpolicy.yaml
-# kubectl apply -f ./template/back-networkpolicy.yaml
+kubectl apply -f ./template/front-networkpolicy.yaml
+kubectl apply -f ./template/back-networkpolicy.yaml
 
 cd $CURRENT_DIR
