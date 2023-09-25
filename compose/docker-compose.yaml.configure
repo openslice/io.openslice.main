@@ -107,7 +107,7 @@ services:
         "spring.activemq.password": "artemis",
         "logging.level.org.springframework" : "INFO",
         "spring.portal.main.domain": "http://localhost",
-        "spring.portal.portal.title": "Openslice",    
+        "spring.portal.portal.title": "Openslice"
       }'
     volumes:
     - ./repo:/root
