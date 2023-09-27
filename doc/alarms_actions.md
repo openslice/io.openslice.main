@@ -1,10 +1,10 @@
-#Alarms
+# Alarms
 
 In Openslice parts of TMF642 Alarm Management API are currently implemented. Alarms can be managed through the TMF API endpoint as well as the UI.
 
 
 
-#Alarms and Actions
+## Alarms and Actions
 
 Note: Actions is an experimental feature. We expect to have a more mature solution in future. The component in the architecture is the Openslcie Assurance Services
 

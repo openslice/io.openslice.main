@@ -424,5 +424,5 @@ See [NFV Orchestrator Configuration](./nfvoconfig.md) )
 
 There is a case where the first time the services fail to start due to failed mysql connections. Please just issue again:
 
-`sudo docker-compose down;sudo docker-compose up -d --build`
+`sudo docker compose --profile prod down;sudo docker compose --profile prod up -d  --build`
 

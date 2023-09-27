@@ -1,14 +1,14 @@
-#OpenAPI specification
+# TMF OpenAPI specification
 
-PLease check the complete spec in http://portal.openslice.io/tmf-api/swagger-ui/l
+PLease check the complete specification in http://portal.openslice.io/tmf-api/swagger-ui/index.html
 
-#API interaction
+## API interaction
 
-##OAuth token
+### OAuth token
 
 See [oauth](./oauth.md)
 
-## request a protected API resource
+### Request a protected API resource
 
 Example: Get all Service Catalogs (check the `Authorization:Bearer` to be correct)
 
