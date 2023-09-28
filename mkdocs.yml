@@ -1,6 +1,6 @@
 # Project information
 site_name: Openslice
-site_description: Openslice - Opens source OSS
+site_description: Openslice - Open source OSS
 site_author: Openslice.io
 site_url: http://openslice.io
 
@@ -34,7 +34,7 @@ theme:
   logo: 'images/openslice_logo.png'
 
 # Copyright
-copyright: "Copyright &copy; 2019-2020 Openslice Project"
+copyright: "Copyright &copy; 2019-2023 Openslice Project"
 
 # Options
 extra:
