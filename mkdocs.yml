@@ -70,7 +70,6 @@ nav:
       - NFV API: ./architecture/nfvapi.md
       - TMF WEB: ./architecture/tmfweb.md
       - NFV WEB: ./architecture/nfvweb.md
-      - API gateway: ./architecture/apigw.md
       - Issue management: ./architecture/issuemgt.md
       - Central logging: ./architecture/centrallog.md
   - Contributing:

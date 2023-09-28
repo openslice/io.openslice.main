@@ -386,7 +386,7 @@ NOTE: If you run in https the leave Require SSL to external requests
 ### Configure redirects
 
 Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain 
-and insert in Valid Redirect URIs your domain e.g. http://exampl.org/*
+and insert in Valid Redirect URIs your domain e.g. http://example.org/*
 an in Web Origins
 
 ### Configure email in Keycloak
@@ -418,7 +418,7 @@ io.openslice.portal.web/src/openslicehome/index.html
 
 ## NFV Orchestrator Configuration
 
-See [NFV Orchestrator Configuration](./nfvoconfig.md) )
+See [NFV Orchestrator Configuration](./nfvoconfig.md).
 
 ##Note
 
