@@ -20,7 +20,15 @@ spec:
       containers:
         - env:
             - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "bugzillaurl":"example.com:443/bugzilla", "bugzillakey":"VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z", "main_operations_product":"My Operations" }'
+              value: >-
+                { 
+                  "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", 
+                  "spring.activemq.user": "artemis", 
+                  "spring.activemq.password": "artemis", 
+                  "bugzillaurl":"", 
+                  "bugzillakey":"", 
+                  "main_operations_product":"" 
+                }
           image: openslice/io.openslice.bugzilla:latest
           name: bugzilla
           ports:

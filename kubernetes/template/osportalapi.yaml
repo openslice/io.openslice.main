@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,23 +21,41 @@ spec:
         io.openslice.service: osportalapi
     spec:
       initContainers:
-      - name: init-keycloak
-        image: busybox:1.28
-        command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
-      - name: init-mysql-portal
-        image: busybox:1.28
-        command: ['sh', '-c', "until nslookup mysql; do echo waiting for mysql; sleep 2; done"]
+        - name: init-keycloak
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup keycloak; do echo waiting for keycloak; sleep 2; done"]
+        - name: init-mysql-portal
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup mysql; do echo waiting for mysql; sleep 2; done"]
       containers:
-        - env:
-            - name: SPRING_APPLICATION_JSON
-              value: '{ "spring.datasource.url": "jdbc:mysql://mysql/osdb?createDatabaseIfNotExist=true", "spring.datasource.username":"root", "spring.datasource.password":"letmein", "spring-addons.issuers[0].uri": "http://keycloak:8080/auth/realms/openslice", "spring-addons.issuers[0].username-json-path":"$.preferred_username", "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles", "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles", "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://keycloak:8080/auth/realms/openslice", "springdoc.oAuthFlow.authorizationUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth", "springdoc.oAuthFlow.tokenUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token", "springdoc.oauth.client-id" : "osapiWebClientId", "springdoc.oauth.clientsecret" : "secret", "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", "spring.activemq.user": "artemis", "spring.activemq.password": "artemis", "logging.level.org.springframework" : "INFO" }'
+        - name: openslice-portalapi
           image: openslice/io.openslice.portal.api:latest
-          name: openslice-portalapi
           ports:
             - containerPort: 13000
           volumeMounts:
-            - mountPath: /root
-              name: osportalapi-claim0
+            - name: osportalapi-claim0
+              mountPath: /root
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                {
+                  "spring.datasource.url": "jdbc:mysql://mysql/osdb?createDatabaseIfNotExist=true",
+                  "spring.datasource.username": "root",
+                  "spring.datasource.password": "letmein",
+                  "spring-addons.issuers[0].uri": "http://portal.openslice.io/auth/realms/openslice",
+                  "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+                  "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+                  "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+                  "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://portal.openslice.io/auth/realms/openslice",
+                  "springdoc.oAuthFlow.authorizationUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/auth",
+                  "springdoc.oAuthFlow.tokenUrl": "http://portal.openslice.io/auth/realms/openslice/protocol/openid-connect/token",
+                  "springdoc.oauth.client-id" : "osapiWebClientId",
+                  "springdoc.oauth.clientsecret" : "secret",
+                  "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false",
+                  "spring.activemq.user": "artemis",
+                  "spring.activemq.password": "artemis",
+                  "logging.level.org.springframework" : "INFO"
+                }
       restartPolicy: Always
       volumes:
         - name: osportalapi-claim0

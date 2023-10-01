@@ -19,15 +19,12 @@ kubectl delete -f ./template/oasapi-pv-pvc.yaml
 kubectl delete -f ./template/osom.yaml
 kubectl delete -f ./template/osom-pv-pvc.yaml
 
-kubectl delete -f ./template/portainer.yaml
-kubectl delete -f ./template/portainer-pvc.yaml
-
 kubectl delete -f ./template/keycloak.yaml
 kubectl delete configmap keycloak-realm-config -n openslice
 
 kubectl delete -f ./template/mysql.yaml
 kubectl delete -f ./template/mysql-pv-pvc.yaml
-kubectl delete -f ./template/mysql-configmap.yaml
+kubectl delete -f ./template/mysql-config.yaml
 
 kubectl apply -f ./template/tmfweb.yaml
 kubectl apply -f ./template/tmfweb-config.yaml
