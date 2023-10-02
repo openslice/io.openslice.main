@@ -39,7 +39,7 @@ spec:
               name: oasapi-claim0
           readinessProbe:
             httpGet:
-              path: /oas-api/v2/api-docs?group=openslice-api-Assurance%20Services%20Management-v0.1.0
+              path: /oas-api/swagger-ui/index.html
               port: 13101
       restartPolicy: Always
       volumes:

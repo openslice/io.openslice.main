@@ -9,13 +9,6 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: "/"
-        backend:    
-          service:
-            name: tmfweb
-            port:
-              number: 80
-      - pathType: Prefix
         path: "/tmf-api"
         backend:
           service:
@@ -48,5 +41,12 @@ spec:
         backend:
           service:
             name: portalweb
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/"
+        backend:    
+          service:
+            name: tmfweb
             port:
               number: 80
