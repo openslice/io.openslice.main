@@ -28,10 +28,16 @@ spec:
           - name: "tmfweb-configuration"
             readOnly: true
             mountPath: "/usr/share/nginx/html/services/assets/config"
+          - name: "tmfweb-configuration-nginx"
+            readOnly: true
+            mountPath: "/etc/nginx/conf.d"
       volumes:
         - name: "tmfweb-configuration"
           configMap:
             name: tmfweb-config
+        - name: "tmfweb-configuration-nginx"
+          configMap:
+            name: tmfweb-config-nginx
       restartPolicy: Always
 ---
 apiVersion: v1

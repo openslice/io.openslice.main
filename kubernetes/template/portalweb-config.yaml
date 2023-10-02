@@ -4,5 +4,5 @@ metadata:
   namespace: openslice
   name: portalweb-config
 data:
-  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"http://10.10.10.220\",\n\t\tBUGZILLA: \"https://10.10.10.220/bugzilla/\",\n\t\tSTATUS: \"http://status.10.10.10.220/\",\n\t\tAPIURL: \"http://10.10.10.220\",\n\t\tWEBURL: \"http://10.10.10.220/nfvportal\",\n\t\tAPIOAUTHURL: \"http://10.10.10.220/auth/realms/openslice\",\n\t\tAPITMFURL: \"http://10.10.10.220/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
+  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"http://INGRESSADDR\",\n\t\tBUGZILLA: \"https://INGRESSADDR/bugzilla/\",\n\t\tSTATUS: \"http://INGRESSADDR/\",\n\t\tAPIURL: \"http://INGRESSADDR\",\n\t\tWEBURL: \"http://INGRESSADDR/nfvportal\",\n\t\tAPIOAUTHURL: \"http://INGRESSADDR/auth/realms/openslice\",\n\t\tAPITMFURL: \"http://INGRESSADDR/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
 

@@ -26,11 +26,13 @@ kubectl delete -f ./template/mysql.yaml
 kubectl delete -f ./template/mysql-pv-pvc.yaml
 kubectl delete -f ./template/mysql-config.yaml
 
-kubectl apply -f ./template/tmfweb.yaml
-kubectl apply -f ./template/tmfweb-config.yaml
+kubectl delete -f ./template/tmfweb-config.yaml
+kubectl delete -f ./template/tmfweb-config-nginx.yaml
+kubectl delete -f ./template/tmfweb.yaml
 
-kubectl apply -f ./template/portalweb.yaml
-kubectl apply -f ./template/portalweb-config.yaml
+kubectl delete -f ./template/portalweb-config.yaml
+kubectl delete -f ./template/portalweb-config-nginx.yaml
+kubectl delete -f ./template/portalweb.yaml
 
 kubectl delete -f ./template/blockdiag.yaml
 kubectl delete -f ./template/kroki.yaml
