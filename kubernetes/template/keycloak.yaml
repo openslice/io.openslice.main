@@ -30,7 +30,7 @@ spec:
             - name: DB_DATABASE
               value: keycloak
             - name: DB_PASSWORD
-              value: letmein
+              value: password
             - name: DB_USER
               value: keycloak
             - name: DB_VENDOR

@@ -13,6 +13,13 @@ INGRESSADDR=""
 while [ -z $INGRESSADDR ]; do
   echo "Waiting for external IP"
   INGRESSADDR=$(kubectl -n openslice get ingress openslice-ingress -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  if [ -z "$INGRESSADDR" ]
+  then
+    echo "\INGRESSADDR is empty trying hostname"
+    INGRESSADDR=$(kubectl -n openslice get ingress openslice-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+  else
+    echo "\$INGRESSADDR found!"
+  fi
   [ -z "$INGRESSADDR" ] && sleep 5
 done
 echo 'Found external IP: '$INGRESSADDR
@@ -27,9 +34,11 @@ kubectl apply -f ./template/kroki.yaml
 kubectl apply -f ./template/blockdiag.yaml
 
 kubectl apply -f ./template/portalweb-config.yaml
+kubectl apply -f ./template/portalweb-config-nginx.yaml
 kubectl apply -f ./template/portalweb.yaml
 
 kubectl apply -f ./template/tmfweb-config.yaml
+kubectl apply -f ./template/tmfweb-config-nginx.yaml
 kubectl apply -f ./template/tmfweb.yaml
 
 kubectl apply -f ./template/mysql-config.yaml

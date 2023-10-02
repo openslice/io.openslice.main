@@ -9,7 +9,7 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: "/services"
+        path: "/"
         backend:    
           service:
             name: tmfweb
@@ -44,7 +44,7 @@ spec:
             port:
               number: 13000
       - pathType: Prefix
-        path: "/"
+        path: "/nfvportal"
         backend:
           service:
             name: portalweb
