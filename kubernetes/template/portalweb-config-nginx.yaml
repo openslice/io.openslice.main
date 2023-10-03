@@ -19,7 +19,7 @@ data:
                 listen 80;
                 include /etc/nginx/mime.types;
 
-          server_name  localhost;
+          server_name  INGRESS;
           location / {
               root /usr/share/nginx/html/;
               index index.html index.htm;
