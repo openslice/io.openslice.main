@@ -28,11 +28,17 @@ spec:
           - name: "portalweb-configuration"
             mountPath: /usr/share/nginx/html/nfvportal/js/config.js
             subPath: config.js
+          - name: "portalweb-configuration-nginx"
+            readOnly: true
+            mountPath: "/etc/nginx/conf.d"
       volumes:
         - name: "portalweb-configuration"
           configMap:
             name: portalweb-config
             defaultMode: 420
+        - name: "portalweb-configuration-nginx"
+          configMap:
+            name: portalweb-config-nginx
       restartPolicy: Always
 ---
 apiVersion: v1
