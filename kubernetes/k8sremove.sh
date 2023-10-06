@@ -24,7 +24,7 @@ kubectl delete configmap keycloak-realm-config -n openslice
 
 kubectl delete -f ./_apply/mysql.yaml
 kubectl delete -f ./_apply/mysql-pv-pvc.yaml
-kubectl delete -f ./_apply/mysql-configmap.yaml
+kubectl delete -f ./_apply/mysql-config.yaml
 
 kubectl delete -f ./_apply/tmfweb-config.yaml
 kubectl delete -f ./_apply/tmfweb-config-nginx.yaml
