@@ -62,7 +62,4 @@ kubectl apply -f ./_apply/osportalapi.yaml
 kubectl apply -f ./_apply/osscapi-pv-pvc.yaml
 kubectl apply -f ./_apply/osscapi.yaml
 
-kubectl apply -f ./_apply/front-networkpolicy.yaml
-kubectl apply -f ./_apply/back-networkpolicy.yaml
-
 cd $CURRENT_DIR

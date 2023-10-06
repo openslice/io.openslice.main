@@ -4,9 +4,6 @@ CURRENT_DIR="$(pwd)"
 SCRIPT_DIR="$(dirname "$0")"
 cd $SCRIPT_DIR
 
-kubectl delete -f ./_apply/front-networkpolicy.yaml
-kubectl delete -f ./_apply/back-networkpolicy.yaml
-
 kubectl delete -f ./_apply/osscapi.yaml
 kubectl delete -f ./_apply/osscapi-pv-pvc.yaml
 
