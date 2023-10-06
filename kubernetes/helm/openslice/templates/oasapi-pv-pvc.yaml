@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: oasapi
+    type: local
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-oasapi-pv-volume
+spec:
+  storageClassName: "oasapi-pv-manual"
+  capacity:
+    storage: "1Gi"
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/dockerdata-nfs/oasapi"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: oasapi
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-oasapi-claim0
+spec:
+  storageClassName: "oasapi-pv-manual"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "1Gi"

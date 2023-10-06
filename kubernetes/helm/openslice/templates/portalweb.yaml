@@ -1,0 +1,68 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: portalweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-portalweb
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: portalweb
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: portalweb
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.portalweb.repository }}:{{ .Values.image.portalweb.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-portalweb
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: portalweb-configuration
+              mountPath: /usr/share/nginx/html/nfvportal/js/config.js
+              subPath: config.js
+            - name: portalweb-configuration-nginx
+              readOnly: true
+              mountPath: "/etc/nginx/conf.d"
+      volumes:
+        - name: portalweb-configuration
+          configMap:
+            name: {{ include "openslice.fullname" . }}-portalweb-config
+            defaultMode: 420
+        - name: portalweb-configuration-nginx
+          configMap:
+            name: {{ include "openslice.fullname" . }}-portalweb-config-nginx
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: portalweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-portalweb
+spec:
+  ports:
+    - name: "portalwebport"
+      port: 80
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: portalweb
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

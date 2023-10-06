@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: bugzilla
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-bugzilla
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: bugzilla
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: bugzilla
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.bugzilla.repository }}:{{ .Values.image.bugzilla.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-bugzilla
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                { 
+                  "spring.activemq.brokerUrl": "tcp://{{ include "openslice.fullname" . }}-artemis:61616?jms.watchTopicAdvisories=false", 
+                  "spring.activemq.user": "{{ .Values.oscreds.activemq.user }}", 
+                  "spring.activemq.password": "{{ .Values.oscreds.activemq.password }}", 
+                  "bugzillaurl":"{{ .Values.bugzillaurl }}", 
+                  "bugzillakey":"{{ .Values.bugzillakey }}", 
+                  "main_operations_product":"{{ .Values.main_operations_product }}" 
+                }
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 13010
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: bugzilla
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-bugzilla
+spec:
+  ports:
+    - name: "13010"
+      port: 13010
+      targetPort: 13010
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: bugzilla
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

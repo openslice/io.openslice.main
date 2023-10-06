@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: mysql
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-mysql
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: mysql
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: mysql
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.mysql.repository }}:{{ .Values.image.mysql.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-mysql
+          env:
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.oscreds.mysql.password | default "letmein" }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.oscreds.mysql.openslicedb | default "osdb" }}
+            - name: MYSQL_USER
+              value: {{ .Values.oscreds.mysql.portal.username | default "portaluser" }}
+            - name: MYSQL_PASSWORD
+              value: "{{ .Values.oscreds.mysql.portal.password | default 12345 }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-portal-claim0
+            - mountPath: /docker-entrypoint-initdb.d
+              name: mysql-initdb
+          readinessProbe:
+            exec:
+              # Check we can execute queries over TCP (skip-networking is off).
+              command: ["mysql", "-h", "127.0.0.1", "-u", "{{ .Values.oscreds.mysql.username | default "root" }}",  "-p{{ .Values.oscreds.mysql.password | default "letmein" }}", "-e", "SELECT 1"]
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            timeoutSeconds: 1
+      restartPolicy: Always
+      volumes:
+        - name: mysql-portal-claim0
+          persistentVolumeClaim:
+            claimName: {{ include "openslice.fullname" . }}-mysql-portal-claim0
+        - name: mysql-initdb
+          configMap:
+            name: {{ include "openslice.fullname" . }}-mysql-initdb-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: mysql
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-mysql
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: mysql
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

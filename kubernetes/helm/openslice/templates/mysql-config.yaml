@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: mysql
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-mysql-initdb-config
+data:
+  01-databases.sql: |
+    # create databases
+    CREATE DATABASE IF NOT EXISTS `{{ .Values.oscreds.mysql.openslicedb | default "osdb" }}`;
+    CREATE DATABASE IF NOT EXISTS `{{ .Values.oscreds.mysql.keycloak.database | default "keycloak" }}`;
+    
+    # create portal user and grant rights
+    CREATE USER '{{ .Values.oscreds.mysql.portal.username | default "portaluser" }}'@'localhost' IDENTIFIED BY '{{ .Values.oscreds.mysql.portal.password | default "12345" }}';
+    GRANT ALL PRIVILEGES ON *.* TO '{{ .Values.oscreds.mysql.portal.username | default "portaluser" }}'@'%' IDENTIFIED BY '{{ .Values.oscreds.mysql.portal.password | default "12345" }}';
+    
+    # create keycloak user and grant rights
+    CREATE USER '{{ .Values.oscreds.mysql.keycloak.username | default "keycloak" }}'@'localhost' IDENTIFIED BY '{{ .Values.oscreds.mysql.keycloak.password | default "password" }}';
+    GRANT ALL PRIVILEGES ON *.* TO '{{ .Values.oscreds.mysql.keycloak.username | default "keycloak" }}'@'%' IDENTIFIED BY '{{ .Values.oscreds.mysql.keycloak.password | default "password" }}';

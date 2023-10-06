@@ -1,45 +1,57 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-metadata:
-  name: openslice-ingress
-  annotations:
-    kubernetes.io/ingress.class: "nginx"  
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-openslice-ingress
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: {{ .Values.ingress.host }}
+    http:
       paths:
-      - pathType: Prefix
-        path: "/services"
-        backend:    
-          service:
-            name: {{ .Release.Name }}-tmfweb
-            port:
-              number: 80
       - pathType: Prefix
         path: "/tmf-api"
         backend:
           service:
-            name: {{ .Release.Name }}-osscapi
+            name: {{ include "openslice.fullname" . }}-osscapi
             port:
               number: 13082
+      - pathType: Prefix
+        path: "/oas-api"
+        backend:
+          service:
+            name: {{ include "openslice.fullname" . }}-oasapi
+            port:
+              number: 13101
       - pathType: Prefix
         path: "/auth"
         backend:
           service:
-            name: {{ .Release.Name }}-keycloak
+            name: {{ include "openslice.fullname" . }}-keycloak
             port:
               number: 8080
       - pathType: Prefix
         path: "/osapi"
         backend:
           service:
-            name: {{ .Release.Name }}-osportalapi
+            name: {{ include "openslice.fullname" . }}-osportalapi
             port:
               number: 13000
       - pathType: Prefix
-        path: "/"
+        path: "/nfvportal"
         backend:
           service:
-            name: {{ .Release.Name }}-portalweb
+            name: {{ include "openslice.fullname" . }}-portalweb
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/"
+        backend:    
+          service:
+            name: {{ include "openslice.fullname" . }}-tmfweb
             port:
               number: 80
