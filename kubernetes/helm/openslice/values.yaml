@@ -5,17 +5,17 @@
 replicaCount: 1
 
 image:
-  activemq:
-    repository: webcenter/activemq
+  artemis:
+    repository: apache/activemq-artemis
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "5.14.3"
-  consul:
-    repository: consul
+    tag: "2.30.0"
+  blockdiag:
+    repository: yuzutech/kroki-blockdiag
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "1.9.0"
-  bugzillaclient:
+    tag: "latest"
+  bugzilla:
     repository: openslice/io.openslice.bugzilla
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
@@ -26,10 +26,15 @@ image:
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
   keycloak:
-    repository: quay.io/keycloak/keycloak
+    repository: jboss/keycloak
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "11.0.3"
+    tag: "16.1.1"
+  kroki:
+    repository: yuzutech/kroki
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
   manoclient:
     repository: openslice/io.openslice.mano
     pullPolicy: IfNotPresent
@@ -45,11 +50,16 @@ image:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
-  tmfapi:
+  osscapi:
     repository: openslice/io.openslice.tmf.api
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
+  mysql:
+    repository: mysql
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "5.7.43"
   oasapi:
     repository: openslice/io.openslice.oas
     pullPolicy: IfNotPresent
@@ -70,15 +80,28 @@ bugzillaurl: example.com:443/bugzilla
 bugzillakey: VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z
 main_operations_product: My Operations
 centrallogurl: http://elk_ip:elk_port/index_name/_doc
-rooturl: http://10.10.10.223 # This is the ingress LB IP
+rooturl: 10.10.10.228 # This is the ingress LB IP
 
 oscreds:
-  activemq_user: admin
-  activemq_pass: admin
-  mysqlpassword: letmein
-  keycloakdbpassword: letmein
-  keycloakadminpassword: Pa55w0rd
+  activemq:
+    user: artemis
+    password: artemis
+  mysql:
+    username: root
+    password: letmein
+    openslicedb: osdb
+    keycloak: 
+      database: keycloak
+      username: keycloak
+      password: password
+      adminpassword: keycloakadminpass
+    portal:
+      database: osdb
+      username: portaluser
+      password: 12345
 
+spring:
+  oauthClientSecret: secret
 
 imagePullSecrets: []
 nameOverride: ""
@@ -111,6 +134,7 @@ service:
   port: 80
 
 ingress:
+  host: chart-example.local
   enabled: false
   annotations: {}
 

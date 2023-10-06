@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: kroki
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-kroki
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: kroki
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: kroki
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.kroki.repository }}:{{ .Values.image.kroki.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-kroki
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: KROKI_BLOCKDIAG_HOST
+              value: "blockdiag"
+          ports:
+            - containerPort: 8000
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: kroki
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-kroki
+spec:
+  ports:
+    - name: "8000"
+      targetPort: 8000
+      port: 8000
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: kroki
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

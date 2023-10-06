@@ -13,7 +13,6 @@ spec:
   template:
     metadata:
       labels:
-        io.kompose.network/back: "true"
         io.openslice.service: manoclient
     spec:
       containers:
@@ -25,7 +24,7 @@ spec:
                   "spring.activemq.user": "artemis",
                   "spring.activemq.password": "artemis",
                   "logging.level.org.springframework" : "INFO"
-                }          image: openslice/io.openslice.mano:latest
+                }
           image: openslice/io.openslice.mano:latest
           name: manoclient
           ports:

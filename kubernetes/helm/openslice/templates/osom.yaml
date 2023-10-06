@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osom
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-osom
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: osom
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: osom
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.osom.repository }}:{{ .Values.image.osom.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-osom
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                { 
+                  "spring.activemq.brokerUrl": "tcp://{{ include "openslice.fullname" . }}-artemis:61616?jms.watchTopicAdvisories=false", 
+                  "spring.activemq.user": "{{ .Values.oscreds.activemq.user }}", 
+                  "spring.activemq.password": "{{ .Values.oscreds.activemq.password }}",  
+                  "logging.level.org.springframework" : "INFO" 
+                }
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 13100
+          volumeMounts:
+            - mountPath: /root
+              name: {{ include "openslice.fullname" . }}-osom-claim0
+      restartPolicy: Always
+      volumes:
+        - name: {{ include "openslice.fullname" . }}-osom-claim0
+          persistentVolumeClaim:
+            claimName: {{ include "openslice.fullname" . }}-osom-claim0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osom
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-osom
+spec:
+  ports:
+    - name: "13100"
+      targetPort: 13100
+      port: 13100
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osom
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

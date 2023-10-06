@@ -1,0 +1,36 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: {{ include "openslice.fullname" . }}-portalweb-config-nginx
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: portalweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+data:
+  default.conf: |+
+        # Expires map
+        map $sent_http_content_type $expires {
+            default                    off;
+            text/html                  epoch;
+            text/css                   max;
+            application/json           max;
+            application/javascript     max;
+            ~image/                    max;
+        }
+
+        server {
+                listen 80;
+                include /etc/nginx/mime.types;
+
+          server_name  {{ .Values.rooturl }};
+          location / {
+              root /usr/share/nginx/html/;
+              index index.html index.htm;
+              try_files $uri $uri/ /index.html =404;
+            }
+
+          expires $expires;
+          gzip  on;
+        }
