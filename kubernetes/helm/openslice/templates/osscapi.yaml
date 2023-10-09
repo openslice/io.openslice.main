@@ -41,21 +41,21 @@ spec:
                   "spring.datasource.url": "jdbc:mysql://{{ include "openslice.fullname" . }}-mysql/osdb?createDatabaseIfNotExist=true",
                   "spring.datasource.username": "{{ .Values.oscreds.mysql.username }}",
                   "spring.datasource.password": "{{ .Values.oscreds.mysql.password }}",
-                  "spring-addons.issuers[0].uri":"http://keycloak:8080/auth/realms/openslice",
+                  "spring-addons.issuers[0].uri":"{{ .Values.rooturl }}/auth/realms/openslice",
                   "spring-addons.issuers[0].username-json-path":"$.preferred_username",
                   "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
                   "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
-                  "spring.security.oauth2.resourceserver.jwt.issuer-uri":"http://{{ include "openslice.fullname" . }}-keycloak:808/auth/realms/openslice",
-                  "spring.security.oauth2.resourceserver.jwt.jwk-set-uri":"http://{{ include "openslice.fullname" . }}-keycloak:8080/auth/realms/openslice/.well-known/openid-configuration",
-                  "springdoc.oAuthFlow.authorizationUrl":"http://{{ include "openslice.fullname" . }}-keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
-                  "springdoc.oAuthFlow.tokenUrl":"http://{{ include "openslice.fullname" . }}-keycloak:8080/auth/realms/openslice/protocol/openid-connect/token",
+                  "spring.security.oauth2.resourceserver.jwt.issuer-uri":"{{ .Values.rooturl }}/auth/realms/openslice",
+                  "spring.security.oauth2.resourceserver.jwt.jwk-set-uri":"{{ .Values.rooturl }}/auth/realms/openslice/.well-known/openid-configuration",
+                  "springdoc.oAuthFlow.authorizationUrl":"{{ .Values.rooturl }}/auth/realms/openslice/protocol/openid-connect/auth",
+                  "springdoc.oAuthFlow.tokenUrl":"{{ .Values.rooturl }}/auth/realms/openslice/protocol/openid-connect/token",
                   "springdoc.oauth.client-id":"osapiWebClientId",
                   "springdoc.oauth.clientsecret" : "{{ .Values.spring.oauthClientSecret }}",
                   "spring.activemq.brokerUrl": "tcp://{{ include "openslice.fullname" . }}-artemis:61616?jms.watchTopicAdvisories=false", 
                   "spring.activemq.user": "{{ .Values.oscreds.activemq.user }}",  
                   "spring.activemq.password": "{{ .Values.oscreds.activemq.password }}", 
                   "logging.level.org.springframework":"INFO",
-                  "kroki.serverurl":"http://{{ .Values.rooturl }}/kroki"
+                  "kroki.serverurl":"{{ .Values.rooturl }}/kroki"
                 }
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

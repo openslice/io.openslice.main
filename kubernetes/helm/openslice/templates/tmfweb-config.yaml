@@ -15,7 +15,7 @@ data:
       "PORTALVERSION":"2023-Q3 1.2.0-SNAPSHOT",
       "WIKI": "https://openslice.readthedocs.io/en/stable/",
       "BUGZILLA": "{BASEURL}/bugzilla/",
-      "STATUS": "http://{{ .Values.rooturl }}/",
+      "STATUS": "{{ .Values.rooturl }}/",
       "WEBURL": "{BASEURL}",
       "PORTAL_REPO_APIURL": "{BASEURL}/osapi",
       "ASSURANCE_SERVICE_MGMT_APIURL": "{BASEURL}/oas-api",

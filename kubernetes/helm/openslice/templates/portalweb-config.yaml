@@ -9,5 +9,5 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     {{- include "openslice.labels" . | nindent 4 }}
 data:
-  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"http://{{ .Values.rooturl }}\",\n\t\tBUGZILLA: \"https://{{ .Values.rooturl }}/bugzilla/\",\n\t\tSTATUS: \"http://{{ .Values.rooturl }}/\",\n\t\tAPIURL: \"http://{{ .Values.rooturl }}\",\n\t\tWEBURL: \"http://{{ .Values.rooturl }}/nfvportal\",\n\t\tAPIOAUTHURL: \"http://{{ .Values.rooturl }}/auth/realms/openslice\",\n\t\tAPITMFURL: \"http://{{ .Values.rooturl }}/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
+  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"{{ .Values.rooturl }}\",\n\t\tBUGZILLA: \"{{ .Values.rooturl }}/bugzilla/\",\n\t\tSTATUS: \"{{ .Values.rooturl }}/\",\n\t\tAPIURL: \"{{ .Values.rooturl }}\",\n\t\tWEBURL: \"{{ .Values.rooturl }}/nfvportal\",\n\t\tAPIOAUTHURL: \"{{ .Values.rooturl }}/auth/realms/openslice\",\n\t\tAPITMFURL: \"{{ .Values.rooturl }}/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
 
