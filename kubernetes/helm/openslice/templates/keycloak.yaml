@@ -36,7 +36,7 @@ spec:
             - name: DB_VENDOR
               value: MYSQL
             - name: DB_ADDR
-              value: mysql
+              value: {{ include "openslice.fullname" . }}-mysql
             - name: DB_DATABASE
               value: {{ .Values.oscreds.mysql.keycloak.database }}
             - name: DB_PASSWORD
