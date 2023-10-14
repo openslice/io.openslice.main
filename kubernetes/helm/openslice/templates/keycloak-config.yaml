@@ -10,4 +10,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   realm-export.json: |
-    {{- (.Files.Get "files/realm-export.json") | toYaml | nindent 4 }}
+    {{- tpl (.Files.Get "files/realm-export.json") . | nindent 4 }}

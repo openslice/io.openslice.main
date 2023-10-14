@@ -10,7 +10,7 @@ metadata:
     {{- include "openslice.labels" . | nindent 4 }}
   name: {{ include "openslice.fullname" . }}-osportalapi-pv-volume
 spec:
-  storageClassName: "manual"
+  storageClassName: "osportalapi-pv-volume"
   capacity:
     storage: "100Mi"
   accessModes:
