@@ -1,4 +1,23 @@
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osscapi
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-osscapi-claim0
+spec:
+  storageClassName: {{ .Values.storageClass | default "osscapi-pv-manual" }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "1Gi"
+---
+{{- if or (not .Values.storageClass) (eq .Values.storageClass "manual") }}
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   namespace: {{ .Release.Namespace }}
@@ -17,21 +36,4 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/dockerdata-nfs/osscapi"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  namespace: {{ .Release.Namespace }}
-  labels:
-    app: {{ include "openslice.fullname" . }}
-    io.openslice.service: osscapi
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    {{- include "openslice.labels" . | nindent 4 }}
-  name: {{ include "openslice.fullname" . }}-osscapi-claim0
-spec:
-  storageClassName: "osscapi-pv-manual"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: "1Gi"
+{{- end }}

@@ -27,6 +27,8 @@ spec:
       containers:
         - image: "{{ .Values.image.mysql.repository }}:{{ .Values.image.mysql.tag | default .Chart.AppVersion }}"
           name: {{ include "openslice.fullname" . }}-mysql
+          args:
+            - "--ignore-db-dir=lost+found"
           env:
             - name: MYSQL_ROOT_HOST
               value: "%"
