@@ -103,6 +103,10 @@ oscreds:
 spring:
   oauthClientSecret: secret
 
+# Storage class to be used for provisioning. Default is manual
+# storageClass: "openebs-jiva-csi-default"
+# storageClass: "openebs-rwx"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
