@@ -80,7 +80,7 @@ bugzillaurl: example.com:443/bugzilla
 bugzillakey: VH2Vw0iI5aYgALFFzVDWqhACwt6Hu3bXla9kSC1Z
 main_operations_product: My Operations
 centrallogurl: http://elk_ip:elk_port/index_name/_doc
-rooturl: http://10.10.10.228 # This is the ingress LB IP or domain - ex. http://dimitris.com:port
+rooturl: ~ # This is the ingress LB IP or domain - ex. http://openslice.com:port or http://3.15.198.35:8080
 
 oscreds:
   activemq:
@@ -104,8 +104,7 @@ spring:
   oauthClientSecret: secret
 
 # Storage class to be used for provisioning. Default is manual
-# storageClass: "openebs-jiva-csi-default"
-# storageClass: "openebs-rwx"
+# storageClass: ~
 
 imagePullSecrets: []
 nameOverride: ""
@@ -160,12 +159,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+# autoscaling:
+#   enabled: false
+#   minReplicas: 1
+#   maxReplicas: 100
+#   targetCPUUtilizationPercentage: 80
+#   targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
