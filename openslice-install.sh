@@ -102,6 +102,7 @@ if [ ! -d "io.openslice.main" ]; then
   log "Repository cloned successfully."
 else
   log "Repository already exists. Switching to kubernetes branch and pulling latest changes..."
+  cd io.openslice.main
   git fetch origin > /dev/null
   git checkout -B kubernetes origin/kubernetes > /dev/null
   git pull origin kubernetes > /dev/null
