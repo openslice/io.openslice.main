@@ -12,6 +12,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "openslice.fullname" . }}-mysql
   selector:
     matchLabels:
       app: {{ include "openslice.fullname" . }}
