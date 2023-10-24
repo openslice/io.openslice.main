@@ -62,19 +62,27 @@ if ! command -v helm &> /dev/null; then
     log "Helm installed successfully."
 fi
 
-# # Install ingress-nginx with helm
-# log "Installing ingress-nginx..."
-# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
-# helm repo update > /dev/null
-# helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace > /dev/null
+# Install ingress-nginx with helm
+log "Installing ingress-nginx..."
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
+helm repo update > /dev/null
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace > /dev/null
 
-# # Wait for ingress-nginx to be ready
-# log "Waiting for ingress-nginx to be ready..."
-# kubectl wait --namespace ingress-nginx \
-#   --for=condition=ready pod \
-#   --selector=app.kubernetes.io/component=controller \
-#   --timeout=120s > /dev/null
-# log "ingress-nginx is ready."
+# Wait for ingress-nginx to be ready
+log "Waiting for ingress-nginx to be ready..."
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=120s > /dev/null
+log "ingress-nginx is ready."
+
+# Fetch the ClusterIP and Port of the ingress controller service
+CLUSTER_IP=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.clusterIP}')
+PORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.ports[?(@.name=="http")].port}')
+
+# Set up iptables rules
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $CLUSTER_IP:$PORT
+sudo iptables -t nat -A POSTROUTING -j MASQUERADE
 
 # Clone the repository
 if [ ! -d "io.openslice.main" ]; then
