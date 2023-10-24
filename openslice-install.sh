@@ -79,12 +79,14 @@ fi
 # Clone the repository
 if [ ! -d "io.openslice.main" ]; then
   log "Cloning repository..."
-  git clone https://github.com/openslice/io.openslice.main.git > /dev/null
+  git clone -b kubernetes https://github.com/openslice/io.openslice.main.git > /dev/null
   log "Repository cloned successfully."
 else
-  log "Repository already exists. Pulling latest changes..."
+  log "Repository already exists. Switching to kubernetes branch and pulling latest changes..."
   cd io.openslice.main
-  git pull origin master > /dev/null
+  git fetch origin > /dev/null
+  git checkout -B kubernetes origin/kubernetes > /dev/null
+  git pull origin kubernetes > /dev/null
   cd ..
   log "Latest changes pulled successfully."
 fi
