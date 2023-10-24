@@ -11,7 +11,7 @@ log() {
 # Update OS
 log "Updating OS..."
 sudo apt-get update -y > /dev/null
-sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null
+sudo NEEDRESTART_FRONTEND=none DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null
 log "OS updated successfully."
 
 # Install Docker if it's not already installed
@@ -91,7 +91,6 @@ if [ ! -d "io.openslice.main" ]; then
   log "Repository cloned successfully."
 else
   log "Repository already exists. Switching to kubernetes branch and pulling latest changes..."
-  cd io.openslice.main
   git fetch origin > /dev/null
   git checkout -B kubernetes origin/kubernetes > /dev/null
   git pull origin kubernetes > /dev/null
