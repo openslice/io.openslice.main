@@ -8,11 +8,22 @@ log() {
   echo "[INFO] $1"
 }
 
+# Temporarily remove needrestart
+if dpkg -l | grep needrestart; then
+    log "Temporarily removing needrestart..."
+    sudo apt-get remove -y needrestart > /dev/null
+fi
+
 # Update OS
 log "Updating OS..."
 sudo apt-get update -y > /dev/null
-sudo NEEDRESTART_FRONTEND=none DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null
 log "OS updated successfully."
+
+# Reinstall needrestart if you need it
+log "Reinstalling needrestart..."
+sudo apt-get install -y needrestart > /dev/null
+log "needrestart reinstalled."
 
 # Install Docker if it's not already installed
 if ! command -v docker &> /dev/null; then
