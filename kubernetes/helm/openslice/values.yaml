@@ -103,6 +103,9 @@ oscreds:
 spring:
   oauthClientSecret: secret
 
+mysql:
+  storage: 10Gi
+  
 # Storage class to be used for provisioning. Default is manual
 # storageClass: ~
 
