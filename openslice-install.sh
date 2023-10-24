@@ -62,19 +62,19 @@ if ! command -v helm &> /dev/null; then
     log "Helm installed successfully."
 fi
 
-# Install ingress-nginx with helm
-log "Installing ingress-nginx..."
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
-helm repo update > /dev/null
-helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace > /dev/null
+# # Install ingress-nginx with helm
+# log "Installing ingress-nginx..."
+# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
+# helm repo update > /dev/null
+# helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace > /dev/null
 
-# Wait for ingress-nginx to be ready
-log "Waiting for ingress-nginx to be ready..."
-kubectl wait --namespace ingress-nginx \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=120s > /dev/null
-log "ingress-nginx is ready."
+# # Wait for ingress-nginx to be ready
+# log "Waiting for ingress-nginx to be ready..."
+# kubectl wait --namespace ingress-nginx \
+#   --for=condition=ready pod \
+#   --selector=app.kubernetes.io/component=controller \
+#   --timeout=120s > /dev/null
+# log "ingress-nginx is ready."
 
 # Clone the repository
 if [ ! -d "io.openslice.main" ]; then
@@ -105,12 +105,14 @@ log "Installing my-openslice..."
 helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=$HOST_IP:$KEYCLOAK_PORT,mysql.storage="500Mi" > /dev/null
 
 # Update services to NodePort
+full_svc_name="${RELEASE_NAME}-${svc_suffix}"
+log "Updating $full_svc_name service to use NodePort..."
+kubectl patch svc ${RELEASE_NAME}-keycloak -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}, {'op': 'replace', 'path': '/spec/ports/0/nodePort', 'value': $KEYCLOAK_PORT}]"
+
 for svc_suffix in "keycloak" "portalweb" "tmfweb"; do
   full_svc_name="${RELEASE_NAME}-${svc_suffix}"
   log "Updating $full_svc_name service to use NodePort..."
   kubectl patch svc $full_svc_name -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}]"
-  NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services $full_svc_name -n openslice)
-  log "$full_svc_name is now accessible at NodePort $NODE_PORT"
 done
 
 cd - > /dev/null
