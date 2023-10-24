@@ -14,7 +14,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: "10Gi"
+      storage: {{ .Values.mysql.storage }}
 ---
 {{- if or (not .Values.storageClass) (eq .Values.storageClass "manual") }}
 apiVersion: v1
@@ -31,7 +31,7 @@ metadata:
 spec:
   storageClassName: "mysql-manual"
   capacity:
-    storage: "10Gi"
+    storage: {{ .Values.mysql.storage }}
   accessModes:
     - ReadWriteOnce
   hostPath:
