@@ -68,11 +68,6 @@ if ! command -v helm &> /dev/null; then
     log "Helm installed successfully."
 fi
 
-# Reinstall needrestart if you need it
-log "Reinstalling needrestart..."
-sudo apt-get install -y needrestart > /dev/null
-log "needrestart reinstalled."
-
 # Install ingress-nginx with helm
 log "Installing ingress-nginx..."
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
