@@ -20,11 +20,6 @@ sudo apt-get update -y > /dev/null
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null
 log "OS updated successfully."
 
-# Reinstall needrestart if you need it
-log "Reinstalling needrestart..."
-sudo apt-get install -y needrestart > /dev/null
-log "needrestart reinstalled."
-
 # Install Docker if it's not already installed
 if ! command -v docker &> /dev/null; then
     log "Installing Docker..."
@@ -72,6 +67,11 @@ if ! command -v helm &> /dev/null; then
     rm get_helm.sh
     log "Helm installed successfully."
 fi
+
+# Reinstall needrestart if you need it
+log "Reinstalling needrestart..."
+sudo apt-get install -y needrestart > /dev/null
+log "needrestart reinstalled."
 
 # Install ingress-nginx with helm
 log "Installing ingress-nginx..."
