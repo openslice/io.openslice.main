@@ -104,7 +104,7 @@ KEYCLOAK_PORT=31000
 # Change directory and run helm install
 cd io.openslice.main/kubernetes/helm/openslice
 log "Installing my-openslice..."
-helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=$HOST_IP:$KEYCLOAK_PORT,mysql.storage="500Mi" > /dev/null
+helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=http://$HOST_IP:$KEYCLOAK_PORT,mysql.storage="500Mi" > /dev/null
 
 # Update services to NodePort
 full_svc_name="${RELEASE_NAME}-${svc_suffix}"
