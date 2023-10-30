@@ -1,4 +1,4 @@
-## Preparing the environment
+# Preparing the environment
 
 Note: See the Kubernetes section, if you would like to deploy Openslice in a Kubernetes cluster
 
@@ -50,21 +50,20 @@ and restart docker daemon.
 
 <br>
 
-##Configure docker-compose services
+# Configure docker-compose services
 
-<br>
 
 Edit your configuration specific docker-compose.yaml that is previously created:
 
+<br>
 
-
-###1. mysql-portal container 
+## 1. mysql-portal container 
 
 In folder mysql-init edit the file 01-databases.sql. Edit the credentials that services connect to the database (if you wish) of portaluser (default is 12345) and keycloak (default is password).
 
 delete the exposed ports
 
-###2.keycloak container
+## 2.keycloak container
 
 2.1 Edit the following if you changed mysql credentials 
 ```
@@ -79,9 +78,9 @@ KEYCLOAK_PASSWORD: Pa55w0rd
 ```
 
 
-###3.osportalapi container (NFV services)
+## 3.osportalapi container (NFV services)
 
-Edit the following if you changed mysql and keycloak credentials and adjust properly the domain (replace everywhere the http://keycloak:8080)
+Edit the following if you changed mysql and keycloak credentials and adjust properly the domain (if you are using a non-local domain, replace everywhere the http://keycloak:8080)
 
 ```
 SPRING_APPLICATION_JSON: '{
@@ -106,9 +105,9 @@ SPRING_APPLICATION_JSON: '{
 ```
 
 
-###4.bugzilla container
+## 4.bugzilla container
 
-If you would like to use the Buzilla connector
+If you would like to use the Bugzilla connector
 
 ```
 "bugzillaurl":"bugzillaurl.xx:443/bugzilla/",
@@ -117,17 +116,17 @@ If you would like to use the Buzilla connector
 ```
 
 Bugzilla under this product should have components:  
-NSD Deployment Request:Component used to schedule deployment req  
-Onboarding:Issues related to VNF/NSD Onboarding  
-Operations Support:Default component for operations support  
-Validation:Use to track validation processes of VNFs and NSDs  
-VPN Credentials/Access:Used for requesting VPN Credentials/Access   
+- NSD Deployment Request: Component used to schedule deployment req  
+- Onboarding: Issues related to VNF/NSD Onboarding  
+- Operations Support: Default component for operations support  
+- Validation: Use to track validation processes of VNFs and NSDs  
+- VPN Credentials/Access: Used for requesting VPN Credentials/Access   
 
 
-Also in the 'Main Site Operations' product please create a version named 'unspecified'
+Also in the 'Main Site Operations' product, please create a version named 'unspecified'
 
 
-###5.osscapi container (TMF-API service)
+## 5.osscapi container (TMF-API service)
 
 Edit the following if you changed mysql and keycloak credentials
 
@@ -141,7 +140,9 @@ Edit properly with your domain "swagger.authserver" : "http://localhost/auth/rea
 
 delete the exposed ports in other services like activemq
 
-##Configure nginx
+<br>
+
+# Configure nginx
 
 ```
 cd nginx
@@ -149,8 +150,9 @@ sudo cp nginx.conf.default nginx.conf
 ```
 Edit server_name
 
+<br>
 
-##Configure Web UI
+# Configure Web UI
 
 `cd io.openslice.portal.web/src/js/  `
 `cp config.js.default config.js  `
@@ -168,7 +170,9 @@ TITLE: "Openslice demo",
 
 ```
 
-##Configure TMF Web UI
+<br>
+
+# Configure TMF Web UI
 
 There are 3 files available for configuration:
 
@@ -213,7 +217,7 @@ sudo cp config.theming.default.json config.theming.json
 <br>
 
 
-## Deploying docker compose
+# Deploying docker compose
 
 
 
@@ -226,8 +230,10 @@ sudo docker compose --profile prod down;sudo docker compose --profile prod up -d
 Note: depending on your machine, this process might take time. 
 
 
+<br>
 
-## Validating deployments and container monitoring
+
+# Validating deployments and container monitoring
 
 You can monitor containers status with portainer at port 9000 (http://your-ip:9000)
 
@@ -235,9 +241,9 @@ At first time at portainer use to monitor the Local machine.
 
 Please check that all containers are in running state.
 
+<br>
 
-
-#Kubernetes installation
+# Kubernetes installation
 
 
 Openslice can be installed in a Kubernetes cluster. (This is a work in progress)
@@ -250,7 +256,7 @@ The related scripts are inside the kubernetes folder. Follow these steps along t
 kubectl create namespace openslice
 ```
 
-2) Apply or create an ingress. Igress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+2) Apply or create an ingress. Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic. You must have an Ingress controller to satisfy an Ingress.
 You may need to deploy an Ingress controller such as ingress-nginx.
  
@@ -356,71 +362,170 @@ tmfweb            ClusterIP   10.98.56.82      <none>        80/TCP             
 
 ```
 
+<br>
 
-#Post installation steps 
+# Post installation steps 
 
 
 ## Configure Keycloak server
 
-Keycloack server is managing authentications and running on your host at port 28080 and proxied form nginx under http://localhost/auth.
+Keycloack server is managing authentication and running on a container at port 8080. It is proxied to your host via nginx under http://localhost/auth.
 
-Go to http://domain.com/auth/ or https://domain.com/auth/ , (http://ipaddress:28080/auth/ or https://ipaddress:28443/auth/ are direct with no proxy) 
+* Go to http://domain.com/auth/ or https://domain.com/auth/ , (http://ipaddress:8080/auth/ or https://ipaddress:8443/auth/ are direct with no proxy) 
 
-and go to Administration Console 
+* Navigate to Administration Console 
 
 
-NOTE: if you are running in HTTP you will get a message: HTTPS required
+> NOTE: if you are running in HTTP you will get a message: HTTPS required
 
-Go to https://ipaddress:28443/auth/
+Go to https://ipaddress:8443/auth/
 
 Login with the credentials from section 2.2
 
 user admin and your KEYCLOAK_PASSWORD
 
 Select the master realm from top left corner, go to login Tab and select "Require SSL": None
+
 Do the same for realm Openslice
 
-NOTE: If you run in https the leave Require SSL to external requests
+> NOTE: If you are running in HTTPS, then leave Require SSL to external requests
 
 
 ### Configure redirects
 
-Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain 
-and insert in Valid Redirect URIs your domain e.g. http://example.org/*
-an in Web Origins
+Go to realm Openslice, client, osapiWebClientId and change Root URL to your domain. 
+
+Also, insert your domain, e.g. http://example.org/*, at:
+* Valid Redirect URIs
+* Web Origins
+
 
 ### Configure email in Keycloak
 
-Keycloak also allows new users to register  On Tab Login-> check for example User registration, Verify email, Forgot password etc.
+Keycloak also allows new users to register.  
 
-Also, enter the details on Realm->Email->Enable Authentication
+On Tab Login -> check User registration, Verify email, Forgot password etc.
 
-
-### add an openslice admin user
-
-Go to manage/users and add an admin user, e.g. username=admin . Set a password and go also to Role Mappings and add to Assigned Roles ADMIN and MENTOR.
+Also, enter the details on Realm -> Email -> Enable Authentication
 
 
+### Add an Openslice admin user
 
-## Note about admin accounts
+Go to manage/users and add an Openslice admin user, e.g. username=admin. Set a password and go also to Role Mappings and add to Assigned Roles ADMIN and MENTOR.
 
-Please don't confuse the Keycloak administrator account with the admin account of Openslice service
+> Note: That user is different from the Keycloak admin user. It is used to login and browse the OpenSlice Web UI. The Roles ADMIN and MENTOR guarantee full access through the Openslice UI, thus such a user is always required.
 
-In real Openslice under Users, please check that a user admin is created and in Role Mappings check assigned Roles ADMIN and MENTOR
+<br>
 
-##Landing page
+## Keycloak at localhost
 
-You can configure it at
+> **This is an important step if you run Keycloak on localhost**
+
+1 - Edit your hosts file, adding the line below
+
+```127.0.0.1 keycloak```
+
+2 - Replace http://localhost/auth/ with http://keycloak:8080/auth/ in your Keycloak config for TypeScript/Angular (see examples below).
+
+
+Hosts File Location:
+
+ - In Linux/Unix, the file's location is at /etc/hosts 
+
+ - In Windows, its location is at c:\Windows\System32\Drivers\etc\hosts
+
+Explanation:
+
+    Nginx uses the http://keycloak:8080 URL, which is accessible via the internal docker system's network.
+    The Front-end (TS/Angular) shall also use the http://keycloak:8080.
+    This way, you will not get the invalid token error, as the API is getting the token from http://keycloak:8080 (internally) and the Front-end is getting verified with the same URL, as well.
+
+
+
+Nginx serves the Front-end from the project io.openslice.tmf.web.
+
+
+
+
+If you would like to use the Front-end to test your backend, then:
+
+1. config.prod.json (io.openslice.tmf.web project) should look similar to the following example:
+
+```
+{
+    "TITLE": "Openslice demo",
+    "PORTALVERSION":"1.1.0-SNAPSHOT",
+    "WIKI": "http://wiki.localhost",
+    "BUGZILLA": "{BASEURL}/bugzilla/",
+    "STATUS": "http://status.localhost/",
+    "WEBURL": "{BASEURL}",
+    "PORTAL_REPO_APIURL": "{BASEURL}/osapi",
+    "ASSURANCE_SERVICE_MGMT_APIURL": "{BASEURL}/oas-api",
+    "APITMFURL": "http://localhost:13082/tmf-api",
+    "OAUTH_CONFIG" : {
+        "issuer": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
+        "loginUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
+        "tokenEndpoint": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token",
+        "redirectUri": "{BASEURL}/redirect",
+        "logoutUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/logout",
+        "postLogoutRedirectUri": "{BASEURL}/services/services_marketplace",
+
+        "responseType": "code",
+        "oidc": false,
+        "clientId": "osapiWebClientId",
+        "dummyClientSecret": "secret",
+
+        "requireHttps": false,
+        "useHttpBasicAuth": true,
+        "clearHashAfterLogin": false,
+
+        "showDebugInformation": true
+    }
+}
+```
+> Note the difference in changing {BASEURL} -> http://keycloak:8080
+
+2. config.js (io.openslice.portal.web) should look similar to the following example:
+
+```
+var appConfig = angular.module('portalwebapp.config',[]);
+
+
+appConfig.factory('APIEndPointService', function() {
+	  return {	      
+		TITLE: "Openslice",
+		WIKI: "ROOTURL",
+		BUGZILLA: "ROOTURL/bugzilla/",
+		STATUS: "ROOTURL/status/",
+		APIURL: "http://localhost:13000",
+		WEBURL: "ROOTURL/nfvportal",
+		APIOAUTHURL: "http://keycloak:8080/auth/realms/openslice",
+		APITMFURL: "http://localhost:13082/tmf-api/serviceCatalogManagement/v4"
+		
+	  };
+});
+```
+> Note the difference in "APIOAUTHURL" property
+
+<br>
+
+## NFV Portal Landing page
+
+You may configure the landing page for the NFV Portal at
 
 ```
 io.openslice.portal.web/src/openslicehome/index.html
 ```
 
+<br>
+
 ## NFV Orchestrator Configuration
 
 See [NFV Orchestrator Configuration](./nfvoconfig.md).
 
-##Note
+<br>
+
+## Important Note
 
 There is a case where the first time the services fail to start due to failed mysql connections. Please just issue again:
 

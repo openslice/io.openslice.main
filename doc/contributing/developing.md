@@ -33,7 +33,9 @@ We use mysql as a storage DB. Please make sure that you have it installed in you
 
 ## Oauth server
 
-We are using Keycloak server.
+Keycloak is used as the authentication server.
+
+> Note: Please check the Post installation steps -> Keycloak at localhost, at [Deployment/Installation](../deployment.md), if you are developing in a local environment
 
 
 ## VNF/NSD Catalog Management and NSD Deployment API service 

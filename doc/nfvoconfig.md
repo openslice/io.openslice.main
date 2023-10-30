@@ -1,4 +1,4 @@
-## NFV Orchestrator configuration
+# NFV Orchestrator configuration
 
 NOTE: Currently we support Open Source MANO version SEVEN/EIGHT/TEN/ELEVEN. Later versions of OSM may also be supported by the existing configuration, as from OSM 9+ the project converged to the SOL005 interface, regarding the NBI, and SOL006 (YANG model), regarding the NFV/NSD packaging. Also an implementation of a generic SOL005 interface is supported, but not extensively tested.
 
