@@ -109,6 +109,8 @@ mysql:
 # Storage class to be used for provisioning. Default is manual
 # storageClass: ~
 
+hostNetwork: false
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

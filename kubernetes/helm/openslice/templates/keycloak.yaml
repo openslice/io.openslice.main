@@ -84,6 +84,7 @@ metadata:
     {{- include "openslice.labels" . | nindent 4 }}
   name: {{ include "openslice.fullname" . }}-keycloak
 spec:
+  hostNetwork: {{ .Values.hostNetwork }}
   ports:
     - name: "8080"
       port: 8080
