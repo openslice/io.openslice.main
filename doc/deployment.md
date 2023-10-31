@@ -138,7 +138,7 @@ Edit properly with your domain "swagger.authserver" : "http://localhost/auth/rea
 
 ```
 
-delete the exposed ports in other services like activemq
+Delete the exposed ports in other services like activemq
 
 <br>
 
@@ -148,16 +148,20 @@ delete the exposed ports in other services like activemq
 cd nginx
 sudo cp nginx.conf.default nginx.conf
 ```
+
 Edit server_name
 
 <br>
 
 # Configure Web UI
 
-`cd io.openslice.portal.web/src/js/  `
-`cp config.js.default config.js  `
+```
+cd io.openslice.portal.web/src/js/
+cp config.js.default config.js
+```
 
-edit in config.js  with your domain
+Edit config.js  with your domain
+
 ```
 TITLE: "Openslice demo",
 		WIKI: "http://localhost",
@@ -222,12 +226,12 @@ sudo cp config.theming.default.json config.theming.json
 
 
 
-Go to compose directory and issue then:
+Go to compose directory and issue:
 ```
 sudo docker compose --profile prod down;sudo docker compose --profile prod up -d  --build
 ```
 
-Note: depending on your machine, this process might take time. 
+Note: Depending on your machine, this process might take time. 
 
 
 <br>
@@ -237,7 +241,7 @@ Note: depending on your machine, this process might take time.
 
 You can monitor containers status with portainer at port 9000 (http://your-ip:9000)
 
-At first time at portainer use to monitor the Local machine.
+Initially, you may monitor the local machine at portainer.
 
 Please check that all containers are in running state.
 
@@ -366,6 +370,7 @@ tmfweb            ClusterIP   10.98.56.82      <none>        80/TCP             
 
 # Post installation steps 
 
+<br>
 
 ## Configure Keycloak server
 
@@ -390,6 +395,7 @@ Do the same for realm Openslice
 
 > NOTE: If you are running in HTTPS, then leave Require SSL to external requests
 
+<br>
 
 ### Configure redirects
 
@@ -399,6 +405,7 @@ Also, insert your domain, e.g. http://example.org/*, at:
 * Valid Redirect URIs
 * Web Origins
 
+<br>
 
 ### Configure email in Keycloak
 
@@ -408,6 +415,7 @@ On Tab Login -> check User registration, Verify email, Forgot password etc.
 
 Also, enter the details on Realm -> Email -> Enable Authentication
 
+<br>
 
 ### Add an Openslice admin user
 
