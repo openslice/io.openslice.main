@@ -24,6 +24,7 @@ spec:
         io.openslice.service: osscapi
         {{- include "openslice.selectorLabels" . | nindent 8 }}
     spec:
+      hostNetwork: {{ .Values.hostNetwork }}
       initContainers:
       - name: init-keycloak
         image: busybox:1.28
@@ -59,7 +60,6 @@ spec:
                 }
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          hostNetwork: {{ .Values.hostNetwork }}
           ports:
             - containerPort: 13082
           volumeMounts:

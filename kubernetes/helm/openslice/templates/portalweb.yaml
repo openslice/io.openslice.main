@@ -24,12 +24,12 @@ spec:
         io.openslice.service: portalweb
         {{- include "openslice.selectorLabels" . | nindent 8 }}
     spec:
+      hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - image: "{{ .Values.image.portalweb.repository }}:{{ .Values.image.portalweb.tag | default .Chart.AppVersion }}"
           name: {{ include "openslice.fullname" . }}-portalweb
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          hostNetwork: {{ .Values.hostNetwork }}
           ports:
             - containerPort: 80
           volumeMounts:
