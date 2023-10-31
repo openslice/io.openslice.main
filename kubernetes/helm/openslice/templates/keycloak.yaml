@@ -57,6 +57,7 @@ spec:
               value: "true"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          hostNetwork: {{ .Values.hostNetwork }}
           ports:
             - containerPort: 8080
             - containerPort: 8443
@@ -84,7 +85,6 @@ metadata:
     {{- include "openslice.labels" . | nindent 4 }}
   name: {{ include "openslice.fullname" . }}-keycloak
 spec:
-  hostNetwork: {{ .Values.hostNetwork }}
   ports:
     - name: "8080"
       port: 8080
