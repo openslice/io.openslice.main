@@ -27,8 +27,8 @@ spec:
       initContainers:
       - name: init-mysql-portal
         image: busybox:1.28
-        command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]
-      
+        command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]      
+      hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - image: "{{ .Values.image.keycloak.repository }}:{{ .Values.image.keycloak.tag | default .Chart.AppVersion }}"
           name: {{ include "openslice.fullname" . }}-keycloak
@@ -57,7 +57,6 @@ spec:
               value: "true"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          hostNetwork: {{ .Values.hostNetwork }}
           ports:
             - containerPort: 8080
             - containerPort: 8443
