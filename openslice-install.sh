@@ -83,13 +83,13 @@ kubectl wait --namespace ingress-nginx \
 log "ingress-nginx is ready."
 
 ###################################################################################################
-# Fetch the ClusterIP and Port of the ingress controller service
-CLUSTER_IP=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.clusterIP}')
-PORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.ports[?(@.name=="http")].port}')
+# # Fetch the ClusterIP and Port of the ingress controller service
+# CLUSTER_IP=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.clusterIP}')
+# PORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.ports[?(@.name=="http")].port}')
 
-# Set up iptables rules
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $CLUSTER_IP:$PORT
-sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+# # Set up iptables rules
+# sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $CLUSTER_IP:$PORT
+# sudo iptables -t nat -A POSTROUTING -j MASQUERADE
 ###################################################################################################
 
 # Clone the repository
