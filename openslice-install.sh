@@ -72,7 +72,7 @@ fi
 log "Installing ingress-nginx..."
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx > /dev/null
 helm repo update > /dev/null
-helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace > /dev/null
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace --set controller.hostNetwork=true,controller.service.type="" > /dev/null
 
 # Wait for ingress-nginx to be ready
 log "Waiting for ingress-nginx to be ready..."
@@ -82,6 +82,7 @@ kubectl wait --namespace ingress-nginx \
   --timeout=120s > /dev/null
 log "ingress-nginx is ready."
 
+###################################################################################################
 # Fetch the ClusterIP and Port of the ingress controller service
 CLUSTER_IP=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.clusterIP}')
 PORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.spec.ports[?(@.name=="http")].port}')
@@ -89,6 +90,7 @@ PORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.
 # Set up iptables rules
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination $CLUSTER_IP:$PORT
 sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+###################################################################################################
 
 # Clone the repository
 if [ ! -d "io.openslice.main" ]; then
@@ -118,28 +120,30 @@ KEYCLOAK_PORT=31000
 # Change directory and run helm install
 cd io.openslice.main/kubernetes/helm/openslice
 log "Installing my-openslice..."
-helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=http://$HOST_IP:$KEYCLOAK_PORT,mysql.storage="500Mi" > /dev/null
+# change this
+# helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=http://$HOST_IP:$KEYCLOAK_PORT,mysql.storage="500Mi" > /dev/null
+helm upgrade --install $RELEASE_NAME . -n openslice --create-namespace --set rooturl=http://$HOST_IP,mysql.storage="500Mi" > /dev/null
 
 # Update services to NodePort
-full_svc_name="${RELEASE_NAME}-${svc_suffix}"
-log "Updating $full_svc_name service to use NodePort..."
-kubectl patch svc ${RELEASE_NAME}-keycloak -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}, {'op': 'replace', 'path': '/spec/ports/0/nodePort', 'value': $KEYCLOAK_PORT}]"
+# full_svc_name="${RELEASE_NAME}-${svc_suffix}"
+# log "Updating $full_svc_name service to use NodePort..."
+# kubectl patch svc ${RELEASE_NAME}-keycloak -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}, {'op': 'replace', 'path': '/spec/ports/0/nodePort', 'value': $KEYCLOAK_PORT}]"
 
-for svc_suffix in "keycloak" "portalweb" "tmfweb"; do
-  full_svc_name="${RELEASE_NAME}-${svc_suffix}"
-  log "Updating $full_svc_name service to use NodePort..."
-  kubectl patch svc $full_svc_name -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}]"
-done
+# for svc_suffix in "keycloak" "portalweb" "tmfweb"; do
+#   full_svc_name="${RELEASE_NAME}-${svc_suffix}"
+#   log "Updating $full_svc_name service to use NodePort..."
+#   kubectl patch svc $full_svc_name -n openslice --type='json' -p="[{'op': 'replace', 'path': '/spec/type', 'value': 'NodePort'}]"
+# done
 
 cd - > /dev/null
 log "my-openslice installed successfully."
 
-# Display the summary
-log "=== Access Information ==="
+# # Display the summary
+# log "=== Access Information ==="
 
-# Fetch and display NodePorts for each service
-for svc_suffix in "keycloak" "portalweb" "tmfweb"; do
-  full_svc_name="${RELEASE_NAME}-${svc_suffix}"
-  NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services $full_svc_name -n openslice)
-  log "You can access $svc_suffix on ${HOST_IP}:${NODE_PORT}"
-done
+# # Fetch and display NodePorts for each service
+# for svc_suffix in "keycloak" "portalweb" "tmfweb"; do
+#   full_svc_name="${RELEASE_NAME}-${svc_suffix}"
+#   NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services $full_svc_name -n openslice)
+#   log "You can access $svc_suffix on ${HOST_IP}:${NODE_PORT}"
+# done

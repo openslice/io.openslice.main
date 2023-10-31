@@ -59,6 +59,7 @@ spec:
                 }
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          hostNetwork: {{ .Values.hostNetwork }}
           ports:
             - containerPort: 13082
           volumeMounts:
