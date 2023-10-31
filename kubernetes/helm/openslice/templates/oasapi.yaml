@@ -30,7 +30,7 @@ spec:
         command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-keycloak; do echo waiting for keycloak; sleep 2; done"]
       - name: init-mysql-portal
         image: busybox:1.28
-      command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]
+        command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]
       hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - image: "{{ .Values.image.oasapi.repository }}:{{ .Values.image.oasapi.tag | default .Chart.AppVersion }}"
