@@ -1,0 +1,54 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: portalweb
+  name: portalweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: portalweb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.openslice.service: portalweb
+    spec:
+      containers:
+        - name: openslice-portalweb
+          image: openslice/io.openslice.portal.web:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: "portalweb-configuration"
+            mountPath: /usr/share/nginx/html/nfvportal/js/config.js
+            subPath: config.js
+          - name: "portalweb-configuration-nginx"
+            readOnly: true
+            mountPath: "/etc/nginx/conf.d"
+      volumes:
+        - name: "portalweb-configuration"
+          configMap:
+            name: portalweb-config
+            defaultMode: 420
+        - name: "portalweb-configuration-nginx"
+          configMap:
+            name: portalweb-config-nginx
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: portalweb
+  name: portalweb
+spec:
+  ports:
+    - name: "portalwebport"
+      port: 80
+  selector:
+    io.openslice.service: portalweb

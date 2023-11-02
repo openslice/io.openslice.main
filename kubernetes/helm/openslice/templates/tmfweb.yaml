@@ -1,0 +1,68 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: tmfweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-tmfweb
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: tmfweb
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: tmfweb
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      hostNetwork: {{ .Values.hostNetwork }}
+      containers:
+        - image: "{{ .Values.image.tmfweb.repository }}:{{ .Values.image.tmfweb.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-tmfweb
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: "tmfweb-configuration"
+            readOnly: true
+            mountPath: "/usr/share/nginx/html/services/assets/config"
+          - name: "tmfweb-configuration-nginx"
+            readOnly: true
+            mountPath: "/etc/nginx/conf.d"
+      volumes:
+        - name: "tmfweb-configuration"
+          configMap:
+            name: {{ include "openslice.fullname" . }}-tmfweb-config
+        - name: "tmfweb-configuration-nginx"
+          configMap:
+            name: {{ include "openslice.fullname" . }}-tmfweb-config-nginx
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: tmfweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-tmfweb
+spec:
+  ports:
+    - name: "tmwebport"
+      port: 80
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: tmfweb
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

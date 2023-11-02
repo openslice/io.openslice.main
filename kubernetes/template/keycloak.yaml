@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.openslice.service: keycloak
+  name: keycloak
+  namespace: openslice
+spec:
+  selector:
+    matchLabels:
+      io.openslice.service: keycloak
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.openslice.service: keycloak
+    spec:
+      initContainers:
+      - name: init-mysql-portal
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql; do echo waiting for mysql; sleep 2; done"]
+      
+      containers:
+        - env:
+            - name: DB_VENDOR
+              value: MYSQL
+            - name: DB_ADDR
+              value: mysql
+            - name: DB_DATABASE
+              value: keycloak
+            - name: DB_PASSWORD
+              value: password
+            - name: DB_USER
+              value: keycloak
+            - name: KEYCLOAK_USER
+              value: admin
+            - name: KEYCLOAK_PASSWORD
+              value: keycloakadminpass
+            - name: JDBC_PARAMS
+              value: useSSL=false
+            - name: JAVA_OPTS
+              value: "-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.as.management.blocking.timeout=3600"
+            - name: KEYCLOAK_IMPORT
+              value: /tmp/realm-export.json
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+          image: jboss/keycloak:16.1.1
+          name: keycloak
+          ports:
+            - containerPort: 8080
+            - containerPort: 8443
+          volumeMounts:
+          - name: "keycloak-configuration"
+            readOnly: true
+            mountPath: "/tmp"
+          readinessProbe:
+            httpGet:
+              path: /auth/realms/master
+              port: 8080
+      volumes:
+        - name: "keycloak-configuration"
+          configMap:
+            name: keycloak-realm-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.openslice.service: keycloak
+  name: keycloak
+  namespace: openslice
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+    - name: "8443"
+      port: 8443
+      targetPort: 8443
+  selector:
+    io.openslice.service: keycloak

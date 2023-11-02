@@ -1,0 +1,69 @@
+apiVersion: apps/v1	
+kind: Deployment	
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: artemis
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-artemis
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: artemis
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: artemis
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.artemis.repository }}:{{ .Values.image.artemis.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-artemis
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 8161
+            - containerPort: 61616
+            - containerPort: 61613
+          volumeMounts:
+            - mountPath: /var/log/activemq
+              name: activemq-log
+      restartPolicy: Always
+      volumes:
+        - name: activemq-log
+          hostPath:
+            path: /var/log/activemq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: artemis
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-artemis
+spec:
+  ports:
+    - name: "8161"
+      port: 8161
+      targetPort: 8161
+    - name: "61616"
+      port: 61616
+      targetPort: 61616
+    - name: "61613"
+      port: 61613
+      targetPort: 61613
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: artemis
+    {{- include "openslice.selectorLabels" . | nindent 4 }}
