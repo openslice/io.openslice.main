@@ -16,9 +16,6 @@ kubectl delete -f ./_apply/oasapi-pv-pvc.yaml
 kubectl delete -f ./_apply/osom.yaml
 kubectl delete -f ./_apply/osom-pv-pvc.yaml
 
-kubectl delete -f ./_apply/portainer.yaml
-kubectl delete -f ./_apply/portainer-pvc.yaml
-
 kubectl delete -f ./_apply/keycloak.yaml
 kubectl delete configmap keycloak-realm-config -n openslice
 
