@@ -108,6 +108,11 @@ services:
         "spring.portal.main.domain": "http://localhost",
         "spring.portal.portal.title": "Openslice"
       }'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+        max-file: "3"
     volumes:
     - ./repo:/root
     ports:
@@ -133,7 +138,12 @@ services:
         "spring.activemq.user": "artemis",
         "spring.activemq.password": "artemis",
         "logging.level.org.springframework" : "INFO"
-      }'      
+      }'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+        max-file: "3"      
     ports:
     - 13011:13011
     networks:
