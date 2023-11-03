@@ -1,6 +1,6 @@
 # Project information
 site_name: Openslice
-site_description: Openslice - Opens source OSS
+site_description: Openslice - Open source OSS
 site_author: Openslice.io
 site_url: http://openslice.io
 
@@ -34,7 +34,7 @@ theme:
   logo: 'images/openslice_logo.png'
 
 # Copyright
-copyright: "Copyright &copy; 2019-2020 Openslice Project"
+copyright: "Copyright &copy; 2019-2023 Openslice Project"
 
 # Options
 extra:
@@ -65,13 +65,12 @@ nav:
       - Architecture: ./architecture/architecture.md
       - Message bus: ./architecture/messagebus.md
       - OSOM: ./architecture/osom.md
-      - Auth server: ./architecture/oauth.md
+      - Authentication: ./architecture/oauth.md
       - TMF API: ./architecture/tmfapi.md
       - NFV API: ./architecture/nfvapi.md
-      - Service Catalog WEB: ./architecture/tmfweb.md
+      - TMF WEB: ./architecture/tmfweb.md
       - NFV WEB: ./architecture/nfvweb.md
-      - API gateway: ./architecture/apigw.md
-      - Issue Mgmt: ./architecture/issuemgt.md
-      - Central log: ./architecture/centrallog.md
+      - Issue management: ./architecture/issuemgt.md
+      - Central logging: ./architecture/centrallog.md
   - Contributing:
       - Developing: ./contributing/developing.md

@@ -5,7 +5,7 @@ Openslice backend services are mainly implemented with Java 17 or above and Spri
 
 Openslice uses various subsystems and depending on the module would you like to work, other subsystems must be present (you can disable them though in the code, e.g. at application.yml file)
 
-to get the latest development branch:
+To get the latest development branch:
 ```
 wget https://raw.githubusercontent.com/openslice/io.openslice.main/develop/compose/deploy.sh 
 sudo ./deploy.sh develop  [or replace develop with other branch name]
@@ -33,7 +33,9 @@ We use mysql as a storage DB. Please make sure that you have it installed in you
 
 ## Oauth server
 
-We are using Keycloak server.
+Keycloak is used as the authentication server.
+
+> Note: Please check the Post installation steps -> Keycloak at localhost, at [Deployment/Installation](../deployment.md), if you are developing in a local environment
 
 
 ## VNF/NSD Catalog Management and NSD Deployment API service 

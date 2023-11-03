@@ -1,10 +1,10 @@
-#API interaction
+# API interaction
 
-##OAuth token
+## OAuth token
 
 See [oauth](./oauth.md)
 
-## request a protected API resource
+## Request a protected API resource
 
 Example: Get all vxfs (check the `Authorization:Bearer` to be correct)
 

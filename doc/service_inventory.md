@@ -1,4 +1,4 @@
-## Service Inventory
+# Service Inventory
 
 After a Service Order completion, active services with their additional characteristics are found:
 
@@ -22,11 +22,11 @@ In some cases, if the underlying service is configured with actions (for example
 
 The user can edit the characteristic with a new value. The value is propagated through the OSOM and NFVO down to the related VNF.
 
-## Terminating/Inactivate a service
+## Terminating/Inactivating a service
 
 You can terminate the service with one of the following processes:
 
-* Select the related Service Orderand terminate the Order Item. This will delete all the underlying related active services. The Order goes to ACKNOWLEDGED->INPROGRESS->COMPLETE
+* Select the related Service Order and terminate the Order Item. This will delete all the underlying related active services. The Order goes to ACKNOWLEDGED->INPROGRESS->COMPLETE
 * To terminate or inactivate a service, select the specific service from the inventory, press Edit and set the State either to Inactive or Terminated
 
 <b>Warning: if you terminate or inactivate a service the action cannot be undone.</b>   

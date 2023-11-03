@@ -1,0 +1,53 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: tmfweb
+  name: tmfweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: tmfweb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.openslice.service: tmfweb
+    spec:
+      containers:
+        - name: openslice-tmfweb
+          image: openslice/io.openslice.tmf.web:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: "tmfweb-configuration"
+            readOnly: true
+            mountPath: "/usr/share/nginx/html/services/assets/config"
+          - name: "tmfweb-configuration-nginx"
+            readOnly: true
+            mountPath: "/etc/nginx/conf.d"
+      volumes:
+        - name: "tmfweb-configuration"
+          configMap:
+            name: tmfweb-config
+        - name: "tmfweb-configuration-nginx"
+          configMap:
+            name: tmfweb-config-nginx
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: tmfweb
+  name: tmfweb
+spec:
+  ports:
+    - name: "tmwebport"
+      port: 80
+  selector:
+    io.openslice.service: tmfweb
