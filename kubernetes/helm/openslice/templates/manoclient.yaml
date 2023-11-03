@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: manoclient
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-manoclient
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: manoclient
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: manoclient
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .Values.image.manoclient.repository }}:{{ .Values.image.manoclient.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-manoclient
+          env:
+          - name: SPRING_APPLICATION_JSON
+            value: >-
+              {
+                "spring.activemq.brokerUrl": "tcp://{{ include "openslice.fullname" . }}-artemis:61616?jms.watchTopicAdvisories=false", 
+                "spring.activemq.user": "{{ .Values.oscreds.activemq.user }}", 
+                "spring.activemq.password": "{{ .Values.oscreds.activemq.password }}", 
+                "logging.level.org.springframework" : "INFO"
+              }
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 13011
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: manoclient
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-manoclient
+spec:
+  ports:
+    - name: "13011"
+      port: 13011
+      targetPort: 13011
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: manoclient
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: blockdiag
+  name: blockdiag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: blockdiag
+  template:
+    metadata:
+      labels:
+        io.openslice.service: blockdiag
+    spec:
+      containers:
+        - image: yuzutech/kroki-blockdiag
+          name: blockdiag
+          ports:
+            - containerPort: 8001
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: blockdiag
+  name: blockdiag
+spec:
+  ports:
+    - name: "8001"
+      targetPort: 8001
+      port: 8001
+  selector:
+    io.openslice.service: blockdiag

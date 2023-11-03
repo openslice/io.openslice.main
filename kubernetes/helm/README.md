@@ -1,79 +1,26 @@
-# First Create PVs
+# OpenSlice Installation Guide with Helm
 
-Create them, for example:
+## Pre-requisites
 
-```
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  namespace: openslice
-  name: mysql-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/dockerdata-nfs/osmysql"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  namespace: openslice
-  name: osom-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: osom-pv-manual
-  capacity:
-    storage: 100Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/dockerdata-nfs/osom"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  namespace: openslice
-  name: osportalapi-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: osportalapi-pv-volume
-  capacity:
-    storage: 100Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/dockerdata-nfs/osportalapi-pv-volume"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  namespace: openslice
-  name: osscapi-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: osscapi-pv-manual
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/dockerdata-nfs/osscapi"
----
+### Required Software
 
-```
+- A Kubernetes cluster up and running with enough disk to allocate about 12GB of PV storage. (Storage requirements can be changed in the respective PV/PVC templates)
+- Helm installed for managing Kubernetes packages.
+  
+### Additional Configuration
+
+- **Ingress Controller**: An Nginx ingress controller is required. If you use another type of ingress controller, you'll need to modify `[repo-root]/kubernetes/helm/openslice/templates/openslice-ingress.yaml` to conform to your ingress controller's requirements.
+  
+- **Storage Class**: Define your type of `storageClass` in `[repo-root]/kubernetes/helm/openslice/values.yaml` under `storageClass`. If this is not defined, the PVs (Persistent Volumes) will be created and managed manually by the Helm chart.
+
+- **Domain/IP Address**: You need to have a domain or an IP address to access the application. This should be defined in `[repo-root]/kubernetes/helm/openslice/values.yaml` under `rooturl`.
 
 # Install helm chart
-
-helm install  myopens ./openslice --namespace openslice
+```
+helm install myopenslice ./openslice --namespace openslice --create-namespace
+```
 
 # Uninstall helm chart
-
-helm uninstall  myopens --namespace openslice
+```
+helm uninstall myopenslice --namespace openslice
+```
