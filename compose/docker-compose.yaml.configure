@@ -314,7 +314,7 @@ services:
   kroki:
     container_name: kroki
     restart: always
-    image: yuzutech/kroki
+    image: yuzutech/kroki:0.18.0
     profiles: ["dev", "prod"]
     depends_on:
       - blockdiag
@@ -328,7 +328,7 @@ services:
 
 
   blockdiag:
-    image: yuzutech/kroki-blockdiag
+    image: yuzutech/kroki-blockdiag:0.18.0
     restart: always
     profiles: ["dev", "prod"]
     expose:
