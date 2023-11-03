@@ -789,3 +789,28 @@ It is based on ActiveMQ.
 |**Body** |  CR spec as String |
 |**Headers** |  related service id |
 |**Description** |   Returns a String object containing deployment info|
+
+---
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CRD_PATCH_CR_REQ  |
+|**Name** |  jms:queue:CRD.PATCH.CR_REQ  |
+|**Type** | queue  |
+|**Destination** |   CRD  service |
+|**Producers** | OSOM |
+|**Body** |  CR  as String |
+|**Headers** |  related service id |
+|**Description** |   Returns a String object containing PATCH info|
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CRD_DELETE_CR_REQ  |
+|**Name** |  jms:queue:CRD.DELETE.CR_REQ  |
+|**Type** | queue  |
+|**Destination** |   CRD  service |
+|**Producers** | OSOM |
+|**Body** |  CR  as String |
+|**Headers** |  related service id |
+|**Description** |   Returns a String object containing deletion info|
