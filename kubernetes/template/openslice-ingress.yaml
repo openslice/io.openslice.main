@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openslice-ingress
+  namespace: openslice
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/tmf-api"
+        backend:
+          service:
+            name: osscapi
+            port:
+              number: 13082
+      - pathType: Prefix
+        path: "/oas-api"
+        backend:
+          service:
+            name: oasapi
+            port:
+              number: 13101
+      - pathType: Prefix
+        path: "/auth"
+        backend:
+          service:
+            name: keycloak
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: "/osapi"
+        backend:
+          service:
+            name: osportalapi
+            port:
+              number: 13000
+      - pathType: Prefix
+        path: "/nfvportal"
+        backend:
+          service:
+            name: portalweb
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/"
+        backend:    
+          service:
+            name: tmfweb
+            port:
+              number: 80

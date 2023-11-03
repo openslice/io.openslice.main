@@ -1,7 +1,13 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ .Release.Name }}-portalweb-config
+  name: {{ include "openslice.fullname" . }}-portalweb-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: portalweb
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
 data:
-  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice\",\n\t\tWIKI: \"{{ .Values.rooturl }}/wiki\",\n\t\tBUGZILLA: \"{{ .Values.rooturl }}/bugzilla/\",\n\t\tSTATUS: \"{{ .Values.rooturl }}/status\",\n\t\tAPIURL: \"{{ .Values.rooturl }}\",\n\t\tWEBURL: \"{{ .Values.rooturl }}/nfvportal\",\n\t\tAPIOAUTHURL: \"{{ .Values.rooturl }}/auth/realms/openslice\",\n\t\tAPITMFURL: \"{{ .Values.rooturl }}/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
+  config.js: "var appConfig = angular.module('portalwebapp.config',[]);\n\n\nappConfig.factory('APIEndPointService', function() {\n\t  return {\t      \n\t\tTITLE: \"Openslice demo\",\n\t\tWIKI: \"{{ .Values.rooturl }}\",\n\t\tBUGZILLA: \"{{ .Values.rooturl }}/bugzilla/\",\n\t\tSTATUS: \"{{ .Values.rooturl }}/\",\n\t\tAPIURL: \"{{ .Values.rooturl }}\",\n\t\tWEBURL: \"{{ .Values.rooturl }}/nfvportal\",\n\t\tAPIOAUTHURL: \"{{ .Values.rooturl }}/auth/realms/openslice\",\n\t\tAPITMFURL: \"{{ .Values.rooturl }}/tmf-api/serviceCatalogManagement/v4\"\n\t\t\n\t  };\n});\n\n\n"
 

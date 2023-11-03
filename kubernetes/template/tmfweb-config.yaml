@@ -5,29 +5,43 @@ metadata:
   namespace: openslice
 data:
   config.prod.json: |+
-    {
-        "TITLE": "Openslice K8S demo",
-        "PORTALVERSION":"1.1.0-SNAPSHOT",
-        "WIKI": "http://INGRESSADDR",
-        "BUGZILLA": "https://INGRESSADDR/bugzilla/",
-        "STATUS": "http://INGRESSADDR/status/",
-       "WEBURL": "http://INGRESSADDR",
-        "APIURL": "http://INGRESSADDR/osapi/",
-        "APITMFURL": "http://INGRESSADDR/tmf-api",
-        "OAUTH_CONFIG" : {
-            "issuer": "http://INGRESSADDR/auth/realms/openslice/protocol/openid-connect/auth",
-            "loginUrl": "http://INGRESSADDR/auth/realms/openslice/protocol/openid-connect/auth",
-            "tokenEndpoint": "http://INGRESSADDR/auth/realms/openslice/protocol/openid-connect/token",
-            "redirectUri": "http://INGRESSADDR/services/services_marketplace",
-            "logoutUrl": "http://INGRESSADDR/auth/realms/openslice/protocol/openid-connect/logout",
-            "postLogoutRedirectUri": "http://INGRESSADDR/services/services_marketplace",
-            "responseType": "code",
-            "oidc": false,
-            "clientId": "osapiWebClientId",
-            "dummyClientSecret": "secret",
-            "requireHttps": false,
-            "useHttpBasicAuth": true,
-            "clearHashAfterLogin": false,
-            "showDebugInformation": true
+      {	      
+      "TITLE": "Openslice demo",
+      "PORTALVERSION":"2023-Q3 1.2.0-SNAPSHOT",
+      "WIKI": "https://openslice.readthedocs.io/en/stable/",
+      "BUGZILLA": "{BASEURL}/bugzilla/",
+      "STATUS": "http://INGRESSADDR/",
+      "WEBURL": "{BASEURL}",
+      "PORTAL_REPO_APIURL": "{BASEURL}/osapi",
+      "ASSURANCE_SERVICE_MGMT_APIURL": "{BASEURL}/oas-api",
+      "APITMFURL": "{BASEURL}/tmf-api",
+      "OAUTH_CONFIG" : {
+          "issuer": "{BASEURL}/auth/realms/openslice",
+          "loginUrl": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/auth",
+          "tokenEndpoint": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/token",
+          "redirectUri": "{BASEURL}/redirect",
+          "logoutUrl": "{BASEURL}/auth/realms/openslice/protocol/openid-connect/logout", 
+          "postLogoutRedirectUri": "{BASEURL}",
+          
+          "responseType": "code",
+          "oidc": false,
+          "clientId": "osapiWebClientId",
+          "dummyClientSecret": "secret",
+              
+          "requireHttps": false,
+          "useHttpBasicAuth": true,
+          "clearHashAfterLogin": false,
+        
+          "showDebugInformation": true
         }
+      }
+  config.theming.json: |+
+    {	
+    "THEME_ID":"default",      
+    "DEPLOYMENT_LOGO_PATH":"assets/images/logo_clear.png",
+    "DEFAULT_SERVICE_LOGO_PATH":"assets/images/logo_icon_original.png",
+    "FAVICON_PATH":"favicon.ico",   
+    "WHO_WE_ARE_HTML":"<address class='font-weight-light'><span class='font-weight-bold'>openslice.io project</span> | <a href='http://openslice.io/' class='text-white'>openslice.io</a><br>openslice.io an opensource OSS</address><address class='font-weight-light'><span class='font-weight-bold'>Openslice demo</span> | <a href='http://portal.openslice.io' class='text-white'>http://portal.openslice.io</a><br>A portal that allows 5G experimenters to deploy experiment descriptors towards the infrastructure.</address><address class='font-weight-light'><span class='font-weight-bold'>Openslice demo wiki</span> | <a href='https://openslice.readthedocs.io/en/stable/' class='text-white'>https://openslice.readthedocs.io/en/stable/</a><br>A wiki containing project documentation.</address><address class='font-weight-light'><span class='font-weight-bold'>Openslice demo Report Issues</span> | <a href='http://portal.openslice.io/bugzilla/' class='text-white'>http://portal.openslice.io/bugzilla/</a><br>Our issue tracking system.</address>",
+    "CONNECT_WITH_US_HTML":"<div class='col-xs-12 col-sm-6 col-md-3'><div><a href='https://twitter.com/OpensliceOSS' class='font-weight-light text-white'><i class='fab fa-twitter mr-2'></i>Twitter</a></div></div><div class='col-xs-12 col-sm-6 col-md-3'><div><a href='https://openslice.slack.com/' class='font-weight-light text-white'><i class='fab fa-slack mr-2'></i>Slack</a></div></div>",
+    "FOOTER_HTML":"<div class='row align-items-center'><div class='col-md-2'><img src='assets/images/eu-commission.png' /></div><div class='col-md-10 font-weight-light'>openslice.io has received funding from<div class='font-weight-light'>5GinFIRE | https://5ginfire.eu/ project from the European Horizon 2020 Programme for research, technological development and demonstration under grant agreement number 732497.</div><div class='font-weight-light'>5G-VINNI project | https://5g-vinni.eu/ 5G-VINNI project has received funding from the European Horizon 2020 Programme for research, technological development and demonstration under grant agreement number 815279</div><div class='font-weight-light'>Openslice demo running openslice.io version 1.1.0-SNAPSHOT| <a href='https://openslice.io/data-protection-declaration/' class='font-weight-light'>Data Protection Declaration</a> | &copy; 2019-2021 on behalf of <a target='_blank' href='http://openslice.io/' title='openslice.io' class='font-weight-light'>openslice.io</a></div></div></div>"
     }

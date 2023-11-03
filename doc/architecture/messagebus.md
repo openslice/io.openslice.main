@@ -311,6 +311,35 @@ It is based on ActiveMQ.
 ---
 
 
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_NSACTIONS_SCALE  |
+|**Name** |  jms:queue:NSACTIONS.SCALE  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM or maybe used by others that would like scale a NS |
+|**Body** | A ScaleDescriptor as json string  |
+|**Headers** | none |
+|**Description** | performs a scale |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  NFV_CATALOG_NS_LCMCHANGED  |
+|**Name** |  NFV_CATALOG_NS_LCMCHANGED  |
+|**Type** | topic  |
+|**Destination** |   any |
+|**Producers** | MANO client |
+|**Body** | A json string  |
+|**Headers** | none |
+|**Description** | A NFV_CATALOG_NS_LCMCHANGED message is published when LCM of a running NS is changed |
+
+---
+
 #ALARMS
 
 
@@ -601,4 +630,63 @@ It is based on ActiveMQ.
 |**Body** |   |
 |**Headers** | header.servicespecid, header.phasename |
 |**Description** |   The Body  contains the LCMRuleSpec objects of the specific Service Spec and the specific phase  |
+
+
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICETESTSPEC_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICETESTSPEC_BY_ID  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  specid |
+|**Description** | Return a ServiceTestSpecification |
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_ADD_SERVICETEST  |
+|**Name** |  jms:queue:CATALOG.ADD.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  ServiceTestCreate String json |
+|**Headers** | "orderid"=orderid, "serviceTestSpecid"= specid |
+|**Description** |   Creates Service Test based an a Service Test Spec, Returns a ServiceTest object |
+
+---
+
+
+
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_UPD_SERVICETEST  |
+|**Name** |  jms:queue:CATALOG.UPD.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | |
+|**Body** |  ServiceTestUpdate |
+|**Headers** | "serviceid" = serviceId, "propagateToSO" = true/false |
+|**Description** |  will update a service test by id and return the service instance. If propagateToSO=true then any service change will be handled by OSOM. This is needed to be controlled in order to avoid update loops|
+
+---
+
+
+| Message |    |
+| ------------- |----------------|
+|**Alias** |  CATALOG_GET_SERVICETEST_BY_ID  |
+|**Name** |  jms:queue:CATALOG.GET.SERVICETEST  |
+|**Type** | queue  |
+|**Destination** |   TMF API service |
+|**Producers** | OSOM |
+|**Body** |  String serviceID |
+|**Description** |   returns a Service TEST instance |
+
 

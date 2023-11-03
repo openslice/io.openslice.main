@@ -1,32 +1,25 @@
 version: '3.4'
 services:
 
-  activemq:
-    container_name: anactivemq
-    image: webcenter/activemq:5.14.3
+  artemis:
+    container_name: anartemis
+    image: apache/activemq-artemis:2.30.0
     restart: always
+    profiles: ["dev", "prod"]
     ports:
     - 8161:8161
+    - 61616:61616
+    - 61613:61613
     volumes:
-    -  /var/log/activemq:/var/log/activemq 
+    -  /var/log/activemq:/var/log/activemq
     networks:
     -  back
-          
-  consul:
-    container_name: aconsul
-    image: consul
-    ports:
-    - 8500:8500
-    - 8600:8600
-    networks:
-    - front
-    - back
-    
-    
+      
   nginx:
     container_name: anginx
     image: nginx
     restart: always
+    profiles: ["dev", "prod"]
     ports:
     - 80:80
     - 443:443
@@ -37,11 +30,12 @@ services:
     - ../../io.openslice.tmf.web/dist/io-openslice-portal-web:/webstatic/services
     networks:
     - front
-  
+    
   mysql-portal:
     container_name: amysql
     restart: always
-    image: mysql:5.7
+    image: mysql:5.7.43
+    profiles: ["dev", "prod"]
     environment:
       MYSQL_ROOT_PASSWORD: letmein
 #      MYSQL_DATABASE: osdb
@@ -53,13 +47,14 @@ services:
     volumes:
     -  ~/mysql/data:/var/lib/mysql
     - ./mysql-init:/docker-entrypoint-initdb.d
-    restart: always
     networks:
     -  back
 
   keycloak:
       container_name: keycloak
-      image: jboss/keycloak:9.0.2
+      image: jboss/keycloak:16.1.1
+      restart: always
+      profiles: ["dev", "prod"]
       environment:
         DB_VENDOR: MYSQL
         DB_ADDR: amysql
@@ -69,25 +64,25 @@ services:
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: Pa55w0rd
         JDBC_PARAMS: "useSSL=false"
-        JAVA_OPTS: "-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Dkeycloak.frontendUrl=http://localhost/auth -Djava.net.preferIPv4Stack=true -Djboss.as.management.blocking.timeout=3600"
+        JAVA_OPTS: "-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.as.management.blocking.timeout=3600"
         KEYCLOAK_IMPORT: /tmp/realm-export.json
         PROXY_ADDRESS_FORWARDING: "true"
       volumes:
       - ./keycloak-init:/tmp
       ports:
-        - 28080:8080
-        - 28443:8443
+        - 8080:8080
+        - 8443:8443
       depends_on:
         - mysql-portal
       networks:
         - front
         - back
 
-
      
   osportalapi:
     container_name: openslice-portalapi
     restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.portal.api/
         dockerfile: Dockerfile.portalapi        
@@ -97,18 +92,21 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/osdb?createDatabaseIfNotExist=true",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "keycloak-internal-auth-server-url": "http://keycloak:8080/auth",        
-        "keycloak-admin-password": "Pa55w0rd",
-        "keycloak.auth-server-url": "http://keycloak:8080/auth",
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "admin",
-        "spring.cloud.consul.host": "http://aconsul",  
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-portalapi:13000/osapi/actuator/health",
-        "swagger.authserver" : "http://localhost/auth/realms/openslice",
-        "swagger.clientid" : "osapiWebClientId",
-        "swagger.clientsecret" : "secret",
-        "logging.level.org.springframework" : "INFO"        
+        "spring-addons.issuers[0].uri": "http://keycloak:8080/auth/realms/openslice",
+        "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+        "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+        "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://keycloak:8080/auth/realms/openslice",
+        "springdoc.oAuthFlow.authorizationUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
+        "springdoc.oAuthFlow.tokenUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token",        
+        "springdoc.oauth.client-id" : "osapiWebClientId",
+        "springdoc.oauth.clientsecret" : "secret",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
+        "logging.level.org.springframework" : "INFO",
+        "spring.portal.main.domain": "http://localhost",
+        "spring.portal.portal.title": "Openslice"
       }'
     volumes:
     - ./repo:/root
@@ -124,17 +122,16 @@ services:
   manoclient:
     container_name: manoclient
     restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.mano/
         dockerfile: Dockerfile.mano        
     image: io.openslice.mano:latest
     environment:
        SPRING_APPLICATION_JSON: '{
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://mano:13011/mano/actuator/health",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
         "logging.level.org.springframework" : "INFO"
       }'      
     ports:
@@ -146,17 +143,16 @@ services:
   bugzilla:
     container_name: abugzilla
     restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.bugzilla/
         dockerfile: Dockerfile.bugzilla        
     image: io.openslice.bugzilla:latest
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",        
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://abugzilla:13010/actuator/health",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
         "bugzillaurl":"",
         "bugzillakey":"",
         "main_operations_product":""
@@ -168,9 +164,12 @@ services:
     - back
   
  
+  
+ 
   osscapi:
     container_name: openslice-scapi
     restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.tmf.api/
         dockerfile: Dockerfile.tmfapi      
@@ -180,18 +179,20 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "keycloak-internal-auth-server-url": "http://keycloak:8080/auth",        
-        "keycloak-admin-password": "Pa55w0rd",
-        "keycloak.auth-server-url": "http://keycloak:8080/auth",
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",  
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-service-catalog-management-api:13082/osapi/actuator/health",
-        "swagger.authserver" : "http://localhost/auth/realms/openslice",
-        "swagger.clientid" : "osapiWebClientId",
-        "swagger.clientsecret" : "secret",
-        "logging.level.org.springframework" : "INFO"        
+        "spring-addons.issuers[0].uri": "http://keycloak:8080/auth/realms/openslice",
+        "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+        "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+        "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://keycloak:8080/auth/realms/openslice",
+        "springdoc.oAuthFlow.authorizationUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
+        "springdoc.oAuthFlow.tokenUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token",        
+        "springdoc.oauth.client-id" : "osapiWebClientId",
+        "springdoc.oauth.clientsecret" : "secret",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
+        "logging.level.org.springframework" : "INFO",      
+        "kroki.serverurl" : "http://localhost/kroki"  
       }'
     volumes:
     - ./repo:/root
@@ -201,22 +202,22 @@ services:
     - front
     - back
     depends_on:
-    - mysql-portal
+    - mysql-portal   
+
 
   osom:
     container_name: openslice-osom
     restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.osom/
         dockerfile: Dockerfile.osom      
     image: io.openslice.osom:latest
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",  
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-osom:13100/osom/actuator/health",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
         "logging.level.org.springframework" : "INFO"        
       }'
     volumes:
@@ -232,6 +233,8 @@ services:
 
   oasapi:
     container_name: openslice-oasapi
+    restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.oas/
         dockerfile: Dockerfile.oasapi      
@@ -241,17 +244,18 @@ services:
         "spring.datasource.url": "jdbc:mysql://amysql/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&nullCatalogMeansCurrent=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
         "spring.datasource.username":"root",
         "spring.datasource.password":"letmein",
-        "keycloak-internal-auth-server-url": "http://keycloak:8080/auth",        
-        "keycloak-admin-password": "Pa55w0rd",
-        "keycloak.auth-server-url": "http://keycloak:8080/auth",
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",  
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://openslice-assurance-services-management-api:13101/oasapi/actuator/health",
-        "swagger.authserver" : "http://localhost/auth/realms/openslice",
-        "swagger.clientid" : "osapiWebClientId",
-        "swagger.clientsecret" : "secret",
+        "spring-addons.issuers[0].uri": "http://keycloak:8080/auth/realms/openslice",
+        "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+        "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+        "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+        "spring.security.oauth2.resourceserver.jwt.issuer-uri": "http://keycloak:8080/auth/realms/openslice",
+        "springdoc.oAuthFlow.authorizationUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth",
+        "springdoc.oAuthFlow.tokenUrl": "http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token",        
+        "springdoc.oauth.client-id" : "osapiWebClientId",
+        "springdoc.oauth.clientsecret" : "secret",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
         "logging.level.org.springframework" : "INFO"        
       }'
     volumes:
@@ -261,12 +265,14 @@ services:
     networks:
     - front
     - back
-    
+
+
     
   portainer:
     container_name: portainer
-    image: portainer/portainer
+    image: portainer/portainer-ce:2.18.4
     restart: always
+    profiles: ["dev", "prod"]
     networks:
       - front
     ports:
@@ -277,23 +283,50 @@ services:
 
   centrallog:
     container_name: centrallog
+    restart: always
+    profiles: ["prod"]
     build:
         context:  ../../io.openslice.centrallog.service/
         dockerfile: Dockerfile.centrallog        
     image: io.openslice.centrallog.service:latest
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.activemq.brokerUrl": "tcp://anactivemq:61616",
-        "spring.activemq.user": "admin",
-        "spring.activemq.password": "adminx",
-        "spring.cloud.consul.host": "http://aconsul",        
-        "spring.cloud.consul.discovery.healthCheckUrl" : "http://centrallog:13013/actuator/health",
+        "spring.activemq.brokerUrl": "tcp://anartemis:61616?jms.watchTopicAdvisories=false",
+        "spring.activemq.user": "artemis",
+        "spring.activemq.password": "artemis",
         "centrallogurl":"http://elk_ip:elk_port/index_name/_doc"
       }'
     ports:
     - 13013:13013
     networks:
     - back
+      
+  kroki:
+    container_name: kroki
+    restart: always
+    image: yuzutech/kroki
+    profiles: ["dev", "prod"]
+    depends_on:
+      - blockdiag
+    environment:
+      - KROKI_BLOCKDIAG_HOST=blockdiag
+    ports:
+      - "8000:8000"
+    networks:
+    - front
+    - back
+
+
+  blockdiag:
+    image: yuzutech/kroki-blockdiag
+    restart: always
+    profiles: ["dev", "prod"]
+    expose:
+      - "8001"
+    networks:
+    - front
+    - back
+
       
 networks:
   front:
@@ -309,5 +342,3 @@ networks:
 volumes:
   portainer_data:
   
- #  "spring.cloud.consul.discovery.healthCheckUrl=http://abugzilla:8080/status"
- #openzipkin/zipkin

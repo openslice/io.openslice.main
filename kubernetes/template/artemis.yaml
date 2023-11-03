@@ -1,0 +1,54 @@
+apiVersion: apps/v1	
+kind: Deployment	
+metadata:	
+  namespace: openslice	
+  labels:	
+    io.openslice.service: artemis	
+  name: artemis	
+spec:	
+  replicas: 1	
+  selector:	
+    matchLabels:	
+      io.openslice.service: artemis	
+  template:	
+    metadata:	
+      labels:	
+        io.openslice.service: artemis	
+    spec:	
+      containers:	
+        - image: apache/activemq-artemis:2.30.0	
+          name: artemis	
+          ports:	
+            - containerPort: 8161	
+            - containerPort: 61616	
+            - containerPort: 61613	
+          volumeMounts:	
+            - mountPath: /var/log/activemq	
+              name: activemq-log	
+      restartPolicy: Always	
+      volumes:	
+        - name: activemq-log	
+          hostPath:	
+            path: /var/log/activemq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  annotations:
+  labels:
+    io.openslice.service: artemis
+  name: artemis
+spec:
+  ports:
+    - name: "8161"
+      port: 8161
+      targetPort: 8161
+    - name: "61616"
+      port: 61616
+      targetPort: 61616
+    - name: "61613"
+      port: 61613
+      targetPort: 61613
+  selector:
+    io.openslice.service: artemis

@@ -1,0 +1,91 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osportalapi
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-osportalapi
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: osportalapi
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: osportalapi
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      hostNetwork: {{ .Values.hostNetwork }}
+      initContainers:
+        - name: init-keycloak
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-keycloak; do echo waiting for keycloak; sleep 2; done"]
+        - name: init-mysql-portal
+          image: busybox:1.28
+          command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]
+      containers:
+        - image: "{{ .Values.image.portalapi.repository }}:{{ .Values.image.portalapi.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-osportalapi
+          env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                {
+                  "spring.datasource.url": "jdbc:mysql://{{ include "openslice.fullname" . }}-mysql/osdb?createDatabaseIfNotExist=true",
+                  "spring.datasource.username": "{{ .Values.oscreds.mysql.username }}",
+                  "spring.datasource.password": "{{ .Values.oscreds.mysql.password }}",
+                  "spring-addons.issuers[0].uri": "{{ .Values.rooturl }}/auth/realms/openslice",
+                  "spring-addons.issuers[0].username-json-path":"$.preferred_username",
+                  "spring-addons.issuers[0].claims[0].jsonPath":"$.realm_access.roles",
+                  "spring-addons.issuers[0].claims[1].jsonPath":"$.resource_access.*.roles",
+                  "spring.security.oauth2.resourceserver.jwt.issuer-uri": "{{ .Values.rooturl }}/auth/realms/openslice",
+                  "springdoc.oAuthFlow.authorizationUrl": "{{ .Values.rooturl }}/auth/realms/openslice/protocol/openid-connect/auth",
+                  "springdoc.oAuthFlow.tokenUrl": "{{ .Values.rooturl }}/auth/realms/openslice/protocol/openid-connect/token",
+                  "springdoc.oauth.client-id" : "osapiWebClientId",
+                  "springdoc.oauth.clientsecret" : "{{ .Values.spring.oauthClientSecret }}",
+                  "spring.activemq.brokerUrl": "tcp://{{ include "openslice.fullname" . }}-artemis:61616?jms.watchTopicAdvisories=false", 
+                  "spring.activemq.user": "{{ .Values.oscreds.activemq.user }}",  
+                  "spring.activemq.password": "{{ .Values.oscreds.activemq.password }}", 
+                  "logging.level.org.springframework" : "INFO"
+                }
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 13000
+          volumeMounts:
+            - name: osportalapi-claim0
+              mountPath: /root
+      restartPolicy: Always
+      volumes:
+        - name: osportalapi-claim0
+          persistentVolumeClaim:
+            claimName: {{ include "openslice.fullname" . }}-osportalapi-claim0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osportalapi
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-osportalapi
+spec:
+  ports:
+    - name: "13000"
+      port: 13000
+      targetPort: 13000
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: osportalapi
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

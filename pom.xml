@@ -5,7 +5,7 @@
 
 	<groupId>io.openslice</groupId>
 	<artifactId>io.openslice.main</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>io.openslice.main</name>
@@ -23,12 +23,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<camel.version>3.11.1</camel.version>
-		<spring-boot-version>2.4.0</spring-boot-version>
-		<spring-cloud-consul-version>3.0.2</spring-cloud-consul-version>
+		<camel.version>4.0.0-RC2</camel.version>
+		<spring-boot-version>3.1.2</spring-boot-version>
 		<swagger.version>3.0.0</swagger.version>
-		<java.version>11</java.version>
-		<keycloak.version>9.0.2</keycloak.version>
+		<springdoc-version>2.1.0</springdoc-version>
+		<java.version>17</java.version>
+		<keycloak.version>22.0.1</keycloak.version>
+		<flowable-version>7.0.0.M1</flowable-version>
+		<springdoc-security-version>1.7.0</springdoc-security-version>
+		<springdoc-openapiui-version>1.7.0</springdoc-openapiui-version>
 
 		<!-- mainly for gw api -->
 		<oauth.version>2.4.0.RELEASE</oauth.version>
@@ -44,16 +47,14 @@
 		<encoding.report.out>${encoding}</encoding.report.out>
 		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<mysql.connector.version>8.0.33</mysql.connector.version>
 
 
 	</properties>
 
 	<modules>
 		<module>../io.openslice.sol005nbi.osm</module>
-		<module>../io.openslice.sol005nbi.osm8</module>
-		<module>../io.openslice.sol005nbi.osm9</module>
 		<module>../io.openslice.sol005nbi.osm10</module>
-		<module>../io.openslice.sol005nbi.etsi</module>
 		<module>../io.openslice.model</module>
 		<module>../io.openslice.centrallog.client</module>
 		<module>../io.openslice.portal.api</module>
@@ -73,8 +74,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>13</source>
-						<target>13</target>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
 					</configuration>
 				</plugin>
 				<plugin>

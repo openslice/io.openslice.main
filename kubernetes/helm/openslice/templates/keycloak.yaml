@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:	
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: keycloak
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-keycloak
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "openslice.fullname" . }}
+      io.openslice.service: keycloak
+      {{- include "openslice.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "openslice.fullname" . }}
+        io.openslice.service: keycloak
+        {{- include "openslice.selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+      - name: init-mysql-portal
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup {{ include "openslice.fullname" . }}-mysql; do echo waiting for mysql; sleep 2; done"]      
+      hostNetwork: {{ .Values.hostNetwork }}
+      containers:
+        - image: "{{ .Values.image.keycloak.repository }}:{{ .Values.image.keycloak.tag | default .Chart.AppVersion }}"
+          name: {{ include "openslice.fullname" . }}-keycloak
+          env:
+            - name: DB_VENDOR
+              value: MYSQL
+            - name: DB_ADDR
+              value: {{ include "openslice.fullname" . }}-mysql
+            - name: DB_DATABASE
+              value: {{ .Values.oscreds.mysql.keycloak.database }}
+            - name: DB_PASSWORD
+              value: {{ .Values.oscreds.mysql.keycloak.password }}
+            - name: DB_USER
+              value: {{ .Values.oscreds.mysql.keycloak.username }}
+            - name: KEYCLOAK_USER
+              value: admin
+            - name: KEYCLOAK_PASSWORD
+              value: {{ .Values.oscreds.mysql.keycloak.adminpassword }}
+            - name: JDBC_PARAMS
+              value: useSSL=false
+            - name: JAVA_OPTS
+              value: "-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.as.management.blocking.timeout=3600"
+            - name: KEYCLOAK_IMPORT
+              value: /tmp/realm-export.json
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 8080
+            - containerPort: 8443
+          volumeMounts:
+          - name: "keycloak-configuration"
+            readOnly: true
+            mountPath: "/tmp"
+          readinessProbe:
+            httpGet:
+              path: /auth/realms/master
+              port: 8080
+      volumes:
+        - name: "keycloak-configuration"
+          configMap:
+            name: {{ include "openslice.fullname" . }}-keycloak-realm-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: keycloak
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    {{- include "openslice.labels" . | nindent 4 }}
+  name: {{ include "openslice.fullname" . }}-keycloak
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+    - name: "8443"
+      port: 8443
+      targetPort: 8443
+  selector:
+    app: {{ include "openslice.fullname" . }}
+    io.openslice.service: keycloak
+    {{- include "openslice.selectorLabels" . | nindent 4 }}

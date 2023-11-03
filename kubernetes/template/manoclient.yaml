@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: manoclient
+  name: manoclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: manoclient
+  template:
+    metadata:
+      labels:
+        io.openslice.service: manoclient
+    spec:
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                {
+                  "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false",
+                  "spring.activemq.user": "artemis",
+                  "spring.activemq.password": "artemis",
+                  "logging.level.org.springframework" : "INFO"
+                }
+          image: openslice/io.openslice.mano:latest
+          name: manoclient
+          ports:
+            - containerPort: 13011
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: manoclient
+  name: manoclient
+spec:
+  ports:
+    - name: "13011"
+      port: 13011
+      targetPort: 13011
+  selector:
+    io.openslice.service: manoclient

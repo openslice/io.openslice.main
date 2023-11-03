@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: bugzilla
+  name: bugzilla
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.openslice.service: bugzilla
+  template:
+    metadata:
+      labels:
+        io.openslice.service: bugzilla
+    spec:
+      containers:
+        - env:
+            - name: SPRING_APPLICATION_JSON
+              value: >-
+                { 
+                  "spring.activemq.brokerUrl": "tcp://artemis:61616?jms.watchTopicAdvisories=false", 
+                  "spring.activemq.user": "artemis", 
+                  "spring.activemq.password": "artemis", 
+                  "bugzillaurl":"", 
+                  "bugzillakey":"", 
+                  "main_operations_product":"" 
+                }
+          image: openslice/io.openslice.bugzilla:latest
+          name: bugzilla
+          ports:
+            - containerPort: 13010
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: openslice
+  labels:
+    io.openslice.service: bugzilla
+  name: bugzilla
+spec:
+  ports:
+    - name: "13010"
+      port: 13010
+      targetPort: 13010
+  selector:
+    io.openslice.service: bugzilla
